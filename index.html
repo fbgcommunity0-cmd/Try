@@ -169,15 +169,38 @@
             transform-origin: center;
         }
 
-        /* Channel Join Gate */
+        /* NEW Professional Channel Join Gate */
         #channel-join-gate {
-            display: none; /* Initially hidden */
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 2rem;
             gap: 1.5rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .professional-start-btn {
+            background-image: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            border: none;
+            box-shadow: 0 10px 20px -5px rgba(26, 41, 128, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .professional-start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px -5px rgba(26, 41, 128, 0.5);
+        }
+        .professional-start-btn:active {
+            transform: translateY(0px) scale(0.98);
         }
 
         /* Review Card */
@@ -345,36 +368,47 @@
             color: #6b7280;
         }
 
-        /* NEW: Professional Purchase Loader */
-        #purchase-loader-modal {
-            display: none; /* Initially hidden */
+        /* Deposit Method Card Style */
+        .payment-method-card {
+            position: relative;
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
         }
-        #purchase-loader-modal.active {
-            display: flex;
+        .payment-method-card.selected {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
-        .purchase-spinner {
-            width: 64px;
-            height: 64px;
+        .payment-method-card .tick-icon {
+            display: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: white;
+            background-color: #2563eb;
             border-radius: 50%;
-            border: 5px solid #e0e0e0;
-            border-top-color: #007bff;
-            animation: spin 1s infinite linear;
+            padding: 2px;
         }
-
-        /* NEW: Stock Progress Bar */
-        .stock-progress-bar {
-            background-color: #e9ecef;
-            border-radius: 9999px;
-            height: 8px;
-            width: 100%;
-            overflow: hidden;
+        .payment-method-card.selected .tick-icon {
+            display: block;
         }
-        .stock-progress {
-            height: 100%;
-            border-radius: 9999px;
-            background-image: linear-gradient(to right, #22c55e, #16a34a);
-            transition: width 0.5s ease-in-out;
+        
+        /* Currency Switcher */
+        .currency-switcher button {
+            padding: 0.5rem 1.25rem;
+            font-weight: 600;
+            color: #4b5563;
+            background-color: #e5e7eb;
+            border: none;
+            transition: all 0.3s ease;
         }
+        .currency-switcher button.active {
+            background-color: #007bff;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        }
+        .currency-switcher button:first-child { border-radius: 0.5rem 0 0 0.5rem; }
+        .currency-switcher button:last-child { border-radius: 0 0.5rem 0.5rem 0; }
     </style>
 </head>
 <body class="max-w-md mx-auto">
@@ -396,26 +430,31 @@
         </div>
     </div>
     
-    <!-- Channel Join Gate -->
-    <div id="channel-join-gate" class="fixed inset-0 bg-f8f8f8 z-[100]">
-        <div class="logo-container">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 mx-auto"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></svg>
+    <!-- Professional Channel Join Gate -->
+    <div id="channel-join-gate" class="fixed inset-0 z-[100]">
+        <div class="space-y-4">
+            <i data-lucide="shield-check" class="w-20 h-20 text-blue-700 mx-auto"></i>
+            <h1 class="text-3xl font-extrabold text-gray-800">Verification Required</h1>
+            <p class="text-gray-600 max-w-sm text-lg">
+                To ensure a secure and updated experience, please join our official channels.
+            </p>
         </div>
-        <h1 class="text-2xl font-bold text-gray-800">Verification Required</h1>
-        <p class="text-gray-600 max-w-xs">
-            To use our bot, you must join our official channels. This helps us prevent spam and keep you updated.
-        </p>
-        <div class="w-full max-w-xs space-y-3">
+        <div class="w-full max-w-xs space-y-3 mt-6">
             <a href="https://t.me/aptechonlineincome1" target="_blank" class="btn-gradient w-full px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
                 <span>Join Channel 1</span>
             </a>
             <a href="https://t.me/gmailmarketter" target="_blank" class="btn-gradient w-full px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
                 <span>Join Channel 2</span>
             </a>
         </div>
-        <p class="text-xs text-gray-500">After joining, please restart the bot.</p>
+        <div class="mt-8">
+            <button id="restart-app-btn" class="professional-start-btn">
+                <span>START</span>
+                <i data-lucide="arrow-right" class="w-6 h-6"></i>
+            </button>
+        </div>
     </div>
 
 
@@ -493,14 +532,14 @@
                             <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">1</div>
                             <div>
                                 <h4 class="font-semibold text-gray-700">মাধ্যম বাছাই করুন</h4>
-                                <p class="text-sm text-gray-500">নিচের তালিকা থেকে আপনার পছন্দের মাধ্যম বেছে নিন।</p>
+                                <p class="text-sm text-gray-500">নিচের তালিকা থেকে আপনার পছন্দের মাধ্যম বেছে নিন এবং নম্বরটি কপি করুন।</p>
                             </div>
                         </div>
                          <div class="flex items-start gap-3">
                             <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</div>
                             <div>
                                 <h4 class="font-semibold text-gray-700">সেন্ড মানি করুন</h4>
-                                <p class="text-sm text-gray-500">প্রদর্শিত নম্বরে আপনার কাঙ্খিত পরিমাণ টাকা <span class="font-bold text-red-600 bg-red-100 px-1 rounded">সেন্ড মানি (Send Money)</span> করুন।</p>
+                                <p class="text-sm text-gray-500">কপি করা নম্বরে আপনার কাঙ্খিত পরিমাণ টাকা <span class="font-bold text-red-600 bg-red-100 px-1 rounded">সেন্ড মানি (Send Money)</span> করুন।</p>
                             </div>
                         </div>
                          <div class="flex items-start gap-3">
@@ -512,38 +551,40 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 pt-4">
-                        <div class="bg-white p-3 rounded-lg text-center border hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md">
+                    <div id="payment-methods-grid" class="grid grid-cols-2 gap-4 pt-4">
+                        <div class="payment-method-card bg-white p-3 rounded-lg text-center shadow-sm" data-method="Nagad">
+                            <i data-lucide="check-circle-2" class="tick-icon w-5 h-5"></i>
                             <img src="https://i.postimg.cc/Jh9s6jWw/20250922-113350.png" alt="Nagad" class="w-10 h-10 rounded-full mx-auto mb-2">
                             <p class="font-bold text-md">নগদ</p>
                             <p class="text-gray-600 font-mono tracking-wider text-sm my-1">01624506154</p>
-                            <button onclick="copyToClipboard('01624506154', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button>
+                            <button onclick="selectPaymentMethod(this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button>
                         </div>
-                        <div class="bg-white p-3 rounded-lg text-center border hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md">
+                        <div class="payment-method-card bg-white p-3 rounded-lg text-center shadow-sm" data-method="bKash">
+                             <i data-lucide="check-circle-2" class="tick-icon w-5 h-5"></i>
                             <img src="https://i.postimg.cc/tCwGVkdH/20250922-113514.png" alt="bKash" class="w-10 h-10 rounded-full mx-auto mb-2">
                             <p class="font-bold text-md">বিকাশ</p>
                             <p class="text-gray-600 font-mono tracking-wider text-sm my-1">01624506154</p>
-                            <button onclick="copyToClipboard('01624506154', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button>
+                            <button onclick="selectPaymentMethod(this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button>
                         </div>
-                        <div class="bg-white p-3 rounded-lg text-center border hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md">
+                        <div class="payment-method-card bg-white p-3 rounded-lg text-center shadow-sm" data-method="Rocket">
+                             <i data-lucide="check-circle-2" class="tick-icon w-5 h-5"></i>
                             <img src="https://images.seeklogo.com/logo-png/31/1/dutch-bangla-rocket-logo-png_seeklogo-317692.png" alt="Rocket" class="w-10 h-10 rounded-full mx-auto mb-2">
                             <p class="font-bold text-md">রকেট</p>
                             <p class="text-gray-600 font-mono tracking-wider text-sm my-1">01624506154</p>
-                            <button onclick="copyToClipboard('01624506154', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button>
+                            <button onclick="selectPaymentMethod(this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button>
                         </div>
-                        <div class="bg-white p-3 rounded-lg text-center border hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md">
+                        <div class="payment-method-card bg-white p-3 rounded-lg text-center shadow-sm" data-method="Binance">
+                            <i data-lucide="check-circle-2" class="tick-icon w-5 h-5"></i>
                             <img src="https://i.postimg.cc/L6LFLfxY/20250922-113752.png" alt="Binance Pay" class="w-10 h-10 rounded-full mx-auto mb-2">
                             <p class="font-bold text-md">Binance Pay</p>
                             <p class="text-gray-600 font-mono tracking-wider text-sm my-1">1156705717</p>
-                            <button onclick="copyToClipboard('1156705717', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy ID</span></button>
+                            <button onclick="selectPaymentMethod(this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy ID</span></button>
                         </div>
                     </div>
 
                     <p class="text-sm text-gray-600 mb-4 text-center border-t border-gray-300 pt-4">টাকা পাঠানোর পর নিচের ফর্মটি পূরণ করুন:</p>
                     <div class="space-y-4">
-                         <div><label for="deposit-method" class="block text-sm font-medium text-gray-600 mb-2">পেমেন্ট মাধ্যম</label><select id="deposit-method" class="w-full p-3 rounded-lg input-field"><option value="">কোন মাধ্যমে টাকা পাঠিয়েছেন?</option><option value="Nagad">নগদ</option><option value="bKash">বিকাশ</option><option value="Rocket">রকেট</option><option value="Binance">Binance</option></select></div>
-                        <div><label for="deposit-amount" class="block text-sm font-medium text-gray-600 mb-2">টাকার পরিমাণ (BDT)</label><input id="deposit-amount" type="number" placeholder="e.g., 100" class="w-full p-3 rounded-lg input-field"></div>
-                        <div><label for="sender-number" class="block text-sm font-medium text-gray-600 mb-2">আপনার পেমেন্ট নম্বর</label><input id="sender-number" type="text" placeholder="যে নম্বর থেকে টাকা পাঠিয়েছেন" class="w-full p-3 rounded-lg input-field"></div>
+                        <div><label id="deposit-amount-label" for="deposit-amount" class="block text-sm font-medium text-gray-600 mb-2">টাকার পরিমাণ (BDT)</label><input id="deposit-amount" type="number" placeholder="e.g., 100" class="w-full p-3 rounded-lg input-field"></div>
                         <div><label for="deposit-txid" class="block text-sm font-medium text-gray-600 mb-2">Transaction ID (TrxID)</label><input id="deposit-txid" type="text" placeholder="টাকা পাঠানোর পর পাওয়া TrxID" class="w-full p-3 rounded-lg input-field"></div>
                         <button id="deposit-btn" class="w-full p-3 rounded-lg btn-gradient">Submit Deposit</button>
                     </div>
@@ -614,6 +655,14 @@
                     <p id="profile-id" class="text-sm text-gray-600 mt-2">ID: 123456</p>
                 </div>
 
+                <div class="card-bg p-4 rounded-xl flex justify-between items-center">
+                    <span class="font-semibold text-gray-700">Display Currency</span>
+                    <div class="currency-switcher">
+                        <button id="bdt-btn" class="active">BDT</button>
+                        <button id="usdt-btn">USDT</button>
+                    </div>
+                </div>
+
                 <div class="space-y-3">
                     <button id="more-features-btn" class="w-full card-bg p-4 rounded-xl flex justify-between items-center text-left text-lg font-semibold">
                         <span class="flex items-center gap-3">
@@ -635,7 +684,7 @@
                      <p class="text-center text-gray-600 text-sm">Developed by <a href="https://t.me/SAIDULHP" target="_blank" class="font-semibold text-[#007bff] hover:underline">𝐒𝐀𝐈𝐃𝐔𝐋</a></p>
                 </div>
             </div>
-            
+
             <div id="features-page" class="p-4 space-y-8 sub-page">
                 <div class="grid grid-cols-2 gap-4 text-center">
                     <div class="card-bg p-4 rounded-xl">
@@ -746,13 +795,6 @@
             <button id="alert-ok-btn" class="btn-gradient px-8 py-2 rounded-lg">OK</button>
         </div>
     </div>
-    
-    <!-- NEW: Professional Purchase Loader Modal -->
-    <div id="purchase-loader-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex-col items-center justify-center z-[80] p-4 backdrop-blur-md">
-        <div class="purchase-spinner"></div>
-        <p class="text-white font-semibold mt-4 text-lg">Processing your purchase...</p>
-        <p class="text-gray-300 text-sm mt-1">Please wait, do not close the window.</p>
-    </div>
 
     <div id="deposit-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4">
@@ -763,7 +805,7 @@
                     <li>প্রথমে আপনি যে মাধ্যমে টাকা পাঠাতে চান সেটি নির্বাচন করুন।</li>
                     <li>এরপর প্রদর্শিত নম্বরে আপনার কাঙ্খিত পরিমাণ টাকা পাঠান।</li>
                     <li>টাকা পাঠানোর পর, নিচের ফর্মটি পূরণ করুন।</li>
-                    <li>আপনার পাঠানো টাকার মাধ্যম, পরিমাণ, নম্বর এবং Transaction ID (TxID) সঠিকভাবে লিখুন।</li>
+                    <li>আপনার পাঠানো টাকার পরিমাণ এবং Transaction ID (TxID) সঠিকভাবে লিখুন।</li>
                     <li>সবশেষে "Submit Deposit" বাটনে ক্লিক করুন।</li>
                 </ol>
                 <p class="text-xs text-gray-500 mt-4">আপনার ডিপোজিট দ্রুত যাচাই করে ব্যালেন্সে যোগ করা হবে।</p>
@@ -852,15 +894,14 @@
             </div>
         </div>
     </div>
-    
+
     <script type="module">
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
         const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
+        const BDT_TO_USDT_RATE = 118; // Static conversion rate
         
         // --- DUAL FIREBASE CONFIG ---
-
-        // Config 1: For User Balance, Deposits, Profiles, Support, Notifications, Reviews
         const firebaseConfigUser = {
           apiKey: "AIzaSyClz7XBgYHuiF70711CSb6DzDULzN4Okc8",
           authDomain: "tech-mail-market.firebaseapp.com",
@@ -870,8 +911,6 @@
           messagingSenderId: "28333491796",
           appId: "1:28333491796:web:caa5daa598b72550830fc1"
         };
-
-        // Config 2: For Mail Stock, Purchase History, App Config etc.
         const firebaseConfigMail = {
           apiKey: "AIzaSyBtNIF0NbUsriMB7ZNrwfl_0hEyP6BpH6s",
           authDomain: "tmgbdsell.firebaseapp.com",
@@ -890,31 +929,31 @@
         const mailApp = initializeApp(firebaseConfigMail, "mailApp");
 
         // --- Get Firestore instances for each app ---
-        const dbUser = getFirestore(userApp); // Database for user data, notifications, support, reviews
-        const dbMail = getFirestore(mailApp); // Database for mails, history, configs, etc.
+        const dbUser = getFirestore(userApp);
+        const dbMail = getFirestore(mailApp);
 
         let currentUserTg = null;
         let userData = null;
         let appConfig = {};
         let insufficientBalanceInterval = null;
         let countdownInterval = null;
+        let selectedPaymentMethod = null;
+        let currentCurrency = 'BDT';
         
         const loader = document.getElementById('loader');
-        const purchaseLoader = document.getElementById('purchase-loader-modal');
         const loaderStatusText = document.getElementById('loader-status-text');
         const channelGate = document.getElementById('channel-join-gate');
 
         const getLoadingHTML = () => `<div class="loading-container"><div class="premium-loader-spinner"></div></div>`;
         const getEmptyStateHTML = (icon, title, message) => `<div class="empty-state"><i data-lucide="${icon}" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i><h3 class="text-xl font-bold text-gray-700">${title}</h3><p class="text-gray-500 mt-2">${message}</p></div>`;
 
-        function getTodayDateString() {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+        function formatCurrency(amountInBdt) {
+            if (currentCurrency === 'USDT') {
+                return `$${(amountInBdt / BDT_TO_USDT_RATE).toFixed(2)}`;
+            }
+            return `৳${(amountInBdt || 0).toFixed(2)}`;
         }
-        
+
         window.onload = () => {
              lucide.createIcons();
              initializeAppLogic();
@@ -940,12 +979,19 @@
             if (!isMember) {
                 loader.style.display = 'none';
                 channelGate.style.display = 'flex';
+                lucide.createIcons();
                 return;
             }
             
             loaderStatusText.textContent = 'Loading your profile...';
             setupEventListeners();
             setupBanner();
+            
+            const savedCurrency = localStorage.getItem('preferredCurrency');
+            if (savedCurrency === 'USDT') {
+                currentCurrency = 'USDT';
+            }
+            updateCurrencySwitcherUI();
 
             await initUserSession();
 
@@ -953,6 +999,22 @@
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 500);
+        }
+
+        async function restartAppVerification() {
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+            loaderStatusText.textContent = 'Re-verifying your access...';
+
+            const isMember = await checkChannelMembership();
+            if (!isMember) {
+                loader.style.display = 'none';
+                showAlert("Please join the required channels first, then click START.");
+                return;
+            }
+            
+            channelGate.style.display = 'none';
+            await initializeAppLogic();
         }
 
         async function getChatMember(channelId) {
@@ -993,7 +1055,6 @@
             const tgChatId = String(currentUserTg.id);
             const userRef = doc(dbUser, "users", tgChatId);
             let userSnap = await getDoc(userRef);
-            const todayStr = getTodayDateString();
 
             if (userSnap.exists()) {
                 userData = userSnap.data();
@@ -1004,11 +1065,6 @@
                     lastSeen: serverTimestamp()
                 };
 
-                if (userData.isBlocked && userData.blockedUntil && userData.blockedUntil.toMillis() < Date.now()) {
-                    updates.isBlocked = false;
-                    updates.blockedUntil = null;
-                }
-                
                 await updateDoc(userRef, updates);
                 userSnap = await getDoc(userRef);
                 userData = userSnap.data();
@@ -1023,8 +1079,6 @@
                     balance: 0,
                     createdAt: serverTimestamp(),
                     isBlocked: false,
-                    blockedUntil: null,
-                    dailyRejections: { date: new Date().toISOString().slice(0, 10), count: 0 },
                     lastSeenNotification: null,
                     linkedUsers: [], 
                     linkedBy: null, 
@@ -1032,12 +1086,6 @@
                     lastSeen: serverTimestamp()
                 };
                 await setDoc(userRef, userData);
-            }
-
-            if (userData.isBlocked) {
-                const remainingTime = userData.blockedUntil ? Math.ceil((userData.blockedUntil.toMillis() - Date.now()) / 3600000) : '';
-                showAlert(`আপনার অ্যাকাউন্ট ব্লক করা হয়েছে।${remainingTime ? ` এটি ${remainingTime} ঘন্টা পর খুলবে।` : ''}`);
-                return;
             }
             
             await fetchAppConfig();
@@ -1061,8 +1109,7 @@
             } else {
                 appConfig = { 
                     mails: [],
-                    minDeposit: 50,
-                    maxStock: {} // Example: { 'google_mail': 200, 'outlook_mail': 500 }
+                    minDeposit: 50
                 };
             }
             const depositAmountInput = document.getElementById('deposit-amount');
@@ -1092,9 +1139,9 @@
 
         function updateUI() {
             if (!userData) return;
-            const balance = (userData.balance || 0).toFixed(2);
-            document.getElementById('balance-display').textContent = `৳${balance}`;
-            document.getElementById('header-balance-display').textContent = `৳${balance}`;
+            const balance = userData.balance || 0;
+            document.getElementById('balance-display').textContent = formatCurrency(balance);
+            document.getElementById('header-balance-display').textContent = formatCurrency(balance);
             
             updateHeaderUI();
             lucide.createIcons();
@@ -1103,6 +1150,53 @@
         function showMainPage(pageId) {
             document.querySelectorAll('.main-page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
+        }
+        
+        function updateAllCurrencyDisplays() {
+            const activePage = document.querySelector('.sub-page.active');
+            updateUI();
+            if (activePage) {
+                navigateTo(activePage.id);
+            }
+        }
+        
+        function updateCurrencySwitcherUI() {
+             if (currentCurrency === 'USDT') {
+                document.getElementById('usdt-btn').classList.add('active');
+                document.getElementById('bdt-btn').classList.remove('active');
+            } else {
+                document.getElementById('bdt-btn').classList.add('active');
+                document.getElementById('usdt-btn').classList.remove('active');
+            }
+        }
+        
+        function updateDepositPageForCurrency() {
+            const methodsGrid = document.getElementById('payment-methods-grid');
+            const amountLabel = document.getElementById('deposit-amount-label');
+            const amountInput = document.getElementById('deposit-amount');
+            const minDeposit = appConfig.minDeposit || 50;
+            
+            if (currentCurrency === 'USDT') {
+                amountLabel.textContent = 'Amount (USDT)';
+                const minUsdt = (minDeposit / BDT_TO_USDT_RATE).toFixed(2);
+                amountInput.placeholder = `Minimum $${minUsdt}`;
+                methodsGrid.querySelectorAll('[data-method]').forEach(card => {
+                    if (card.dataset.method !== 'Binance') {
+                        card.style.display = 'none';
+                    } else {
+                        card.style.display = 'block';
+                    }
+                });
+                // Auto-select Binance if it's the only one visible
+                selectPaymentMethod(methodsGrid.querySelector('[data-method="Binance"] button'));
+
+            } else {
+                amountLabel.textContent = 'টাকার পরিমাণ (BDT)';
+                amountInput.placeholder = `Minimum ৳${minDeposit}`;
+                methodsGrid.querySelectorAll('[data-method]').forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
         }
 
         function navigateTo(pageId) {
@@ -1119,11 +1213,11 @@
 
             const pageLoadFunctions = {
                 'home-page': () => {},
-                'pay-page': loadPaymentHistory,
+                'pay-page': () => { loadPaymentHistory(); updateDepositPageForCurrency(); },
                 'mail-page': loadMailStore,
                 'updates-page': () => { loadUpdates(); loadReviews(); },
                 'notification-page': loadNotificationsPage,
-                'admin-page': () => { populateAdminMailTypes(); },
+                'admin-page': populateAdminMailTypes,
                 'profile-page': loadProfilePage,
                 'features-page': loadFeaturesPage,
                 'tutorial-page': loadTutorials,
@@ -1156,7 +1250,7 @@
             document.getElementById('menu-overlay').addEventListener('click', toggleMenu);
             document.getElementById('go-to-support-btn').addEventListener('click', toggleMenu);
             
-            document.getElementById('more-features-btn').addEventListener('click', handleFeaturesClick);
+            document.getElementById('more-features-btn').addEventListener('click', () => navigateTo('features-page'));
             
             document.getElementById('features-receive-btn').addEventListener('click', handleReceive);
             document.getElementById('features-send-btn').addEventListener('click', () => navigateTo('send-page'));
@@ -1177,8 +1271,24 @@
 
             document.getElementById('login-mail-btn').addEventListener('click', () => switchMailView('login'));
             document.getElementById('otp-mail-btn').addEventListener('click', () => switchMailView('otp'));
-
+            
             document.getElementById('close-bulk-purchase-modal').addEventListener('click', () => document.getElementById('bulk-purchase-success-modal').classList.add('hidden'));
+            
+            document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
+
+            // Currency Switcher Events
+            document.getElementById('bdt-btn').addEventListener('click', () => {
+                currentCurrency = 'BDT';
+                localStorage.setItem('preferredCurrency', 'BDT');
+                updateCurrencySwitcherUI();
+                updateAllCurrencyDisplays();
+            });
+            document.getElementById('usdt-btn').addEventListener('click', () => {
+                currentCurrency = 'USDT';
+                localStorage.setItem('preferredCurrency', 'USDT');
+                updateCurrencySwitcherUI();
+                updateAllCurrencyDisplays();
+            });
         }
 
         function adjustMailViewContainerHeight() {
@@ -1295,30 +1405,50 @@
                 document.getElementById('profile-id').textContent = `Telegram ID: ${currentUserTg.id}`;
             }
         }
+        
+        window.selectPaymentMethod = function(buttonElement) {
+            const card = buttonElement.closest('.payment-method-card');
+            const numberToCopy = card.querySelector('.font-mono').textContent;
+            selectedPaymentMethod = card.dataset.method;
+
+            document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+
+            copyToClipboard(numberToCopy, buttonElement, `Copied ${selectedPaymentMethod} number!`);
+        }
 
         async function handleDepositRequest() {
-            const method = document.getElementById('deposit-method').value;
-            const amount = parseInt(document.getElementById('deposit-amount').value);
-            const senderNumber = document.getElementById('sender-number').value.trim();
+            let amount = parseFloat(document.getElementById('deposit-amount').value);
             const transactionId = document.getElementById('deposit-txid').value.trim();
             const minDeposit = appConfig.minDeposit || 50;
 
-            if (!method || !amount || !senderNumber || !transactionId) return showAlert("অনুগ্রহ করে সমস্ত তথ্য সঠিকভাবে পূরণ করুন।");
-            if (amount < minDeposit) return showAlert(`ন্যূনতম ডিপোজিটের পরিমাণ ৳${minDeposit}।`);
+            if (!selectedPaymentMethod) return showAlert("অনুগ্রহ করে প্রথমে একটি পেমেন্ট মাধ্যম বেছে নিন।");
+            if (isNaN(amount) || amount <= 0 || !transactionId) return showAlert("অনুগ্রহ করে সমস্ত তথ্য সঠিকভাবে পূরণ করুন।");
+            
+            let amountInBdt = amount;
+            if (currentCurrency === 'USDT') {
+                amountInBdt = amount * BDT_TO_USDT_RATE;
+            }
 
+            if (amountInBdt < minDeposit) return showAlert(`ন্যূনতম ডিপোজিটের পরিমাণ ৳${minDeposit} বা এর সমপরিমাণ USDT।`);
 
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
 
             try {
                 const depositQuery = query(collection(dbUser, "deposits"), where("transactionId", "==", transactionId), where("status", "in", ["pending", "approved"]));
                 const querySnapshot = await getDocs(depositQuery);
                 if (!querySnapshot.empty) {
-                    purchaseLoader.classList.remove('active');
+                    loader.style.display = 'none';
                     return showAlert("এই Transaction ID দিয়ে ইতিমধ্যে একটি ডিপোজিট অনুরোধ জমা দেওয়া হয়েছে।");
                 }
                 await addDoc(collection(dbUser, "deposits"), {
-                    userId: userData.tgChatId, userName: userData.name, method: method, amount: amount,
-                    senderNumber: senderNumber, transactionId: transactionId, status: "pending", requestedAt: serverTimestamp()
+                    userId: userData.tgChatId, userName: userData.name, method: selectedPaymentMethod, 
+                    amount: amountInBdt, 
+                    originalAmount: amount,
+                    originalCurrency: currentCurrency,
+                    transactionId: transactionId, status: "pending", requestedAt: serverTimestamp()
                 });
 
                 try {
@@ -1327,9 +1457,8 @@
 🔔 *New Deposit Request* 🔔
 
 *User:* ${userData.name} (${userData.tgChatId})
-*Method:* ${method}
-*Amount:* ৳${amount}
-*Sender No:* \`${senderNumber}\`
+*Method:* ${selectedPaymentMethod}
+*Amount:* ${formatCurrency(amountInBdt)}
 *Transaction ID:* \`${transactionId}\`
 
 Please review and process this request.
@@ -1348,10 +1477,12 @@ Please review and process this request.
                 }
                 
                 showAlert("আপনার ডিপোজিট অনুরোধ সফলভাবে জমা হয়েছে।");
-                ['deposit-method', 'deposit-amount', 'sender-number', 'deposit-txid'].forEach(id => document.getElementById(id).value = '');
+                ['deposit-amount', 'deposit-txid'].forEach(id => document.getElementById(id).value = '');
+                document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+                selectedPaymentMethod = null;
                 loadPaymentHistory();
             } catch (error) { showAlert("ডিপোজিট অনুরোধ জমা দিতে একটি সমস্যা হয়েছে।"); } 
-            finally { purchaseLoader.classList.remove('active'); }
+            finally { loader.style.display = 'none'; }
         }
 
         async function loadPaymentHistory() {
@@ -1375,7 +1506,7 @@ Please review and process this request.
                     };
                     const { color, icon } = statusMap[item.status] || statusMap.pending;
                     const date = item.requestedAt ? item.requestedAt.toDate().toLocaleDateString('en-GB') : 'N/A';
-                    return `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="${icon}" class="w-6 h-6 ${color}"></i><div><p class="font-semibold text-gray-800">${item.type || 'Deposit'} - ${item.method}</p><p class="text-xs text-gray-500">${date}</p></div></div><div class="text-right"><p class="font-bold text-lg text-gray-800">৳${item.amount}</p><p class="font-semibold ${color} capitalize text-xs">${item.status}</p></div></div>`;
+                    return `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="${icon}" class="w-6 h-6 ${color}"></i><div><p class="font-semibold text-gray-800">${item.type || 'Deposit'} - ${item.method}</p><p class="text-xs text-gray-500">${date}</p></div></div><div class="text-right"><p class="font-bold text-lg text-gray-800">${formatCurrency(item.amount)}</p><p class="font-semibold ${color} capitalize text-xs">${item.status}</p></div></div>`;
                 }).join('');
                 lucide.createIcons();
             } catch (error) { historyList.innerHTML = '<p class="text-red-600 text-center">হিস্টি লোড করা যায়নি।</p>'; }
@@ -1402,23 +1533,25 @@ Please review and process this request.
                                      .sort((a, b) => (b.stock > 0 ? 1 : 0) - (a.stock > 0 ? 1 : 0) || a.priceBdt - b.priceBdt);
 
             containerEl.innerHTML = mailsWithStock.map(mail => {
+                const displayPrice = mail.priceBdt;
                 const isOutOfStock = mail.stock < 1;
-                const canAffordOne = effectiveBalance >= mail.priceBdt;
-                const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / mail.priceBdt) : 0;
+                
+                const canAffordOne = effectiveBalance >= displayPrice;
+                const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / displayPrice) : 0;
                 const maxQty = Math.min(mail.stock, maxAffordableQty);
 
-                const maxStockForPercentage = appConfig.maxStock?.[mail.stockKey] || 200;
-                const stockPercentage = isOutOfStock ? 0 : Math.max(1, (mail.stock / maxStockForPercentage) * 100);
-
+                const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}h validity</span>` : '';
+                const apiButtonHtml = mail.apiLink ? `<button onclick="openApiLink('${mail.apiLink}')" class="text-blue-600 font-semibold">API</button>` : '<span class="text-gray-400 font-semibold">API</span>';
+                
                 const encodedDetails = encodeURIComponent(mail.details || '');
                 const encodedFeatures = encodeURIComponent(JSON.stringify(mail.featureList || []));
 
                 let buySection;
                 if (isOutOfStock) {
-                    buySection = `<div class="text-center p-3 mt-4 bg-gray-100 rounded-lg text-red-500 font-bold">Out of Stock</div>`;
+                    buySection = `<div class="text-center p-3 bg-gray-100 rounded-lg text-red-500 font-bold">Out of Stock</div>`;
                 } else {
                     buySection = `
-                        <div class="mt-4 flex items-center gap-2">
+                        <div class="flex items-center gap-2">
                             <div class="flex-grow flex items-center border border-gray-300 rounded-lg">
                                 <button onclick="updateQty('${mail.stockKey}', -1, ${maxQty})" class="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-l-lg">-</button>
                                 <input id="qty-${mail.stockKey}" type="text" inputmode="numeric" pattern="[0-9]*" min="1" max="${maxQty}" value="1" class="w-full text-center font-bold border-l border-r bg-white" oninput="validateQty(this, ${maxQty})">
@@ -1430,31 +1563,23 @@ Please review and process this request.
                     `;
                 }
 
-                return `<div class="card-bg p-4 rounded-xl ${isOutOfStock ? 'opacity-60' : ''}">
-                    <div class="flex justify-between items-start">
+                return `<div class="card-bg p-4 rounded-xl space-y-3 ${isOutOfStock ? 'opacity-60' : ''}">
+                    <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
-                            <img src="${mail.logoUrl}" class="w-10 h-10 rounded-lg object-cover" alt="${mail.type} logo">
-                            <div>
-                                <h3 class="font-bold text-lg text-gray-800">${mail.type}</h3>
-                                <p class="text-xs text-gray-500">Price: <span class="font-bold text-blue-600">৳${mail.priceBdt.toFixed(2)}</span></p>
-                            </div>
+                            <img src="${mail.logoUrl}" class="w-8 h-8 rounded-lg object-cover" alt="${mail.type} logo">
+                            <h3 class="font-bold text-lg text-gray-800">${mail.type}</h3>
                         </div>
-                        <div class="text-right">
-                           ${mail.expirationHours != null ? `<div class="flex items-center gap-1.5 text-xs font-semibold bg-gray-100 text-gray-700 px-2 py-1 rounded-full"><i data-lucide="clock" class="w-3.5 h-3.5"></i><span>${mail.expirationHours} / Hours</span></div>` : ''}
-                           <button onclick="showMailDetails('${mail.type}', '${encodedDetails}', '${encodedFeatures}')" class="text-blue-600 text-sm font-semibold mt-1">Details</button>
+                        <div class="flex items-center gap-2">
+                            ${validityTagHtml}
+                            <button onclick="showMailDetails('${mail.type}', '${encodedDetails}', '${encodedFeatures}')" class="text-blue-600 text-sm font-semibold">Details</button>
                         </div>
                     </div>
                     
-                    <div class="mt-3 space-y-2">
-                        <div class="flex justify-between items-center text-xs">
-                           <span class="font-semibold text-gray-600">Availability: ${mail.stock} Left</span>
-                           <span class="font-bold text-green-600">${stockPercentage.toFixed(0)}%</span>
-                        </div>
-                        <div class="stock-progress-bar">
-                           <div class="stock-progress" style="width: ${stockPercentage}%;"></div>
-                        </div>
+                    <div class="grid grid-cols-3 text-center items-center pt-2 border-t border-gray-200">
+                        <div class="py-2">${apiButtonHtml}</div>
+                        <div class="py-2"><p class="text-gray-500 text-sm">Price</p><p class="font-bold text-lg text-blue-600">${formatCurrency(displayPrice)}</p></div>
+                        <div class="py-2"><p class="text-gray-500 text-sm">Stock</p><p class="font-bold text-lg text-green-600">${mail.stock}</p></div>
                     </div>
-                    
                     ${buySection}
                 </div>`;
             }).join('');
@@ -1606,12 +1731,13 @@ Please review and process this request.
         }
 
         async function handleDownloadHistory() {
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 const q = query(collection(dbMail, "mail_purchases"), where("userId", "==", userData.tgChatId), orderBy("purchasedAt", "desc"));
                 const querySnapshot = await getDocs(q);
                 if (querySnapshot.empty) {
-                    purchaseLoader.classList.remove('active');
+                    loader.style.display = 'none';
                     return showAlert("আপনার কোনো History নেই");
                 }
                 const dataForExcel = [];
@@ -1631,18 +1757,20 @@ Please review and process this request.
                 XLSX.utils.book_append_sheet(wb, ws, "Purchase History");
                 ws['!cols'] = [ {wch: 22}, {wch: 20}, {wch: 30}, {wch: 30}, {wch: 15}, {wch: 70} ];
                 XLSX.writeFile(wb, "My_Purchase_History.xlsx");
+                showAlert("History downloaded successfully!");
             } catch (error) { showAlert("ইতিহাস ডাউনলোড করার সময় একটি সমস্যা হয়েছে।"); }
-            finally { purchaseLoader.classList.remove('active'); }
+            finally { loader.style.display = 'none'; }
         }
 
         async function handleCopyAllHistory() {
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 const tenHoursAgo = Timestamp.fromDate(new Date(Date.now() - 10 * 60 * 60 * 1000));
                 const q = query(collection(dbMail, "mail_purchases"), where("userId", "==", userData.tgChatId), where("purchasedAt", ">=", tenHoursAgo), orderBy("purchasedAt", "desc"));
                 const querySnapshot = await getDocs(q);
                 if (querySnapshot.empty) {
-                    purchaseLoader.classList.remove('active');
+                    loader.style.display = 'none';
                     return showAlert("গত ১০ ঘন্টায় কোনো কেনাকাটার ইতিহাস পাওয়া যায়নি।");
                 }
                 let fullHistory = [];
@@ -1663,7 +1791,7 @@ Please review and process this request.
                     showAlert("কোনো ডেটা কপি করার জন্য পাওয়া যায়নি।");
                 }
             } catch (error) { showAlert("হিস্ট্রি কপি করার সময় একটি সমস্যা হয়েছে।"); console.error(error); }
-            finally { purchaseLoader.classList.remove('active'); }
+            finally { loader.style.display = 'none'; }
         }
 
         window.showMailDetails = function(mailType, encodedDetails, encodedFeatures) {
@@ -1744,7 +1872,8 @@ Please review and process this request.
             const lines = mailDataRaw.trim().split('\n').filter(line => line.trim() !== '');
             if (lines.length === 0) return showAlert("No valid mail data found.");
 
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 const batch = writeBatch(dbMail);
                 let addedCount = 0;
@@ -1765,7 +1894,7 @@ Please review and process this request.
                     document.getElementById('mail-data-textarea').value = '';
                 } else showAlert("No valid mails found to add.");
             } catch (error) { showAlert("An error occurred while adding mails."); }
-            finally { purchaseLoader.classList.remove('active'); }
+            finally { loader.style.display = 'none'; }
         }
 
         function showAlert(message) {
@@ -1822,9 +1951,9 @@ Please review and process this request.
                 const [receivedSnapshot, sentSnapshot] = await Promise.all([getDocs(receivedQuery), getDocs(sentQuery)]);
                 
                 const totalReceive = receivedSnapshot.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
-                document.getElementById('total-receive-display').textContent = `৳${totalReceive.toFixed(2)}`;
+                document.getElementById('total-receive-display').textContent = formatCurrency(totalReceive);
                 const totalSend = sentSnapshot.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
-                document.getElementById('total-send-display').textContent = `৳${totalSend.toFixed(2)}`;
+                document.getElementById('total-send-display').textContent = formatCurrency(totalSend);
                 
                 await loadTransferHistory();
             } catch (error) { console.error("Error loading features page data:", error); }
@@ -1850,7 +1979,8 @@ Please review and process this request.
                 historyList.innerHTML = transactions.map(item => {
                     const isSent = item.fromId === userData.tgChatId;
                     const date = item.timestamp.toDate().toLocaleString('en-GB');
-                    return `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div><p class="font-semibold text-gray-800">${isSent ? `Sent to ${item.toName}` : `Received from ${item.fromName}`}</p><p class="text-xs text-gray-500">${date}</p></div><p class="font-bold text-lg ${isSent ? 'text-red-600' : 'text-green-600'}">${isSent ? '-' : '+'}৳${(isSent ? item.totalDeducted : item.amount).toFixed(2)}</p></div>`;
+                    const amount = isSent ? item.totalDeducted : item.amount;
+                    return `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div><p class="font-semibold text-gray-800">${isSent ? `Sent to ${item.toName}` : `Received from ${item.fromName}`}</p><p class="text-xs text-gray-500">${date}</p></div><p class="font-bold text-lg ${isSent ? 'text-red-600' : 'text-green-600'}">${isSent ? '-' : '+'} ${formatCurrency(amount)}</p></div>`;
                 }).join('');
             } catch (e) { historyList.innerHTML = '<p class="text-red-600 text-center">History could not be loaded.</p>'; }
         }
@@ -1866,7 +1996,7 @@ Please review and process this request.
 
             amountInput.addEventListener('input', () => {
                 const amount = parseFloat(amountInput.value) || 0;
-                feeDisplay.textContent = amount > 0 ? `Fee (5%): ৳${(amount * 0.05).toFixed(2)}` : '';
+                feeDisplay.textContent = amount > 0 ? `Fee (5%): ${formatCurrency(amount * 0.05)}` : '';
             });
         }
 
@@ -1878,10 +2008,11 @@ Please review and process this request.
             
             const fee = amount * 0.05;
             const totalCost = amount + fee;
-            if (totalCost > userData.balance) return showAlert(`অপর্যাপ্ত ব্যালেন্স। আপনার প্রয়োজন ৳${totalCost.toFixed(2)}।`);
-            if (!confirm(`আপনি কি ${recipientId}-কে ৳${amount.toFixed(2)} পাঠাতে চান?\nফি: ৳${fee.toFixed(2)}\nমোট কাটা হবে: ৳${totalCost.toFixed(2)}`)) return;
+            if (totalCost > userData.balance) return showAlert(`অপর্যাপ্ত ব্যালেন্স। আপনার প্রয়োজন ${formatCurrency(totalCost)}।`);
+            if (!confirm(`আপনি কি ${recipientId}-কে ${formatCurrency(amount)} পাঠাতে চান?\nফি: ${formatCurrency(fee)}\nমোট কাটা হবে: ${formatCurrency(totalCost)}`)) return;
 
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 await runTransaction(dbUser, async (transaction) => {
                     const senderRef = doc(dbUser, "users", userData.tgChatId);
@@ -1901,10 +2032,10 @@ Please review and process this request.
                 });
                 userData.balance -= totalCost;
                 updateUI();
-                showAlert(`সফলভাবে ৳${amount.toFixed(2)} পাঠানো হয়েছে।`);
+                showAlert(`সফলভাবে ${formatCurrency(amount)} পাঠানো হয়েছে।`);
                 navigateTo('features-page');
             } catch (error) { showAlert(typeof error === 'string' ? error : "ব্যালেন্স পাঠাতে সমস্যা হয়েছে।"); } 
-            finally { purchaseLoader.classList.remove('active'); }
+            finally { loader.style.display = 'none'; }
         }
         
         async function handleSearchFriend() {
@@ -1962,21 +2093,22 @@ Please review and process this request.
                 const isOnline = friend.lastSeen && (Timestamp.now().toMillis() - friend.lastSeen.toMillis()) < 300000;
                 const profileHTML = friend.photo_url ? `<img src="${friend.photo_url}" class="w-12 h-12 rounded-full object-cover">` : `<div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center"><span class="text-xl font-bold text-gray-500">${(friend.name?.[0] || 'U').toUpperCase()}</span></div>`;
                 
-                return `<div class="card-bg p-4 rounded-2xl space-y-4 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-4"><div class="relative">${profileHTML}<span title="${isOnline ? 'Active Now' : 'Inactive'}" class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full ${isOnline ? 'bg-green-500' : 'bg-gray-400'} ring-2 ring-white"></span></div><div><p class="font-bold text-lg text-gray-900">${friend.name}</p><p class="text-sm text-gray-600">Total Spent: <span class="font-semibold text-blue-600">৳${totalSpent.toFixed(2)}</span></p></div></div><button onclick="unlinkFriend('${friend.tgChatId}')" class="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors" title="Unlink"><i data-lucide="user-x" class="w-5 h-5"></i></button></div></div>`;
+                return `<div class="card-bg p-4 rounded-2xl space-y-4 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-4"><div class="relative">${profileHTML}<span title="${isOnline ? 'Active Now' : 'Inactive'}" class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full ${isOnline ? 'bg-green-500' : 'bg-gray-400'} ring-2 ring-white"></span></div><div><p class="font-bold text-lg text-gray-900">${friend.name}</p><p class="text-sm text-gray-600">Total Spent: <span class="font-semibold text-blue-600">${formatCurrency(totalSpent)}</span></p></div></div><button onclick="unlinkFriend('${friend.tgChatId}')" class="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors" title="Unlink"><i data-lucide="user-x" class="w-5 h-5"></i></button></div></div>`;
             }).join('');
             lucide.createIcons();
         }
 
         window.unlinkFriend = async function(friendId) {
             if (!confirm("Are you sure you want to remove this user?")) return;
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 await updateDoc(doc(dbUser, "users", userData.tgChatId), { linkedUsers: arrayRemove(friendId) });
                 await updateDoc(doc(dbUser, "users", friendId), { linkedBy: null });
                 showAlert("Friend has been unlinked.");
                 loadLinkedFriends();
             } catch (e) { showAlert("Failed to unlink friend."); } 
-            finally { purchaseLoader.classList.remove('active'); }
+            finally { loader.style.display = 'none'; }
         }
 
         async function loadTutorials() {
@@ -2002,7 +2134,6 @@ Please review and process this request.
             const reviewListEl = document.getElementById('reviews-list');
             reviewListEl.innerHTML = getLoadingHTML();
             try {
-                // UPDATED: Reviews are fetched from dbUser
                 const snapshot = await getDocs(query(collection(dbUser, "reviews"), orderBy("createdAt", "desc"), limit(5)));
                 if (snapshot.empty) {
                      reviewListEl.innerHTML = getEmptyStateHTML('message-square-dashed', 'No Reviews Yet', 'Be the first one to leave a review!');
@@ -2024,7 +2155,6 @@ Please review and process this request.
             const supportContainer = document.getElementById('support-channels-list');
             supportContainer.innerHTML = getLoadingHTML();
             try {
-                // UPDATED: Support channels are fetched from dbUser
                 const snapshot = await getDocs(query(collection(dbUser, "support_channels"), orderBy("order", "asc")));
                 if (snapshot.empty) return supportContainer.innerHTML = '<p class="p-4 text-center text-gray-600">No support channels available.</p>';
                 supportContainer.innerHTML = snapshot.docs.map(doc => {
@@ -2033,9 +2163,7 @@ Please review and process this request.
                 }).join('');
             } catch (e) { supportContainer.innerHTML = '<p class="p-4 text-center text-red-600">Support options could not be loaded.</p>'; }
         }
-
-        function handleFeaturesClick() { navigateTo('features-page'); }
-
+        
         window.updateQty = (stockKey, delta, maxQty) => {
             const input = document.getElementById(`qty-${stockKey}`);
             let currentValue = parseInt(input.value, 10) || 0;
@@ -2074,9 +2202,10 @@ Please review and process this request.
 
             const totalCost = quantity * originalPrice;
             
-            if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ৳${totalCost.toFixed(2)} দিয়ে কিনতে চান?`)) return;
+            if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ${formatCurrency(totalCost)} দিয়ে কিনতে চান?`)) return;
 
-            purchaseLoader.classList.add('active');
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             
             let purchasedMailsData = [];
             
@@ -2085,19 +2214,18 @@ Please review and process this request.
             let currentBuyerData = userSnap.data();
             let effectiveBalance = currentBuyerData.balance;
             let teamLeaderRef = null;
-            let teamLeaderSnap = null;
 
             if (currentBuyerData.linkedBy) {
                 teamLeaderRef = doc(dbUser, "users", currentBuyerData.linkedBy);
-                teamLeaderSnap = await getDoc(teamLeaderRef);
+                const teamLeaderSnap = await getDoc(teamLeaderRef);
                 if(teamLeaderSnap.exists()) {
                     effectiveBalance += teamLeaderSnap.data().balance;
                 }
             }
 
             if (effectiveBalance < totalCost) {
-                purchaseLoader.classList.remove('active');
-                return showAlert(`Insufficient balance. You need ৳${totalCost.toFixed(2)} but have ৳${effectiveBalance.toFixed(2)}.`);
+                loader.style.display = 'none';
+                return showAlert(`Insufficient balance. You need ${formatCurrency(totalCost)} but have ${formatCurrency(effectiveBalance)}.`);
             }
 
             try {
@@ -2151,10 +2279,10 @@ Please review and process this request.
                 console.error("Bulk Buy Error:", e);
                 loadMailStore();
             } finally {
-                purchaseLoader.classList.remove('active');
+                loader.style.display = 'none';
             }
         };
-
+        
         function showBulkPurchaseSuccess(mails, mailType, stockKey) {
             document.getElementById('bulk-purchase-summary').textContent = `You have successfully purchased ${mails.length} ${mailType} mails.`;
             const listEl = document.getElementById('bulk-purchase-list');
@@ -2187,16 +2315,18 @@ Please review and process this request.
         }
 
         window.handleSendToTelegram = async function(mails, mailType, element) {
-            if(element) element.disabled = true;
             const originalContent = element ? element.innerHTML : '';
-            if(element) element.innerHTML = `<div class="w-5 h-5 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>`;
+            if(element) {
+                element.disabled = true;
+                element.innerHTML = `<div class="w-5 h-5 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>`;
+            }
 
             const messageHeader = `*Your Purchase: ${mails.length} x ${mailType}*\n\n`;
             const messageBody = mails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
             const fullMessage = messageHeader + messageBody;
 
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
+            
             try {
                 const response = await fetch(url, {
                     method: 'POST',
