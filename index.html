@@ -169,8 +169,8 @@
             transform-origin: center;
         }
 
-        /* NEW Professional Channel Join Gate */
-        #channel-join-gate {
+        /* NEW Welcome Gate */
+        #welcome-gate {
             display: none;
             flex-direction: column;
             justify-content: center;
@@ -430,30 +430,39 @@
         </div>
     </div>
     
-    <!-- Professional Channel Join Gate -->
-    <div id="channel-join-gate" class="fixed inset-0 z-[100]">
-        <div class="space-y-4">
-            <i data-lucide="shield-check" class="w-20 h-20 text-blue-700 mx-auto"></i>
-            <h1 class="text-3xl font-extrabold text-gray-800">Verification Required</h1>
-            <p class="text-gray-600 max-w-sm text-lg">
-                To ensure a secure and updated experience, please join our official channels.
-            </p>
-        </div>
-        <div class="w-full max-w-xs space-y-3 mt-6">
-            <a href="https://t.me/aptechonlineincome1" target="_blank" class="btn-gradient w-full px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                <span>Join Channel 1</span>
+    <!-- NEW Welcome Gate -->
+    <div id="welcome-gate" class="fixed inset-0 z-[100]">
+        <div class="w-full max-w-sm">
+            <div class="space-y-3 text-center">
+                <i data-lucide="shield-check" class="w-20 h-20 text-blue-700 mx-auto"></i>
+                <h1 class="text-3xl font-extrabold text-gray-800">Welcome!</h1>
+                <p class="text-gray-600 max-w-sm text-lg">
+                    Get started by reviewing our rules and support options.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 my-8">
+                <a href="https://t.me/SAIDULHP" target="_blank" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center gap-2 text-center hover:shadow-lg transition-shadow">
+                    <i data-lucide="headphones" class="w-10 h-10 text-blue-600"></i>
+                    <span class="font-semibold text-gray-800">Support</span>
+                </a>
+                <button id="show-rules-btn" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center gap-2 text-center hover:shadow-lg transition-shadow">
+                    <i data-lucide="book-open-check" class="w-10 h-10 text-green-600"></i>
+                    <span class="font-semibold text-gray-800">Rules</span>
+                </button>
+            </div>
+
+            <a href="https://youtu.be/your_video_id" target="_blank" class="card-bg p-4 rounded-xl flex items-center justify-center gap-3 text-center hover:shadow-lg transition-shadow w-full mb-8">
+                <i data-lucide="youtube" class="w-8 h-8 text-red-600"></i>
+                <span class="font-bold text-gray-800 text-lg">Watch Tutorial Video</span>
             </a>
-            <a href="https://t.me/gmailmarketter" target="_blank" class="btn-gradient w-full px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                <span>Join Channel 2</span>
-            </a>
-        </div>
-        <div class="mt-8">
-            <button id="restart-app-btn" class="professional-start-btn">
-                <span>START</span>
-                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-            </button>
+
+            <div class="mt-6">
+                <button id="start-app-btn" class="professional-start-btn w-full justify-center">
+                    <span>START</span>
+                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -796,6 +805,25 @@
         </div>
     </div>
 
+    <div id="rules-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
+        <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
+            <button id="close-rules-modal" class="modal-close-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 class="text-2xl font-bold text-center text-accent-gradient">App Rules</h3>
+            <div class="text-gray-700 space-y-3 text-sm max-h-80 overflow-y-auto">
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>কোনো প্রকার প্রতারণা বা অবৈধ কার্যকলাপের চেষ্টা করলে আপনার অ্যাকাউন্ট ব্লক করা হবে।</li>
+                    <li>ডিপোজিটের জন্য শুধুমাত্র আমাদের অফিসিয়াল পেমেন্ট নম্বর ব্যবহার করুন।</li>
+                    <li>ভুল Transaction ID দিয়ে ডিপোজিট অনুরোধ করলে তা বাতিল করা হবে।</li>
+                    <li>যেকোনো কেনাকাটার পূর্বে পণ্যের বিবরণ ভালোভাবে পড়ুন।</li>
+                    <li>ব্যালেন্স ট্রান্সফারের ক্ষেত্রে প্রাপকের আইডি সঠিকভাবে লিখুন। ভুল আইডিতে ব্যালেন্স গেলে কর্তৃপক্ষ দায়ী থাকবে না।</li>
+                    <li>টিম ফিচারে যুক্ত করার আগে আপনার বন্ধুর অনুমতি নিন।</li>
+                    <li>যেকোনো সমস্যায় পড়লে সরাসরি সাপোর্ট টিমের সাথে যোগাযোগ করুন।</li>
+                </ol>
+            </div>
+            <button id="rules-ok-btn" class="w-full p-3 rounded-lg btn-gradient mt-4">Got It!</button>
+        </div>
+    </div>
+
     <div id="deposit-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4">
             <h3 class="text-xl font-bold text-center text-accent-gradient mb-4">How to Deposit</h3>
@@ -898,7 +926,6 @@
     <script type="module">
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
-        const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
         const BDT_TO_USDT_RATE = 118; // Static conversion rate
         
         // --- DUAL FIREBASE CONFIG ---
@@ -942,7 +969,7 @@
         
         const loader = document.getElementById('loader');
         const loaderStatusText = document.getElementById('loader-status-text');
-        const channelGate = document.getElementById('channel-join-gate');
+        const welcomeGate = document.getElementById('welcome-gate');
 
         const getLoadingHTML = () => `<div class="loading-container"><div class="premium-loader-spinner"></div></div>`;
         const getEmptyStateHTML = (icon, title, message) => `<div class="empty-state"><i data-lucide="${icon}" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i><h3 class="text-xl font-bold text-gray-700">${title}</h3><p class="text-gray-500 mt-2">${message}</p></div>`;
@@ -971,20 +998,24 @@
                 }
             } catch (e) {
                 console.error("Telegram WebApp script failed to initialize or user data not available.", e);
+                // Fallback for local testing
                 currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
             }
-
-            loaderStatusText.textContent = 'Verifying your access...';
-            const isMember = await checkChannelMembership();
-            if (!isMember) {
-                loader.style.display = 'none';
-                channelGate.style.display = 'flex';
-                lucide.createIcons();
-                return;
-            }
             
-            loaderStatusText.textContent = 'Loading your profile...';
+            // Show the welcome gate instead of the old verification page
+            loader.style.display = 'none';
+            welcomeGate.style.display = 'flex';
+            lucide.createIcons();
+            
             setupEventListeners();
+        }
+
+        async function proceedToApp() {
+            welcomeGate.style.display = 'none';
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+            loaderStatusText.textContent = 'Loading your profile...';
+            
             setupBanner();
             
             const savedCurrency = localStorage.getItem('preferredCurrency');
@@ -999,52 +1030,6 @@
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 500);
-        }
-
-        async function restartAppVerification() {
-            loader.style.display = 'flex';
-            loader.style.opacity = '1';
-            loaderStatusText.textContent = 'Re-verifying your access...';
-
-            const isMember = await checkChannelMembership();
-            if (!isMember) {
-                loader.style.display = 'none';
-                showAlert("Please join the required channels first, then click START.");
-                return;
-            }
-            
-            channelGate.style.display = 'none';
-            await initializeAppLogic();
-        }
-
-        async function getChatMember(channelId) {
-            const userId = currentUserTg.id;
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${channelId}&user_id=${userId}`;
-            
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (data.ok) {
-                    const status = data.result.status;
-                    return ['member', 'administrator', 'creator'].includes(status);
-                }
-                return false;
-            } catch (error) {
-                console.error(`Error checking membership for ${channelId}:`, error);
-                return false;
-            }
-        }
-
-        async function checkChannelMembership() {
-            if (currentUserTg.id === '6954647230') {
-                 console.log("Bypassing channel check for test user.");
-                 return true;
-            }
-
-            const membershipChecks = OFFICIAL_CHANNELS.map(channel => getChatMember(channel));
-            const results = await Promise.all(membershipChecks);
-            return results.every(isMember => isMember);
         }
 
         async function initUserSession() {
@@ -1236,7 +1221,20 @@
             overlay.classList.toggle('open');
         }
 
+        function showRulesModal() {
+            document.getElementById('rules-modal').classList.remove('hidden');
+        }
+
+        function hideRulesModal() {
+            document.getElementById('rules-modal').classList.add('hidden');
+        }
+
         function setupEventListeners() {
+            document.getElementById('start-app-btn').addEventListener('click', proceedToApp);
+            document.getElementById('show-rules-btn').addEventListener('click', showRulesModal);
+            document.getElementById('close-rules-modal').addEventListener('click', hideRulesModal);
+            document.getElementById('rules-ok-btn').addEventListener('click', hideRulesModal);
+
             document.querySelectorAll('.nav-link-premium[data-page]').forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); navigateTo(link.dataset.page); }));
             document.getElementById('header-deposit-btn').addEventListener('click', () => navigateTo('pay-page'));
             document.getElementById('notification-btn').addEventListener('click', () => navigateTo('notification-page'));
@@ -1274,8 +1272,6 @@
             
             document.getElementById('close-bulk-purchase-modal').addEventListener('click', () => document.getElementById('bulk-purchase-success-modal').classList.add('hidden'));
             
-            document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
-
             // Currency Switcher Events
             document.getElementById('bdt-btn').addEventListener('click', () => {
                 currentCurrency = 'BDT';
@@ -2204,8 +2200,11 @@ Please review and process this request.
             
             if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ${formatCurrency(totalCost)} দিয়ে কিনতে চান?`)) return;
 
+            // This line ensures the global loader appears immediately upon confirmation
             document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
             loader.style.display = 'flex';
+            loaderStatusText.textContent = "Processing your purchase...";
             
             let purchasedMailsData = [];
             
@@ -2279,6 +2278,7 @@ Please review and process this request.
                 console.error("Bulk Buy Error:", e);
                 loadMailStore();
             } finally {
+                // This 'finally' block ensures the loader is hidden, whether the purchase succeeds or fails.
                 loader.style.display = 'none';
             }
         };
