@@ -238,6 +238,10 @@
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
             background-color: #f9fafb;
         }
+        #restart-app-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
 
         /* Review Card */
         .review-card-new { background-color: #f9f9f9; border: 1px solid #eee; }
@@ -666,6 +670,13 @@
                     <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Customer Reviews</h3>
                     <div id="reviews-list" class="space-y-4"></div>
                 </div>
+                
+                <!-- Tutorials section moved here -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Tutorials</h3>
+                     <p class="text-sm text-gray-600 text-center mb-4">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
+                    <div id="tutorial-list" class="space-y-5"></div>
+                </div>
             </div>
 
             <!-- NEW: NOTIFICATION FULL-SCREEN PAGE -->
@@ -679,10 +690,14 @@
                 <div id="notification-list" class="space-y-3"></div>
             </div>
 
-            <div id="tutorial-page" class="p-4 space-y-6 sub-page">
-                <h2 class="text-xl font-bold text-center text-gray-800">Tutorials</h2>
-                <p class="text-sm text-gray-600 text-center">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
-                <div id="tutorial-list" class="space-y-5"></div>
+            <!-- NEW: TOOLS PAGE -->
+            <div id="tools-page" class="p-4 space-y-6 sub-page">
+                <h2 class="text-xl font-bold text-center text-gray-800">Our Tools</h2>
+                <div class="empty-state">
+                    <i data-lucide="construction" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">Page Coming Soon</h3>
+                    <p class="text-gray-500 mt-2">We are working hard to bring you new tools. Please check back later!</p>
+                </div>
             </div>
             
             <div id="profile-page" class="p-4 space-y-6 sub-page">
@@ -722,7 +737,8 @@
                 </div>
 
                 <div class="text-center pt-6">
-                     <p class="text-center text-gray-600 text-sm">Developed by <a href="https://t.me/SAIDULHP" target="_blank" class="font-semibold text-[#007bff] hover:underline">𝐒𝐀𝐈𝐃𝐔𝐋</a></p>
+                     <!-- Developer contact button replaces the text -->
+                     <button id="open-developer-modal-btn" class="font-semibold text-[#007bff] hover:underline">Contact Developer</button>
                 </div>
             </div>
 
@@ -821,7 +837,7 @@
 
         <nav class="bottom-nav">
             <a href="#" class="nav-link-premium" data-page="updates-page"><i data-lucide="bell" class="icon"></i><span>Updates</span></a>
-            <a href="#" class="nav-link-premium" data-page="tutorial-page"><i data-lucide="video" class="icon"></i><span>Tutorial</span></a>
+            <a href="#" class="nav-link-premium" data-page="tools-page"><i data-lucide="wrench" class="icon"></i><span>Tools</span></a>
             <a href="#" class="nav-link-premium center-home-link active" data-page="home-page"><i data-lucide="home" class="icon"></i></a>
             <a href="#" class="nav-link-premium" data-page="mail-page"><i data-lucide="mail" class="icon"></i><span>Mail</span></a>
             <a href="#" class="nav-link-premium" data-page="profile-page"><i data-lucide="user" class="icon"></i><span>Profile</span></a>
@@ -936,6 +952,35 @@
         </div>
     </div>
 
+    <!-- NEW: Developer Details Modal -->
+    <div id="developer-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
+        <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
+            <button id="close-developer-modal-btn" class="modal-close-btn">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="text-center">
+                <img src="https://avatars.githubusercontent.com/u/108785317?v=4" class="w-24 h-24 rounded-full mx-auto border-4 border-blue-300 shadow-lg" alt="SAIDUL">
+                <h3 class="text-2xl font-bold text-gray-800 mt-4">𝐒𝐀𝐈𝐃𝐔𝐋</h3>
+                <p class="text-gray-500">Full Stack Developer</p>
+            </div>
+            <div class="space-y-3 pt-4 border-t">
+                <a href="https://t.me/SAIDULHP" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#2AABEE] hover:bg-[#2598D3] transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://wa.me/8801703632420" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#25D366] hover:bg-[#1EBE57] transition-colors">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="#" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#3B5998] hover:bg-[#324b81] transition-colors">
+                    <i data-lucide="phone-call" class="w-5 h-5"></i>
+                    <span>IMO</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
     <script type="module">
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
@@ -1012,6 +1057,7 @@
                 }
             } catch (e) {
                 console.error("Telegram WebApp script failed to initialize or user data not available.", e);
+                // Fallback for local testing
                 currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
             }
 
@@ -1046,7 +1092,7 @@
         async function restartAppVerification() {
             const btn = document.getElementById('restart-app-btn');
             btn.disabled = true;
-            btn.innerHTML = `<div class="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div><span>Checking...</span>`;
+            btn.innerHTML = `<div class="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div><span class="ml-2">Checking...</span>`;
 
             const isMember = await checkChannelMembership();
             if (!isMember) {
@@ -1057,12 +1103,14 @@
                 return;
             }
             
+            // If check is successful, show the main loader and re-initialize
             loader.style.display = 'flex';
             loader.style.opacity = '1';
             loaderStatusText.textContent = 'Initializing session...';
             
             channelGate.style.display = 'none';
-            await initializeAppLogic();
+            // A short delay to make the transition smoother
+            setTimeout(initializeAppLogic, 500);
         }
 
         async function getChatMember(channelId) {
@@ -1085,6 +1133,7 @@
         }
 
         async function checkChannelMembership() {
+            // Bypass for test user
             if (currentUserTg.id === '6954647230') {
                  console.log("Bypassing channel check for test user.");
                  return true;
@@ -1204,7 +1253,7 @@
             const activePage = document.querySelector('.sub-page.active');
             updateUI();
             if (activePage) {
-                navigateTo(activePage.id);
+                navigateTo(activePage.id, true); // Pass a flag to prevent redundant loading
             }
         }
         
@@ -1247,7 +1296,7 @@
             }
         }
 
-        function navigateTo(pageId) {
+        function navigateTo(pageId, isCurrencyChange = false) {
             if (pageId !== 'mail-page' && insufficientBalanceInterval) {
                 clearInterval(insufficientBalanceInterval);
                 insufficientBalanceInterval = null;
@@ -1259,16 +1308,22 @@
                 link.classList.toggle('active', link.dataset.page === pageId);
             });
 
+            // Avoid reloading data if it's just a currency change
+            if(isCurrencyChange) {
+                lucide.createIcons();
+                return;
+            }
+
             const pageLoadFunctions = {
                 'home-page': () => {},
                 'pay-page': () => { loadPaymentHistory(); updateDepositPageForCurrency(); },
                 'mail-page': loadMailStore,
-                'updates-page': () => { loadUpdates(); loadReviews(); },
+                'updates-page': () => { loadUpdates(); loadReviews(); loadTutorials(); }, // Added loadTutorials
                 'notification-page': loadNotificationsPage,
                 'admin-page': populateAdminMailTypes,
                 'profile-page': loadProfilePage,
                 'features-page': loadFeaturesPage,
-                'tutorial-page': loadTutorials,
+                'tools-page': () => {}, // New tools page
                 'link-team-page': loadLinkedFriends,
                 'send-page': () => { setupDynamicAmountHandlers('send'); }
             };
@@ -1323,6 +1378,14 @@
             document.getElementById('close-bulk-purchase-modal').addEventListener('click', () => document.getElementById('bulk-purchase-success-modal').classList.add('hidden'));
             
             document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
+
+            // Developer Modal Events
+            document.getElementById('open-developer-modal-btn').addEventListener('click', () => {
+                document.getElementById('developer-details-modal').classList.remove('hidden');
+            });
+            document.getElementById('close-developer-modal-btn').addEventListener('click', () => {
+                document.getElementById('developer-details-modal').classList.add('hidden');
+            });
 
             // Currency Switcher Events
             document.getElementById('bdt-btn').addEventListener('click', () => {
@@ -2161,6 +2224,7 @@ Please review and process this request.
 
         async function loadTutorials() {
             const tutorialListEl = document.getElementById('tutorial-list');
+            if(!tutorialListEl) return;
             tutorialListEl.innerHTML = getLoadingHTML();
             try {
                 const snapshot = await getDocs(query(collection(dbMail, "tutorials"), orderBy("order")));
@@ -2287,7 +2351,9 @@ ${mailList}
             
             if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ${formatCurrency(totalCost)} দিয়ে কিনতে চান?`)) return;
 
+            // This ensures loading starts right after confirmation
             document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
             loader.style.display = 'flex';
             
             let purchasedMailsData = [];
@@ -2354,7 +2420,6 @@ ${mailList}
                 
                 await mailBatch.commit();
 
-                // Call the new notification function after successful purchase
                 sendPurchaseNotificationToAdmin({
                     mailType: mailType,
                     quantity: quantity,
@@ -2362,7 +2427,6 @@ ${mailList}
                     purchasedMails: purchasedMailsData,
                     buyer: userData
                 });
-
 
                 showBulkPurchaseSuccess(purchasedMailsData, mailType, stockKey);
                 loadMailStore();
@@ -2372,6 +2436,7 @@ ${mailList}
                 console.error("Bulk Buy Error:", e);
                 loadMailStore();
             } finally {
+                // Loader is hidden only after success modal is shown or an error occurs
                 loader.style.display = 'none';
             }
         };
