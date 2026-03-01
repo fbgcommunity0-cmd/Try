@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- NEW: Library for generating correct 2FA codes -->
+    <script src="https://cdn.jsdelivr.net/npm/otpauth@9.2.2/dist/otpauth.umd.min.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -20,7 +22,7 @@
             user-select: none; /* Standard syntax */
             -webkit-touch-callout: none; /* iOS Safari */
         }
-        input, textarea, #mail-details-content, #mail-purchase-history .font-mono {
+        input, textarea, #mail-details-content, #mail-purchase-history .font-mono, #2fa-secret-key {
             -webkit-user-select: text; /* Safari */
             -ms-user-select: text; /* IE 10+ */
             user-select: text; /* Standard syntax */
@@ -119,14 +121,23 @@
         .dot { display: inline-block; height: 8px; width: 8px; margin: 0 4px; background: #bbb; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
         .dot.active { background: #007bff; }
 
-        /* NEW: Improved Premium Loader */
+        /* UPDATED: Premium Loader with original Logo */
         #loader {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             gap: 1.5rem; transition: opacity 0.5s ease;
             text-align: center; padding: 2rem;
             background: #fff;
         }
-        .loader-logo-wrapper { width: 120px; height: 120px; animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+        .loader-logo-wrapper {
+            position: relative; width: 100px; height: 100px;
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+        .loader-logo-wrapper svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .loader-ring { stroke: #e2e8f0; }
+        .loader-path {
+            stroke: #007bff; stroke-dasharray: 283; stroke-dashoffset: 283;
+            animation: draw 2s ease-in-out 0.5s forwards;
+        }
         .progress-bar-container { width: 100%; max-width: 250px; background-color: #e2e8f0; border-radius: 9999px; height: 8px; overflow: hidden; margin-top: 1.5rem; }
         #progress-bar { width: 0%; height: 100%; background-color: #007bff; border-radius: 9999px; transition: width 0.3s ease; }
         #loader .loader-text {
@@ -141,6 +152,7 @@
 
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes fadeInText { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
 
         /* NEW Professional Channel Join Gate */
         #channel-join-gate {
@@ -426,11 +438,18 @@
 </head>
 <body class="max-w-md mx-auto">
 
-    <!-- UPDATED: Premium Loader with Percentage -->
+    <!-- UPDATED: Premium Loader with Percentage and Original Logo -->
     <div id="loader" class="fixed inset-0 z-[100]">
         <div class="flex flex-col items-center">
-            <div class="loader-logo-wrapper">
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M87.5 50C87.5 70.7533 70.7533 87.5 50 87.5C29.2467 87.5 12.5 70.7533 12.5 50C12.5 29.2467 29.2467 12.5 50 12.5C70.7533 12.5 87.5 29.2467 87.5 50Z" stroke="#E2E8F0" stroke-width="8"></path><path d="M50 12.5C29.2467 12.5 12.5 29.2467 12.5 50C12.5 70.7533 29.2467 87.5 50 87.5C70.7533 87.5 87.5 70.7533 87.5 50" stroke="#007BFF" stroke-width="8" stroke-linecap="round" style="stroke-dasharray: 235.619; stroke-dashoffset: 235.619; transition: stroke-dashoffset 0.5s ease-in-out 0s;"></path></svg>
+             <div class="loader-logo-wrapper">
+                <svg viewBox="0 0 100 100">
+                    <circle class="loader-ring" cx="50" cy="50" r="45" stroke-width="5" fill="none" />
+                    <circle class="loader-path" cx="50" cy="50" r="45" stroke-width="5" fill="none" transform="rotate(-90 50 50)" />
+                    <!-- Original Logo Path -->
+                    <g>
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" transform="scale(2.08) translate(11, 11)" stroke="#007bff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    </g>
+                </svg>
             </div>
             <h1 class="text-accent-gradient loader-text mt-4">🅐🅟 𝗧𝗘𝗖𝗛 ⚡ 𝗠𝗔𝗥𝗞𝗘𝗧 🛍️</h1>
             <p id="loader-status-text" class="loader-subtext mt-2">Initializing your premium session...</p>
@@ -441,7 +460,7 @@
         </div>
     </div>
     
-    <!-- NEW Professional Channel Join Gate -->
+    <!-- Professional Channel Join Gate -->
     <div id="channel-join-gate" class="fixed inset-0 z-[100]">
         <div class="gate-card">
             <div class="gate-icon-wrapper">
@@ -511,7 +530,7 @@
         </header>
 
         <main class="flex-grow pb-20">
-            <!-- UPDATED: Home Page with Professional Look -->
+            <!-- Home Page -->
             <div id="home-page" class="space-y-6 sub-page">
                 <div class="p-4">
                     <div class="banner-wrapper">
@@ -634,7 +653,7 @@
 
             <div id="mail-page" class="sub-page">
                 <div class="p-4 space-y-6">
-                    <!-- NEW: Ads Section -->
+                    <!-- Ads Section -->
                     <div class="card-bg p-4 rounded-xl flex items-center gap-4 bg-yellow-50 border-yellow-200">
                         <i data-lucide="sparkles" class="w-8 h-8 text-yellow-500"></i>
                         <div>
@@ -666,9 +685,9 @@
                 </div>
             </div>
             
-            <!-- UPDATED: Updates Page Layout -->
+            <!-- Updates Page Layout -->
             <div id="updates-page" class="p-4 space-y-8 sub-page">
-                <!-- Tutorials section moved to top -->
+                <!-- Tutorials section at top -->
                 <div>
                     <h3 class="text-xl font-bold text-center text-gray-800 mb-4">Tutorials</h3>
                      <p class="text-sm text-gray-600 text-center mb-4">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
@@ -686,7 +705,7 @@
                 </div>
             </div>
 
-            <!-- NEW: NOTIFICATION FULL-SCREEN PAGE -->
+            <!-- NOTIFICATION FULL-SCREEN PAGE -->
             <div id="notification-page" class="p-4 space-y-4 sub-page">
                 <div class="relative flex items-center justify-center mb-4">
                     <button onclick="navigateTo('home-page')" class="absolute left-0 p-2 rounded-full hover:bg-gray-100 transition-colors">
@@ -697,7 +716,7 @@
                 <div id="notification-list" class="space-y-3"></div>
             </div>
 
-            <!-- UPDATED: Tools Page with 2FA Generator -->
+            <!-- Tools Page with 2FA Generator -->
             <div id="tools-page" class="p-4 space-y-6 sub-page">
                 <h2 class="text-xl font-bold text-center text-gray-800">Our Tools</h2>
                 
@@ -713,7 +732,11 @@
                     </div>
                     <button id="generate-2fa-btn" class="w-full p-3 rounded-lg btn-gradient">Generate Code</button>
                     <div id="2fa-result-container" class="text-center pt-4 border-t hidden">
-                        <p class="text-4xl font-bold text-accent-gradient tracking-widest" id="2fa-code-display">••• •••</p>
+                        <!-- UPDATED: Made the code display a clickable button -->
+                        <button id="2fa-code-copy-btn" class="w-full text-center group">
+                            <p class="text-4xl font-bold text-accent-gradient tracking-widest group-hover:opacity-75" id="2fa-code-display">••• •••</p>
+                            <p class="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">Click to copy</p>
+                        </button>
                         <p class="text-sm text-gray-500 mt-2">New code in <span id="2fa-timer">30</span>s</p>
                     </div>
                 </div>
@@ -860,7 +883,7 @@
 
         </main>
         
-        <!-- UPDATED: Bottom Navigation Buttons -->
+        <!-- Bottom Navigation Buttons -->
         <nav class="bottom-nav">
             <a href="#" class="nav-link-premium" data-page="updates-page"><i data-lucide="bell" class="icon"></i><span>Updates</span></a>
             <a href="#" class="nav-link-premium" data-page="mail-page"><i data-lucide="mail" class="icon"></i><span>Mail</span></a>
@@ -978,7 +1001,7 @@
         </div>
     </div>
 
-    <!-- UPDATED: Developer Details Modal with New Links and Auto-close -->
+    <!-- Developer Details Modal -->
     <div id="developer-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
             <button id="close-developer-modal-btn" class="modal-close-btn">
@@ -1011,7 +1034,7 @@
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
         const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
-        const BDT_TO_USDT_RATE = 125; // Static conversion rate - UPDATED
+        const BDT_TO_USDT_RATE = 125;
         
         // --- DUAL FIREBASE CONFIG ---
         const firebaseConfigUser = {
@@ -1036,11 +1059,9 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit, runTransaction, getCountFromServer, writeBatch, updateDoc, Timestamp, onSnapshot, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-        // --- Initialize both Firebase apps ---
         const userApp = initializeApp(firebaseConfigUser, "userApp");
         const mailApp = initializeApp(firebaseConfigMail, "mailApp");
 
-        // --- Get Firestore instances for each app ---
         const dbUser = getFirestore(userApp);
         const dbMail = getFirestore(mailApp);
 
@@ -1051,7 +1072,7 @@
         let countdownInterval = null;
         let selectedPaymentMethod = null;
         let currentCurrency = 'BDT';
-        let developerModalTimeout = null; // For auto-closing modal
+        let developerModalTimeout = null;
         
         const loader = document.getElementById('loader');
         const loaderStatusText = document.getElementById('loader-status-text');
@@ -1074,12 +1095,11 @@
              initializeAppLogic();
         };
         
-        // UPDATED: App initialization with simulated loading progress
         async function initializeAppLogic() {
             let progress = 0;
             const progressInterval = setInterval(() => {
                 progress += Math.floor(Math.random() * 5) + 1;
-                if (progress > 95) progress = 95; // Don't hit 100 until fully loaded
+                if (progress > 95) progress = 95;
                 progressBar.style.width = `${progress}%`;
                 progressPercentage.textContent = `${progress}%`;
                 
@@ -1100,8 +1120,7 @@
                     return;
                 }
             } catch (e) {
-                console.error("Telegram WebApp script failed to initialize or user data not available.", e);
-                // Fallback for local testing
+                console.error("Telegram WebApp script failed to initialize.", e);
                 currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
             }
             
@@ -1119,22 +1138,19 @@
             setupBanner();
             
             const savedCurrency = localStorage.getItem('preferredCurrency');
-            if (savedCurrency === 'USDT') {
-                currentCurrency = 'USDT';
-            }
+            if (savedCurrency === 'USDT') currentCurrency = 'USDT';
             updateCurrencySwitcherUI();
 
             await initUserSession();
             
-            // Finalize loading animation
             clearInterval(progressInterval);
             progressBar.style.width = '100%';
             progressPercentage.textContent = '100%';
             loaderStatusText.textContent = 'Welcome!';
 
-            loader.style.opacity = '0';
             setTimeout(() => {
-                loader.style.display = 'none';
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
             }, 500);
         }
 
@@ -1152,7 +1168,6 @@
                 return;
             }
             
-            // If check is successful, show the main loader and re-initialize
             loader.style.display = 'flex';
             loader.style.opacity = '1';
             progressBar.style.width = '0%';
@@ -1160,11 +1175,14 @@
             loaderStatusText.textContent = 'Initializing session...';
             
             channelGate.style.display = 'none';
-            // A short delay to make the transition smoother
             setTimeout(initializeAppLogic, 500);
         }
 
         async function getChatMember(channelId) {
+            if (!currentUserTg || !currentUserTg.id) {
+                console.error("Current user data is not available for channel check.");
+                return false;
+            }
             const userId = currentUserTg.id;
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${channelId}&user_id=${userId}`;
             
@@ -1176,15 +1194,15 @@
                     const status = data.result.status;
                     return ['member', 'administrator', 'creator'].includes(status);
                 }
+                console.error(`Telegram API Error for ${channelId}:`, data.description);
                 return false;
             } catch (error) {
-                console.error(`Error checking membership for ${channelId}:`, error);
+                console.error(`Network error checking membership for ${channelId}:`, error);
                 return false;
             }
         }
-
+        
         async function checkChannelMembership() {
-            // Bypass for test user
             if (currentUserTg.id === '6954647230') {
                  console.log("Bypassing channel check for test user.");
                  return true;
@@ -1194,6 +1212,7 @@
             const results = await Promise.all(membershipChecks);
             return results.every(isMember => isMember);
         }
+
 
         async function initUserSession() {
             if (!currentUserTg) {
@@ -1304,7 +1323,7 @@
             const activePage = document.querySelector('.sub-page.active');
             updateUI();
             if (activePage) {
-                navigateTo(activePage.id, true); // Pass a flag to prevent redundant loading
+                navigateTo(activePage.id, true);
             }
         }
         
@@ -1329,13 +1348,8 @@
                 const minUsdt = (minDeposit / BDT_TO_USDT_RATE).toFixed(2);
                 amountInput.placeholder = `Minimum $${minUsdt}`;
                 methodsGrid.querySelectorAll('[data-method]').forEach(card => {
-                    if (card.dataset.method !== 'Binance') {
-                        card.style.display = 'none';
-                    } else {
-                        card.style.display = 'block';
-                    }
+                    card.style.display = card.dataset.method !== 'Binance' ? 'none' : 'block';
                 });
-                // Auto-select Binance if it's the only one visible
                 selectPaymentMethod(methodsGrid.querySelector('[data-method="Binance"] button'));
 
             } else {
@@ -1352,6 +1366,10 @@
                 clearInterval(insufficientBalanceInterval);
                 insufficientBalanceInterval = null;
             }
+            if (pageId !== 'tools-page' && twoFaInterval) {
+                clearInterval(twoFaInterval);
+                twoFaInterval = null;
+            }
 
             document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -1359,7 +1377,6 @@
                 link.classList.toggle('active', link.dataset.page === pageId);
             });
 
-            // Avoid reloading data if it's just a currency change
             if(isCurrencyChange) {
                 lucide.createIcons();
                 return;
@@ -1374,7 +1391,7 @@
                 'admin-page': populateAdminMailTypes,
                 'profile-page': loadProfilePage,
                 'features-page': loadFeaturesPage,
-                'tools-page': () => { setup2FAGenerator(); }, // Setup for 2FA tool
+                'tools-page': () => { setup2FAGenerator(); },
                 'link-team-page': loadLinkedFriends,
                 'send-page': () => { setupDynamicAmountHandlers('send'); }
             };
@@ -1430,15 +1447,10 @@
             
             document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
 
-            // Developer Modal Events with Auto-close
             document.getElementById('open-developer-modal-btn').addEventListener('click', () => {
                 const modal = document.getElementById('developer-details-modal');
                 modal.classList.remove('hidden');
-                
-                // Clear any previous timer
                 if (developerModalTimeout) clearTimeout(developerModalTimeout);
-
-                // Set a new timer to close the modal after 10 seconds
                 developerModalTimeout = setTimeout(() => {
                     modal.classList.add('hidden');
                 }, 10000); 
@@ -1446,11 +1458,9 @@
 
             document.getElementById('close-developer-modal-btn').addEventListener('click', () => {
                 document.getElementById('developer-details-modal').classList.add('hidden');
-                 // Clear the auto-close timer if closed manually
                 if (developerModalTimeout) clearTimeout(developerModalTimeout);
             });
 
-            // Currency Switcher Events
             document.getElementById('bdt-btn').addEventListener('click', () => {
                 currentCurrency = 'BDT';
                 localStorage.setItem('preferredCurrency', 'BDT');
@@ -1465,43 +1475,66 @@
             });
         }
         
-        // NEW: 2FA Generator Logic
         let twoFaInterval = null;
         function setup2FAGenerator() {
             const generateBtn = document.getElementById('generate-2fa-btn');
             const resultContainer = document.getElementById('2fa-result-container');
             const codeDisplay = document.getElementById('2fa-code-display');
             const timerDisplay = document.getElementById('2fa-timer');
+            const copyBtn = document.getElementById('2fa-code-copy-btn');
+            
+            if (twoFaInterval) clearInterval(twoFaInterval);
 
-            generateBtn.onclick = () => {
-                const secretKey = document.getElementById('2fa-secret-key').value.trim();
-                if (!secretKey) {
-                    showAlert("Please enter a secret key.");
-                    return;
+            const updateCode = () => {
+                const secretKey = document.getElementById('2fa-secret-key').value.trim().replace(/\s/g, '');
+                if (!secretKey) return;
+                
+                try {
+                    const totp = new otpauth.TOTP({
+                        issuer: "AP Tech",
+                        label: "2FA",
+                        algorithm: "SHA1",
+                        digits: 6,
+                        period: 30,
+                        secret: otpauth.Secret.fromBase32(secretKey),
+                    });
+                    const token = totp.generate();
+                    codeDisplay.textContent = `${token.slice(0,3)} ${token.slice(3)}`;
+                } catch (e) {
+                    console.error("2FA Error:", e);
+                    showAlert("Invalid secret key. Please check your key and try again.");
+                    clearInterval(twoFaInterval);
+                    resultContainer.classList.add('hidden');
                 }
-                
-                // Placeholder logic as we can't add a real TOTP library
-                // In a real app, you would use a library like 'otpauth' here.
-                showAlert("2FA Generator is a demo feature and does not produce real codes. We are working on it!");
-                
-                // Simulate code generation
-                const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
-                codeDisplay.textContent = `${randomCode.slice(0,3)} ${randomCode.slice(3)}`;
+            };
+            
+            const startTimer = () => {
+                updateCode();
                 resultContainer.classList.remove('hidden');
                 
                 if (twoFaInterval) clearInterval(twoFaInterval);
-                let seconds = 30;
-                timerDisplay.textContent = seconds;
                 
                 twoFaInterval = setInterval(() => {
-                    seconds--;
-                    timerDisplay.textContent = seconds;
-                    if (seconds <= 0) {
-                        clearInterval(twoFaInterval);
-                        resultContainer.classList.add('hidden');
-                        codeDisplay.textContent = '••• •••';
+                    const time = 30 - (Math.floor(Date.now() / 1000) % 30);
+                    timerDisplay.textContent = time;
+                    if (time === 30) {
+                        updateCode();
                     }
                 }, 1000);
+            };
+
+            generateBtn.onclick = () => {
+                const secretKey = document.getElementById('2fa-secret-key').value.trim();
+                 if (!secretKey) {
+                    showAlert("Please enter a secret key.");
+                    return;
+                }
+                startTimer();
+            };
+
+            copyBtn.onclick = () => {
+                const code = codeDisplay.textContent.replace(/\s/g, '');
+                copyToClipboard(code, copyBtn, "Code copied!");
             };
         }
 
@@ -1666,24 +1699,13 @@
                 });
 
                 try {
-                    const adminChatId = "-1002867496763"; // UPDATED
-                    const message = `
-🔔 *New Deposit Request* 🔔
-
-*User:* ${userData.name} (${userData.tgChatId})
-*Method:* ${selectedPaymentMethod}
-*Amount:* ${formatCurrency(amountInBdt)}
-*Transaction ID:* \`${transactionId}\`
-
-Please review and process this request.
-                    `;
+                    const adminChatId = "-1002867496763";
+                    const message = `🔔 *New Deposit Request* 🔔\n\n*User:* ${userData.name} (${userData.tgChatId})\n*Method:* ${selectedPaymentMethod}\n*Amount:* ${formatCurrency(amountInBdt)}\n*Transaction ID:* \`${transactionId}\`\n\nPlease review and process this request.`;
                     fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            chat_id: adminChatId,
-                            text: message,
-                            parse_mode: 'Markdown'
+                            chat_id: adminChatId, text: message, parse_mode: 'Markdown'
                         })
                     });
                 } catch (e) {
@@ -1754,7 +1776,6 @@ Please review and process this request.
                 const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / displayPrice) : 0;
                 const maxQty = Math.min(mail.stock, maxAffordableQty);
 
-                // UPDATED: Changed "validity" to "/Hour"
                 const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}/Hour</span>` : '';
                 const apiButtonHtml = mail.apiLink ? `<button onclick="openApiLink('${mail.apiLink}')" class="text-blue-600 font-semibold">API</button>` : '<span class="text-gray-400 font-semibold">API</span>';
                 
@@ -1789,7 +1810,6 @@ Please review and process this request.
                             <button onclick="showMailDetails('${mail.type}', '${encodedDetails}', '${encodedFeatures}')" class="text-blue-600 text-sm font-semibold">Details</button>
                         </div>
                     </div>
-                    
                     <div class="grid grid-cols-3 text-center items-center pt-2 border-t border-gray-200">
                         <div class="py-2">${apiButtonHtml}</div>
                         <div class="py-2"><p class="text-gray-500 text-sm">Price</p><p class="font-bold text-lg text-blue-600">${formatCurrency(displayPrice)}</p></div>
@@ -1856,7 +1876,7 @@ Please review and process this request.
                     if (p.isRefunded) return false;
                     
                     if (p.type === 'bulk') {
-                        const expiryTime = p.purchasedAt.toDate().getTime() + (10 * 3600000); // 10 hours
+                        const expiryTime = p.purchasedAt.toDate().getTime() + (10 * 3600000);
                         if(Date.now() >= expiryTime) return false;
                     }
 
@@ -2122,11 +2142,9 @@ Please review and process this request.
             navigator.clipboard.writeText(text.trim()).then(() => {
                 if (element) {
                     const originalContent = element.innerHTML;
-                    element.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-green-600"></i>`;
-                    lucide.createIcons();
+                    element.innerHTML = `<span class="text-green-500 font-bold">Copied!</span>`;
                     setTimeout(() => { 
                         element.innerHTML = originalContent; 
-                        lucide.createIcons(); 
                     }, 1500);
                 } else {
                     showAlert(successMessage);
@@ -2403,34 +2421,20 @@ Please review and process this request.
             }
         };
 
-        // NEW FUNCTION: Send purchase notification to admin channel
         async function sendPurchaseNotificationToAdmin(purchaseData) {
             try {
                 const { mailType, quantity, totalCost, purchasedMails, buyer } = purchaseData;
-                const adminChannelId = "-1003756630096"; // UPDATED
+                const adminChannelId = "-1003756630096";
                 
                 const mailList = purchasedMails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
 
-                const message = `
-✅ *New Mail Purchase*
-
-*Buyer:* ${buyer.name}
-*Buyer ID:* \`${buyer.tgChatId}\`
-*Mail Type:* ${mailType}
-*Quantity:* ${quantity}
-*Total Cost:* ${formatCurrency(totalCost)}
-
-*Purchased Mails:*
-${mailList}
-                `;
+                const message = `✅ *New Mail Purchase*\n\n*Buyer:* ${buyer.name}\n*Buyer ID:* \`${buyer.tgChatId}\`\n*Mail Type:* ${mailType}\n*Quantity:* ${quantity}\n*Total Cost:* ${formatCurrency(totalCost)}\n\n*Purchased Mails:*\n${mailList}`;
 
                 fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chat_id: adminChannelId,
-                        text: message,
-                        parse_mode: 'Markdown'
+                        chat_id: adminChannelId, text: message, parse_mode: 'Markdown'
                     })
                 });
             } catch (e) {
@@ -2455,7 +2459,6 @@ ${mailList}
             
             if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ${formatCurrency(totalCost)} দিয়ে কিনতে চান?`)) return;
 
-            // This ensures loading starts right after confirmation
             document.getElementById('app-container').append(loader);
             loader.style.opacity = '1';
             loader.style.display = 'flex';
@@ -2540,7 +2543,6 @@ ${mailList}
                 console.error("Bulk Buy Error:", e);
                 loadMailStore();
             } finally {
-                // Loader is hidden only after success modal is shown or an error occurs
                 loader.style.display = 'none';
             }
         };
@@ -2594,9 +2596,7 @@ ${mailList}
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chat_id: userData.tgChatId,
-                        text: fullMessage,
-                        parse_mode: 'Markdown'
+                        chat_id: userData.tgChatId, text: fullMessage, parse_mode: 'Markdown'
                     })
                 });
                 const result = await response.json();
