@@ -119,55 +119,28 @@
         .dot { display: inline-block; height: 8px; width: 8px; margin: 0 4px; background: #bbb; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
         .dot.active { background: #007bff; }
 
-        /* Premium Loader */
+        /* NEW: Improved Premium Loader */
         #loader {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             gap: 1.5rem; transition: opacity 0.5s ease;
             text-align: center; padding: 2rem;
             background: #fff;
         }
-        .loader-logo-wrapper {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-        }
-        .loader-logo-wrapper svg {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .loader-ring {
-            stroke: #e2e8f0;
-        }
-        .loader-path {
-            stroke: #007bff;
-            stroke-dasharray: 283;
-            stroke-dashoffset: 283;
-            animation: draw 2s ease-in-out 0.5s forwards;
-        }
+        .loader-logo-wrapper { width: 120px; height: 120px; animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+        .progress-bar-container { width: 100%; max-width: 250px; background-color: #e2e8f0; border-radius: 9999px; height: 8px; overflow: hidden; margin-top: 1.5rem; }
+        #progress-bar { width: 0%; height: 100%; background-color: #007bff; border-radius: 9999px; transition: width 0.3s ease; }
         #loader .loader-text {
-            opacity: 0; animation: fadeInText 1s ease-in-out 1s forwards;
-            font-weight: bold; font-size: 1.5rem;
+            font-weight: bold; font-size: 1.75rem;
+            opacity: 0; animation: fadeInText 1s ease-in-out 0.5s forwards;
         }
         #loader .loader-subtext {
-            opacity: 0; animation: fadeInText 1s ease-in-out 1.3s forwards;
-            color: #6b7280;
+            color: #6b7280; font-size: 1rem;
+            opacity: 0; animation: fadeInText 1s ease-in-out 0.8s forwards;
         }
+        #progress-percentage { font-size: 1.25rem; font-weight: 700; color: #007bff; margin-top: 1rem; }
+
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes fadeInText { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes draw { to { stroke-dashoffset: 0; } }
-        @keyframes spin-inner {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .loader-inner-icon {
-            animation: spin-inner 30s linear infinite, popIn 1s ease 1.5s forwards;
-            opacity: 0;
-            transform-origin: center;
-        }
 
         /* NEW Professional Channel Join Gate */
         #channel-join-gate {
@@ -453,20 +426,18 @@
 </head>
 <body class="max-w-md mx-auto">
 
-    <!-- Premium Loader -->
+    <!-- UPDATED: Premium Loader with Percentage -->
     <div id="loader" class="fixed inset-0 z-[100]">
-        <div>
+        <div class="flex flex-col items-center">
             <div class="loader-logo-wrapper">
-                <svg viewBox="0 0 100 100">
-                    <circle class="loader-ring" cx="50" cy="50" r="45" stroke-width="5" fill="none" />
-                    <circle class="loader-path" cx="50" cy="50" r="45" stroke-width="5" fill="none" transform="rotate(-90 50 50)" />
-                    <g class="loader-inner-icon">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" transform="scale(2.08) translate(11, 11)" stroke="#007bff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                    </g>
-                </svg>
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M87.5 50C87.5 70.7533 70.7533 87.5 50 87.5C29.2467 87.5 12.5 70.7533 12.5 50C12.5 29.2467 29.2467 12.5 50 12.5C70.7533 12.5 87.5 29.2467 87.5 50Z" stroke="#E2E8F0" stroke-width="8"></path><path d="M50 12.5C29.2467 12.5 12.5 29.2467 12.5 50C12.5 70.7533 29.2467 87.5 50 87.5C70.7533 87.5 87.5 70.7533 87.5 50" stroke="#007BFF" stroke-width="8" stroke-linecap="round" style="stroke-dasharray: 235.619; stroke-dashoffset: 235.619; transition: stroke-dashoffset 0.5s ease-in-out 0s;"></path></svg>
             </div>
             <h1 class="text-accent-gradient loader-text mt-4">🅐🅟 𝗧𝗘𝗖𝗛 ⚡ 𝗠𝗔𝗥𝗞𝗘𝗧 🛍️</h1>
             <p id="loader-status-text" class="loader-subtext mt-2">Initializing your premium session...</p>
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="progress-percentage">0%</div>
         </div>
     </div>
     
@@ -501,7 +472,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="menu-overlay"></div>
     <aside id="slide-out-menu">
@@ -541,6 +511,7 @@
         </header>
 
         <main class="flex-grow pb-20">
+            <!-- UPDATED: Home Page with Professional Look -->
             <div id="home-page" class="space-y-6 sub-page">
                 <div class="p-4">
                     <div class="banner-wrapper">
@@ -553,13 +524,37 @@
                     </div>
                 </div>
 
-                <div class="p-4 space-y-4">
-                    <div class="card-bg p-5 rounded-xl">
-                        <p class="text-gray-600 text-sm mb-1">Your Balance</p>
+                <div class="px-4 space-y-4">
+                    <!-- Balance Card -->
+                    <div class="card-bg p-5 rounded-2xl shadow-lg bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+                        <p class="text-blue-200 text-sm mb-1">Your Balance</p>
                         <div class="flex items-center justify-between">
-                            <p id="balance-display" class="text-4xl font-bold text-[#333333]">৳0.00</p>
-                            <button id="home-deposit-btn" class="btn-gradient px-6 py-2 rounded-lg">Deposit</button>
+                            <p id="balance-display" class="text-4xl font-bold tracking-tight">৳0.00</p>
+                            <button id="home-deposit-btn" class="bg-white text-blue-700 font-bold px-6 py-2 rounded-lg shadow-md transition-transform hover:scale-105">Deposit</button>
                         </div>
+                    </div>
+                    
+                    <!-- Quick Actions Section -->
+                    <div class="pt-4">
+                         <h3 class="text-lg font-bold text-gray-800 mb-3 px-1">Quick Actions</h3>
+                         <div class="grid grid-cols-2 gap-4">
+                            <button onclick="navigateTo('mail-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
+                                <i data-lucide="shopping-cart" class="w-8 h-8 text-blue-500"></i>
+                                <span class="font-semibold text-gray-700">Buy Mails</span>
+                            </button>
+                             <button onclick="navigateTo('updates-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
+                                <i data-lucide="megaphone" class="w-8 h-8 text-green-500"></i>
+                                <span class="font-semibold text-gray-700">Updates</span>
+                            </button>
+                             <button onclick="navigateTo('features-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
+                                <i data-lucide="users" class="w-8 h-8 text-purple-500"></i>
+                                <span class="font-semibold text-gray-700">Team / Send</span>
+                            </button>
+                            <button onclick="navigateTo('profile-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
+                                <i data-lucide="user-cog" class="w-8 h-8 text-orange-500"></i>
+                                <span class="font-semibold text-gray-700">My Profile</span>
+                            </button>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -639,6 +634,15 @@
 
             <div id="mail-page" class="sub-page">
                 <div class="p-4 space-y-6">
+                    <!-- NEW: Ads Section -->
+                    <div class="card-bg p-4 rounded-xl flex items-center gap-4 bg-yellow-50 border-yellow-200">
+                        <i data-lucide="sparkles" class="w-8 h-8 text-yellow-500"></i>
+                        <div>
+                            <h3 class="font-bold text-yellow-800">Special Offer!</h3>
+                            <p class="text-sm text-yellow-700">Get 10% bonus on deposits over ৳1000. Limited time only!</p>
+                        </div>
+                    </div>
+                    
                     <div class="mail-view-switcher">
                         <button id="login-mail-btn" class="active">OTP MAIL</button>
                         <button id="otp-mail-btn">LOGIN MAIL</button>
@@ -661,21 +665,24 @@
                     </div>
                 </div>
             </div>
-
-            <div id="updates-page" class="p-4 space-y-6 sub-page">
-                <h2 class="text-xl font-bold text-center text-gray-800">Latest Update</h2>
-                <div id="updates-content" class="space-y-4"></div>
-
-                <div class="mt-8">
-                    <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Customer Reviews</h3>
-                    <div id="reviews-list" class="space-y-4"></div>
-                </div>
-                
-                <!-- Tutorials section moved here -->
-                <div class="mt-8">
-                    <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Tutorials</h3>
+            
+            <!-- UPDATED: Updates Page Layout -->
+            <div id="updates-page" class="p-4 space-y-8 sub-page">
+                <!-- Tutorials section moved to top -->
+                <div>
+                    <h3 class="text-xl font-bold text-center text-gray-800 mb-4">Tutorials</h3>
                      <p class="text-sm text-gray-600 text-center mb-4">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
                     <div id="tutorial-list" class="space-y-5"></div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-bold text-center text-gray-800">Latest Update</h2>
+                    <div id="updates-content" class="space-y-4 mt-4"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Customer Reviews</h3>
+                    <div id="reviews-list" class="space-y-4"></div>
                 </div>
             </div>
 
@@ -690,12 +697,30 @@
                 <div id="notification-list" class="space-y-3"></div>
             </div>
 
-            <!-- NEW: TOOLS PAGE -->
+            <!-- UPDATED: Tools Page with 2FA Generator -->
             <div id="tools-page" class="p-4 space-y-6 sub-page">
                 <h2 class="text-xl font-bold text-center text-gray-800">Our Tools</h2>
+                
+                <div id="2fa-generator-card" class="card-bg p-5 rounded-2xl space-y-4">
+                    <div class="text-center">
+                        <i data-lucide="shield-check" class="w-10 h-10 text-blue-500 mx-auto mb-2"></i>
+                        <h3 class="text-lg font-bold text-gray-800">2FA Code Generator</h3>
+                        <p class="text-sm text-gray-500">Enter your secret key to get the authentication code.</p>
+                    </div>
+                    <div>
+                        <label for="2fa-secret-key" class="block text-sm font-medium text-gray-600 mb-1">Secret Key</label>
+                        <input id="2fa-secret-key" type="text" placeholder="e.g., JBSWY3DPEHPK3PXP" class="w-full p-3 rounded-lg input-field font-mono">
+                    </div>
+                    <button id="generate-2fa-btn" class="w-full p-3 rounded-lg btn-gradient">Generate Code</button>
+                    <div id="2fa-result-container" class="text-center pt-4 border-t hidden">
+                        <p class="text-4xl font-bold text-accent-gradient tracking-widest" id="2fa-code-display">••• •••</p>
+                        <p class="text-sm text-gray-500 mt-2">New code in <span id="2fa-timer">30</span>s</p>
+                    </div>
+                </div>
+
                 <div class="empty-state">
-                    <i data-lucide="construction" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
-                    <h3 class="text-2xl font-bold text-gray-700">Page Coming Soon</h3>
+                    <i data-lucide="construction" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-700">More Tools Coming Soon</h3>
                     <p class="text-gray-500 mt-2">We are working hard to bring you new tools. Please check back later!</p>
                 </div>
             </div>
@@ -834,12 +859,13 @@
             </div>
 
         </main>
-
+        
+        <!-- UPDATED: Bottom Navigation Buttons -->
         <nav class="bottom-nav">
             <a href="#" class="nav-link-premium" data-page="updates-page"><i data-lucide="bell" class="icon"></i><span>Updates</span></a>
-            <a href="#" class="nav-link-premium" data-page="tools-page"><i data-lucide="wrench" class="icon"></i><span>Tools</span></a>
-            <a href="#" class="nav-link-premium center-home-link active" data-page="home-page"><i data-lucide="home" class="icon"></i></a>
             <a href="#" class="nav-link-premium" data-page="mail-page"><i data-lucide="mail" class="icon"></i><span>Mail</span></a>
+            <a href="#" class="nav-link-premium center-home-link active" data-page="home-page"><i data-lucide="home" class="icon"></i></a>
+            <a href="#" class="nav-link-premium" data-page="tools-page"><i data-lucide="wrench" class="icon"></i><span>Tools</span></a>
             <a href="#" class="nav-link-premium" data-page="profile-page"><i data-lucide="user" class="icon"></i><span>Profile</span></a>
             <a href="#" id="admin-nav-link" class="nav-link-premium hidden" data-page="admin-page"><i data-lucide="shield" class="icon"></i><span>Admin</span></a>
         </nav>
@@ -952,7 +978,7 @@
         </div>
     </div>
 
-    <!-- NEW: Developer Details Modal -->
+    <!-- UPDATED: Developer Details Modal with New Links and Auto-close -->
     <div id="developer-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
             <button id="close-developer-modal-btn" class="modal-close-btn">
@@ -968,11 +994,11 @@
                     <i data-lucide="send" class="w-5 h-5"></i>
                     <span>Telegram</span>
                 </a>
-                <a href="https://wa.me/8801703632420" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#25D366] hover:bg-[#1EBE57] transition-colors">
+                <a href="https://wa.me/8801855879942" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#25D366] hover:bg-[#1EBE57] transition-colors">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                     <span>WhatsApp</span>
                 </a>
-                <a href="#" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#3B5998] hover:bg-[#324b81] transition-colors">
+                <a href="tel:+8801855879942" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#3B5998] hover:bg-[#324b81] transition-colors">
                     <i data-lucide="phone-call" class="w-5 h-5"></i>
                     <span>IMO</span>
                 </a>
@@ -1025,10 +1051,13 @@
         let countdownInterval = null;
         let selectedPaymentMethod = null;
         let currentCurrency = 'BDT';
+        let developerModalTimeout = null; // For auto-closing modal
         
         const loader = document.getElementById('loader');
         const loaderStatusText = document.getElementById('loader-status-text');
         const channelGate = document.getElementById('channel-join-gate');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.getElementById('progress-percentage');
 
         const getLoadingHTML = () => `<div class="loading-container"><div class="premium-loader-spinner"></div></div>`;
         const getEmptyStateHTML = (icon, title, message) => `<div class="empty-state"><i data-lucide="${icon}" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i><h3 class="text-xl font-bold text-gray-700">${title}</h3><p class="text-gray-500 mt-2">${message}</p></div>`;
@@ -1045,7 +1074,21 @@
              initializeAppLogic();
         };
         
+        // UPDATED: App initialization with simulated loading progress
         async function initializeAppLogic() {
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if (progress > 95) progress = 95; // Don't hit 100 until fully loaded
+                progressBar.style.width = `${progress}%`;
+                progressPercentage.textContent = `${progress}%`;
+                
+                if (progress < 30) loaderStatusText.textContent = 'Connecting to servers...';
+                else if (progress < 60) loaderStatusText.textContent = 'Verifying your access...';
+                else loaderStatusText.textContent = 'Loading your profile...';
+
+            }, 100);
+
             try {
                 window.Telegram.WebApp.ready();
                 window.Telegram.WebApp.expand();
@@ -1053,6 +1096,7 @@
                 if (!currentUserTg) {
                     showAlert("Telegram user data not found. Please open this app from Telegram.");
                     loader.style.display = 'none';
+                    clearInterval(progressInterval);
                     return;
                 }
             } catch (e) {
@@ -1060,18 +1104,17 @@
                 // Fallback for local testing
                 currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
             }
-
-            loaderStatusText.textContent = 'Verifying your access...';
+            
             const isMember = await checkChannelMembership();
             if (!isMember) {
+                clearInterval(progressInterval);
                 loader.style.display = 'none';
                 channelGate.style.display = 'flex';
                 lucide.createIcons();
                 return;
             }
             
-            channelGate.style.display = 'none'; // Ensure gate is hidden if check passes
-            loaderStatusText.textContent = 'Loading your profile...';
+            channelGate.style.display = 'none'; 
             setupEventListeners();
             setupBanner();
             
@@ -1082,6 +1125,12 @@
             updateCurrencySwitcherUI();
 
             await initUserSession();
+            
+            // Finalize loading animation
+            clearInterval(progressInterval);
+            progressBar.style.width = '100%';
+            progressPercentage.textContent = '100%';
+            loaderStatusText.textContent = 'Welcome!';
 
             loader.style.opacity = '0';
             setTimeout(() => {
@@ -1106,6 +1155,8 @@
             // If check is successful, show the main loader and re-initialize
             loader.style.display = 'flex';
             loader.style.opacity = '1';
+            progressBar.style.width = '0%';
+            progressPercentage.textContent = '0%';
             loaderStatusText.textContent = 'Initializing session...';
             
             channelGate.style.display = 'none';
@@ -1318,12 +1369,12 @@
                 'home-page': () => {},
                 'pay-page': () => { loadPaymentHistory(); updateDepositPageForCurrency(); },
                 'mail-page': loadMailStore,
-                'updates-page': () => { loadUpdates(); loadReviews(); loadTutorials(); }, // Added loadTutorials
+                'updates-page': () => { loadUpdates(); loadReviews(); loadTutorials(); },
                 'notification-page': loadNotificationsPage,
                 'admin-page': populateAdminMailTypes,
                 'profile-page': loadProfilePage,
                 'features-page': loadFeaturesPage,
-                'tools-page': () => {}, // New tools page
+                'tools-page': () => { setup2FAGenerator(); }, // Setup for 2FA tool
                 'link-team-page': loadLinkedFriends,
                 'send-page': () => { setupDynamicAmountHandlers('send'); }
             };
@@ -1379,12 +1430,24 @@
             
             document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
 
-            // Developer Modal Events
+            // Developer Modal Events with Auto-close
             document.getElementById('open-developer-modal-btn').addEventListener('click', () => {
-                document.getElementById('developer-details-modal').classList.remove('hidden');
+                const modal = document.getElementById('developer-details-modal');
+                modal.classList.remove('hidden');
+                
+                // Clear any previous timer
+                if (developerModalTimeout) clearTimeout(developerModalTimeout);
+
+                // Set a new timer to close the modal after 10 seconds
+                developerModalTimeout = setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 10000); 
             });
+
             document.getElementById('close-developer-modal-btn').addEventListener('click', () => {
                 document.getElementById('developer-details-modal').classList.add('hidden');
+                 // Clear the auto-close timer if closed manually
+                if (developerModalTimeout) clearTimeout(developerModalTimeout);
             });
 
             // Currency Switcher Events
@@ -1400,6 +1463,46 @@
                 updateCurrencySwitcherUI();
                 updateAllCurrencyDisplays();
             });
+        }
+        
+        // NEW: 2FA Generator Logic
+        let twoFaInterval = null;
+        function setup2FAGenerator() {
+            const generateBtn = document.getElementById('generate-2fa-btn');
+            const resultContainer = document.getElementById('2fa-result-container');
+            const codeDisplay = document.getElementById('2fa-code-display');
+            const timerDisplay = document.getElementById('2fa-timer');
+
+            generateBtn.onclick = () => {
+                const secretKey = document.getElementById('2fa-secret-key').value.trim();
+                if (!secretKey) {
+                    showAlert("Please enter a secret key.");
+                    return;
+                }
+                
+                // Placeholder logic as we can't add a real TOTP library
+                // In a real app, you would use a library like 'otpauth' here.
+                showAlert("2FA Generator is a demo feature and does not produce real codes. We are working on it!");
+                
+                // Simulate code generation
+                const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
+                codeDisplay.textContent = `${randomCode.slice(0,3)} ${randomCode.slice(3)}`;
+                resultContainer.classList.remove('hidden');
+                
+                if (twoFaInterval) clearInterval(twoFaInterval);
+                let seconds = 30;
+                timerDisplay.textContent = seconds;
+                
+                twoFaInterval = setInterval(() => {
+                    seconds--;
+                    timerDisplay.textContent = seconds;
+                    if (seconds <= 0) {
+                        clearInterval(twoFaInterval);
+                        resultContainer.classList.add('hidden');
+                        codeDisplay.textContent = '••• •••';
+                    }
+                }, 1000);
+            };
         }
 
         function adjustMailViewContainerHeight() {
@@ -1651,7 +1754,8 @@ Please review and process this request.
                 const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / displayPrice) : 0;
                 const maxQty = Math.min(mail.stock, maxAffordableQty);
 
-                const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}h validity</span>` : '';
+                // UPDATED: Changed "validity" to "/Hour"
+                const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}/Hour</span>` : '';
                 const apiButtonHtml = mail.apiLink ? `<button onclick="openApiLink('${mail.apiLink}')" class="text-blue-600 font-semibold">API</button>` : '<span class="text-gray-400 font-semibold">API</span>';
                 
                 const encodedDetails = encodeURIComponent(mail.details || '');
