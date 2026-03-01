@@ -119,7 +119,7 @@
         .dot { display: inline-block; height: 8px; width: 8px; margin: 0 4px; background: #bbb; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
         .dot.active { background: #007bff; }
 
-        /* RESTORED: Premium Loader with Original Logo */
+        /* Premium Loader */
         #loader {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             gap: 1.5rem; transition: opacity 0.5s ease;
@@ -139,7 +139,9 @@
             top: 0;
             left: 0;
         }
-        .loader-ring { stroke: #e2e8f0; }
+        .loader-ring {
+            stroke: #e2e8f0;
+        }
         .loader-path {
             stroke: #007bff;
             stroke-dasharray: 283;
@@ -154,10 +156,6 @@
             opacity: 0; animation: fadeInText 1s ease-in-out 1.3s forwards;
             color: #6b7280;
         }
-        .progress-bar-container { width: 100%; max-width: 250px; background-color: #e2e8f0; border-radius: 9999px; height: 8px; overflow: hidden; margin-top: 1.5rem; }
-        #progress-bar { width: 0%; height: 100%; background-color: #007bff; border-radius: 9999px; transition: width 0.3s ease; }
-        #progress-percentage { font-size: 1rem; font-weight: 600; color: #007bff; margin-top: 0.5rem; }
-
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes fadeInText { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes draw { to { stroke-dashoffset: 0; } }
@@ -170,7 +168,6 @@
             opacity: 0;
             transform-origin: center;
         }
-
 
         /* NEW Professional Channel Join Gate */
         #channel-join-gate {
@@ -452,24 +449,13 @@
         }
         .currency-switcher button:first-child { border-radius: 0.5rem 0 0 0.5rem; }
         .currency-switcher button:last-child { border-radius: 0 0.5rem 0.5rem 0; }
-        
-        /* 2FA Code Display */
-        #2fa-code-display {
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        #2fa-code-display:hover {
-            background-color: #f0f4f8;
-            border-radius: 8px;
-        }
-
     </style>
 </head>
 <body class="max-w-md mx-auto">
 
-    <!-- UPDATED: Premium Loader with Original Logo and Percentage -->
+    <!-- Premium Loader -->
     <div id="loader" class="fixed inset-0 z-[100]">
-        <div class="flex flex-col items-center">
+        <div>
             <div class="loader-logo-wrapper">
                 <svg viewBox="0 0 100 100">
                     <circle class="loader-ring" cx="50" cy="50" r="45" stroke-width="5" fill="none" />
@@ -481,21 +467,17 @@
             </div>
             <h1 class="text-accent-gradient loader-text mt-4">🅐🅟 𝗧𝗘𝗖𝗛 ⚡ 𝗠𝗔𝗥𝗞𝗘𝗧 🛍️</h1>
             <p id="loader-status-text" class="loader-subtext mt-2">Initializing your premium session...</p>
-             <div class="progress-bar-container">
-                <div id="progress-bar"></div>
-            </div>
-            <div id="progress-percentage">0%</div>
         </div>
     </div>
     
-    <!-- Professional Channel Join Gate (Verification Page) -->
+    <!-- NEW Professional Channel Join Gate -->
     <div id="channel-join-gate" class="fixed inset-0 z-[100]">
         <div class="gate-card">
             <div class="gate-icon-wrapper">
                 <i data-lucide="lock-keyhole" class="w-10 h-10 text-blue-700"></i>
             </div>
             <div class="text-center">
-                <h1 class="text-2xl font-extrabold text-gray-800">Verification Required</h1>
+                <h1 class="text-2xl font-extrabold text-gray-800">Join Our Channels to Get Access</h1>
                 <p class="text-gray-600 mt-2">
                     To ensure a secure experience and receive important updates, please join our official channels.
                 </p>
@@ -519,6 +501,7 @@
             </div>
         </div>
     </div>
+
 
     <div id="menu-overlay"></div>
     <aside id="slide-out-menu">
@@ -558,7 +541,6 @@
         </header>
 
         <main class="flex-grow pb-20">
-            <!-- Professional Home Page -->
             <div id="home-page" class="space-y-6 sub-page">
                 <div class="p-4">
                     <div class="banner-wrapper">
@@ -571,37 +553,13 @@
                     </div>
                 </div>
 
-                <div class="px-4 space-y-4">
-                    <!-- Balance Card -->
-                    <div class="card-bg p-5 rounded-2xl shadow-lg bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-                        <p class="text-blue-200 text-sm mb-1">Your Balance</p>
+                <div class="p-4 space-y-4">
+                    <div class="card-bg p-5 rounded-xl">
+                        <p class="text-gray-600 text-sm mb-1">Your Balance</p>
                         <div class="flex items-center justify-between">
-                            <p id="balance-display" class="text-4xl font-bold tracking-tight">৳0.00</p>
-                            <button id="home-deposit-btn" class="bg-white text-blue-700 font-bold px-6 py-2 rounded-lg shadow-md transition-transform hover:scale-105">Deposit</button>
+                            <p id="balance-display" class="text-4xl font-bold text-[#333333]">৳0.00</p>
+                            <button id="home-deposit-btn" class="btn-gradient px-6 py-2 rounded-lg">Deposit</button>
                         </div>
-                    </div>
-                    
-                    <!-- Quick Actions Section -->
-                    <div class="pt-4">
-                         <h3 class="text-lg font-bold text-gray-800 mb-3 px-1">Quick Actions</h3>
-                         <div class="grid grid-cols-2 gap-4">
-                            <button onclick="navigateTo('mail-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
-                                <i data-lucide="shopping-cart" class="w-8 h-8 text-blue-500"></i>
-                                <span class="font-semibold text-gray-700">Buy Mails</span>
-                            </button>
-                             <button onclick="navigateTo('updates-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
-                                <i data-lucide="megaphone" class="w-8 h-8 text-green-500"></i>
-                                <span class="font-semibold text-gray-700">Updates</span>
-                            </button>
-                             <button onclick="navigateTo('features-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
-                                <i data-lucide="users" class="w-8 h-8 text-purple-500"></i>
-                                <span class="font-semibold text-gray-700">Team / Send</span>
-                            </button>
-                            <button onclick="navigateTo('profile-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2">
-                                <i data-lucide="user-cog" class="w-8 h-8 text-orange-500"></i>
-                                <span class="font-semibold text-gray-700">My Profile</span>
-                            </button>
-                         </div>
                     </div>
                 </div>
             </div>
@@ -681,15 +639,6 @@
 
             <div id="mail-page" class="sub-page">
                 <div class="p-4 space-y-6">
-                    <!-- Ads Section -->
-                    <div class="card-bg p-4 rounded-xl flex items-center gap-4 bg-yellow-50 border-yellow-200">
-                        <i data-lucide="sparkles" class="w-8 h-8 text-yellow-500"></i>
-                        <div>
-                            <h3 class="font-bold text-yellow-800">Special Offer!</h3>
-                            <p class="text-sm text-yellow-700">Get 10% bonus on deposits over ৳1000. Limited time only!</p>
-                        </div>
-                    </div>
-                    
                     <div class="mail-view-switcher">
                         <button id="login-mail-btn" class="active">OTP MAIL</button>
                         <button id="otp-mail-btn">LOGIN MAIL</button>
@@ -712,28 +661,25 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Updates Page Layout -->
-            <div id="updates-page" class="p-4 space-y-8 sub-page">
-                <!-- Tutorials section at top -->
-                <div>
-                    <h3 class="text-xl font-bold text-center text-gray-800 mb-4">Tutorials</h3>
-                     <p class="text-sm text-gray-600 text-center mb-4">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
-                    <div id="tutorial-list" class="space-y-5"></div>
-                </div>
 
-                <div>
-                    <h2 class="text-xl font-bold text-center text-gray-800">Latest Update</h2>
-                    <div id="updates-content" class="space-y-4 mt-4"></div>
-                </div>
+            <div id="updates-page" class="p-4 space-y-6 sub-page">
+                <h2 class="text-xl font-bold text-center text-gray-800">Latest Update</h2>
+                <div id="updates-content" class="space-y-4"></div>
 
-                <div>
+                <div class="mt-8">
                     <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Customer Reviews</h3>
                     <div id="reviews-list" class="space-y-4"></div>
                 </div>
+                
+                <!-- Tutorials section moved here -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-center mb-4 text-gray-800">Tutorials</h3>
+                     <p class="text-sm text-gray-600 text-center mb-4">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
+                    <div id="tutorial-list" class="space-y-5"></div>
+                </div>
             </div>
 
-            <!-- NOTIFICATION FULL-SCREEN PAGE -->
+            <!-- NEW: NOTIFICATION FULL-SCREEN PAGE -->
             <div id="notification-page" class="p-4 space-y-4 sub-page">
                 <div class="relative flex items-center justify-center mb-4">
                     <button onclick="navigateTo('home-page')" class="absolute left-0 p-2 rounded-full hover:bg-gray-100 transition-colors">
@@ -744,30 +690,12 @@
                 <div id="notification-list" class="space-y-3"></div>
             </div>
 
-            <!-- UPDATED: Tools Page with Functional 2FA Generator -->
+            <!-- NEW: TOOLS PAGE -->
             <div id="tools-page" class="p-4 space-y-6 sub-page">
                 <h2 class="text-xl font-bold text-center text-gray-800">Our Tools</h2>
-                
-                <div id="2fa-generator-card" class="card-bg p-5 rounded-2xl space-y-4">
-                    <div class="text-center">
-                        <i data-lucide="shield-check" class="w-10 h-10 text-blue-500 mx-auto mb-2"></i>
-                        <h3 class="text-lg font-bold text-gray-800">2FA Code Generator</h3>
-                        <p class="text-sm text-gray-500">Enter your secret key to get the authentication code.</p>
-                    </div>
-                    <div>
-                        <label for="2fa-secret-key" class="block text-sm font-medium text-gray-600 mb-1">Secret Key</label>
-                        <input id="2fa-secret-key" type="text" placeholder="e.g., JBSWY3DPEHPK3PXP" class="w-full p-3 rounded-lg input-field font-mono">
-                    </div>
-                    <button id="generate-2fa-btn" class="w-full p-3 rounded-lg btn-gradient">Generate Code</button>
-                    <div id="2fa-result-container" class="text-center pt-4 border-t hidden">
-                        <p class="text-4xl font-bold text-accent-gradient tracking-widest" id="2fa-code-display" onclick="copy2FACode(this)">••• •••</p>
-                        <p class="text-sm text-gray-500 mt-2">New code in <span id="2fa-timer">30</span>s</p>
-                    </div>
-                </div>
-
                 <div class="empty-state">
-                    <i data-lucide="construction" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-700">More Tools Coming Soon</h3>
+                    <i data-lucide="construction" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">Page Coming Soon</h3>
                     <p class="text-gray-500 mt-2">We are working hard to bring you new tools. Please check back later!</p>
                 </div>
             </div>
@@ -809,6 +737,7 @@
                 </div>
 
                 <div class="text-center pt-6">
+                     <!-- Developer contact button replaces the text -->
                      <button id="open-developer-modal-btn" class="font-semibold text-[#007bff] hover:underline">Contact Developer</button>
                 </div>
             </div>
@@ -905,13 +834,12 @@
             </div>
 
         </main>
-        
-        <!-- Bottom Navigation Buttons -->
+
         <nav class="bottom-nav">
             <a href="#" class="nav-link-premium" data-page="updates-page"><i data-lucide="bell" class="icon"></i><span>Updates</span></a>
-            <a href="#" class="nav-link-premium" data-page="mail-page"><i data-lucide="mail" class="icon"></i><span>Mail</span></a>
-            <a href="#" class="nav-link-premium center-home-link active" data-page="home-page"><i data-lucide="home" class="icon"></i></a>
             <a href="#" class="nav-link-premium" data-page="tools-page"><i data-lucide="wrench" class="icon"></i><span>Tools</span></a>
+            <a href="#" class="nav-link-premium center-home-link active" data-page="home-page"><i data-lucide="home" class="icon"></i></a>
+            <a href="#" class="nav-link-premium" data-page="mail-page"><i data-lucide="mail" class="icon"></i><span>Mail</span></a>
             <a href="#" class="nav-link-premium" data-page="profile-page"><i data-lucide="user" class="icon"></i><span>Profile</span></a>
             <a href="#" id="admin-nav-link" class="nav-link-premium hidden" data-page="admin-page"><i data-lucide="shield" class="icon"></i><span>Admin</span></a>
         </nav>
@@ -1024,7 +952,7 @@
         </div>
     </div>
 
-    <!-- Developer Details Modal -->
+    <!-- NEW: Developer Details Modal -->
     <div id="developer-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
             <button id="close-developer-modal-btn" class="modal-close-btn">
@@ -1040,11 +968,11 @@
                     <i data-lucide="send" class="w-5 h-5"></i>
                     <span>Telegram</span>
                 </a>
-                <a href="https://wa.me/8801855879942" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#25D366] hover:bg-[#1EBE57] transition-colors">
+                <a href="https://wa.me/8801703632420" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#25D366] hover:bg-[#1EBE57] transition-colors">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                     <span>WhatsApp</span>
                 </a>
-                <a href="tel:+8801855879942" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#3B5998] hover:bg-[#324b81] transition-colors">
+                <a href="#" target="_blank" class="flex items-center justify-center gap-3 w-full p-3 rounded-lg font-bold text-white bg-[#3B5998] hover:bg-[#324b81] transition-colors">
                     <i data-lucide="phone-call" class="w-5 h-5"></i>
                     <span>IMO</span>
                 </a>
@@ -1057,7 +985,7 @@
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
         const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
-        const BDT_TO_USDT_RATE = 125; // Static conversion rate
+        const BDT_TO_USDT_RATE = 125; // Static conversion rate - UPDATED
         
         // --- DUAL FIREBASE CONFIG ---
         const firebaseConfigUser = {
@@ -1097,13 +1025,10 @@
         let countdownInterval = null;
         let selectedPaymentMethod = null;
         let currentCurrency = 'BDT';
-        let developerModalTimeout = null; 
         
         const loader = document.getElementById('loader');
         const loaderStatusText = document.getElementById('loader-status-text');
         const channelGate = document.getElementById('channel-join-gate');
-        const progressBar = document.getElementById('progress-bar');
-        const progressPercentage = document.getElementById('progress-percentage');
 
         const getLoadingHTML = () => `<div class="loading-container"><div class="premium-loader-spinner"></div></div>`;
         const getEmptyStateHTML = (icon, title, message) => `<div class="empty-state"><i data-lucide="${icon}" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i><h3 class="text-xl font-bold text-gray-700">${title}</h3><p class="text-gray-500 mt-2">${message}</p></div>`;
@@ -1121,46 +1046,32 @@
         };
         
         async function initializeAppLogic() {
-            let progress = 0;
-            const progressInterval = setInterval(() => {
-                progress += Math.floor(Math.random() * 5) + 1;
-                if (progress > 95) progress = 95;
-                progressBar.style.width = `${progress}%`;
-                progressPercentage.textContent = `${progress}%`;
-                
-                if (progress < 30) loaderStatusText.textContent = 'Connecting to servers...';
-                else if (progress < 60) loaderStatusText.textContent = 'Verifying your access...';
-                else loaderStatusText.textContent = 'Loading your profile...';
-
-            }, 100);
-
             try {
                 window.Telegram.WebApp.ready();
                 window.Telegram.WebApp.expand();
                 currentUserTg = window.Telegram.WebApp.initDataUnsafe.user;
                 if (!currentUserTg) {
-                     // For local testing, fallback to a dummy user
-                    console.warn("Telegram user data not found. Using dummy data for testing.");
-                    currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser', photo_url: null };
+                    showAlert("Telegram user data not found. Please open this app from Telegram.");
+                    loader.style.display = 'none';
+                    return;
                 }
             } catch (e) {
-                console.error("Telegram WebApp script failed to initialize. Using dummy data.", e);
-                currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser', photo_url: null };
+                console.error("Telegram WebApp script failed to initialize or user data not available.", e);
+                // Fallback for local testing
+                currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
             }
 
-            // The channel membership check is now the crucial gate
+            loaderStatusText.textContent = 'Verifying your access...';
             const isMember = await checkChannelMembership();
             if (!isMember) {
-                clearInterval(progressInterval);
                 loader.style.display = 'none';
                 channelGate.style.display = 'flex';
                 lucide.createIcons();
-                // STOP execution here until user verifies
                 return;
             }
             
-            // If verification is successful, proceed
-            channelGate.style.display = 'none'; 
+            channelGate.style.display = 'none'; // Ensure gate is hidden if check passes
+            loaderStatusText.textContent = 'Loading your profile...';
             setupEventListeners();
             setupBanner();
             
@@ -1171,18 +1082,11 @@
             updateCurrencySwitcherUI();
 
             await initUserSession();
-            
-            clearInterval(progressInterval);
-            progressBar.style.width = '100%';
-            progressPercentage.textContent = '100%';
-            loaderStatusText.textContent = 'Welcome!';
 
+            loader.style.opacity = '0';
             setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
-            }, 300);
+                loader.style.display = 'none';
+            }, 500);
         }
 
         async function restartAppVerification() {
@@ -1190,7 +1094,6 @@
             btn.disabled = true;
             btn.innerHTML = `<div class="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div><span class="ml-2">Checking...</span>`;
 
-            // Re-check membership via Telegram API
             const isMember = await checkChannelMembership();
             if (!isMember) {
                 btn.disabled = false;
@@ -1200,14 +1103,13 @@
                 return;
             }
             
-            // If check is successful, show the main loader and re-initialize the app
-            channelGate.style.display = 'none';
+            // If check is successful, show the main loader and re-initialize
             loader.style.display = 'flex';
             loader.style.opacity = '1';
-            progressBar.style.width = '0%';
-            progressPercentage.textContent = '0%';
             loaderStatusText.textContent = 'Initializing session...';
             
+            channelGate.style.display = 'none';
+            // A short delay to make the transition smoother
             setTimeout(initializeAppLogic, 500);
         }
 
@@ -1222,10 +1124,8 @@
                 if (data.ok) {
                     const status = data.result.status;
                     return ['member', 'administrator', 'creator'].includes(status);
-                } else {
-                    console.error(`API Error for ${channelId}:`, data.description);
-                    return false;
                 }
+                return false;
             } catch (error) {
                 console.error(`Error checking membership for ${channelId}:`, error);
                 return false;
@@ -1233,12 +1133,11 @@
         }
 
         async function checkChannelMembership() {
-            // Bypass for the specified test user
-            if (currentUserTg && currentUserTg.id === '6954647230') {
+            // Bypass for test user
+            if (currentUserTg.id === '6954647230') {
                  console.log("Bypassing channel check for test user.");
                  return true;
             }
-            if (!currentUserTg) return false; // Cannot check without a user
 
             const membershipChecks = OFFICIAL_CHANNELS.map(channel => getChatMember(channel));
             const results = await Promise.all(membershipChecks);
@@ -1354,7 +1253,7 @@
             const activePage = document.querySelector('.sub-page.active');
             updateUI();
             if (activePage) {
-                navigateTo(activePage.id, true);
+                navigateTo(activePage.id, true); // Pass a flag to prevent redundant loading
             }
         }
         
@@ -1385,6 +1284,7 @@
                         card.style.display = 'block';
                     }
                 });
+                // Auto-select Binance if it's the only one visible
                 selectPaymentMethod(methodsGrid.querySelector('[data-method="Binance"] button'));
 
             } else {
@@ -1408,6 +1308,7 @@
                 link.classList.toggle('active', link.dataset.page === pageId);
             });
 
+            // Avoid reloading data if it's just a currency change
             if(isCurrencyChange) {
                 lucide.createIcons();
                 return;
@@ -1417,12 +1318,12 @@
                 'home-page': () => {},
                 'pay-page': () => { loadPaymentHistory(); updateDepositPageForCurrency(); },
                 'mail-page': loadMailStore,
-                'updates-page': () => { loadTutorials(); loadUpdates(); loadReviews(); },
+                'updates-page': () => { loadUpdates(); loadReviews(); loadTutorials(); }, // Added loadTutorials
                 'notification-page': loadNotificationsPage,
                 'admin-page': populateAdminMailTypes,
                 'profile-page': loadProfilePage,
                 'features-page': loadFeaturesPage,
-                'tools-page': () => { setup2FAGenerator(); },
+                'tools-page': () => {}, // New tools page
                 'link-team-page': loadLinkedFriends,
                 'send-page': () => { setupDynamicAmountHandlers('send'); }
             };
@@ -1478,18 +1379,15 @@
             
             document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
 
+            // Developer Modal Events
             document.getElementById('open-developer-modal-btn').addEventListener('click', () => {
-                const modal = document.getElementById('developer-details-modal');
-                modal.classList.remove('hidden');
-                if (developerModalTimeout) clearTimeout(developerModalTimeout);
-                developerModalTimeout = setTimeout(() => modal.classList.add('hidden'), 10000); 
+                document.getElementById('developer-details-modal').classList.remove('hidden');
             });
-
             document.getElementById('close-developer-modal-btn').addEventListener('click', () => {
                 document.getElementById('developer-details-modal').classList.add('hidden');
-                if (developerModalTimeout) clearTimeout(developerModalTimeout);
             });
 
+            // Currency Switcher Events
             document.getElementById('bdt-btn').addEventListener('click', () => {
                 currentCurrency = 'BDT';
                 localStorage.setItem('preferredCurrency', 'BDT');
@@ -1502,101 +1400,6 @@
                 updateCurrencySwitcherUI();
                 updateAllCurrencyDisplays();
             });
-        }
-        
-        // --- Functional TOTP (2FA) Generator ---
-        const TOTP = {
-            base32tohex: (base32) => {
-                const base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-                let bits = ""; let hex = "";
-                base32 = base32.replace(/=+$/, "");
-                for (let i = 0; i < base32.length; i++) {
-                    const val = base32chars.indexOf(base32.charAt(i).toUpperCase());
-                    if(val === -1) throw new Error("Invalid base32 character");
-                    bits += val.toString(2).padStart(5, '0');
-                }
-                for (let i = 0; i + 4 <= bits.length; i += 4) {
-                    const chunk = bits.substr(i, 4);
-                    hex += parseInt(chunk, 2).toString(16);
-                }
-                return hex;
-            },
-            generate: (secret) => {
-                try {
-                    const key = TOTP.base32tohex(secret);
-                    const epoch = Math.round(new Date().getTime() / 1000.0);
-                    const time = Math.floor(epoch / 30).toString(16).padStart(16, '0');
-                    const hmac = new jsSHA("SHA-1", "HEX").getHMAC(time, key, "HEX");
-                    const offset = parseInt(hmac.substring(hmac.length - 1), 16);
-                    let otp = (parseInt(hmac.substr(offset * 2, 8), 16) & 0x7fffffff) + "";
-                    otp = otp.substr(otp.length - 6, 6).padStart(6, '0');
-                    return otp;
-                } catch (error) {
-                    console.error("TOTP Generation Error:", error);
-                    return null;
-                }
-            }
-        };
-
-        // Needs a tiny crypto lib for HMAC-SHA1. Let's embed it.
-        // jsSHA v2.3.1 - https://github.com/Caligatio/jsSHA
-        !function(g){function k(d,a,c){var e=0,b=0,f=0,g=0,h=c.b||0,k=c.c||8,l=c.a,n=0;c=0;var m=[],p=0,q=[],r=k,t,u,v,w,x,y,z,A,B,C,D,E,F;a=a||[];l=l||"UTF-8";"UTF-8"===l&&(l=void 0);g=3*a.length/4-h;if("TEXT"===d)for(t=a,d="BYTES",g=t.length+(l?2:0),n=0;n<t.length;n+=1)e=t.charCodeAt(n),128>e?t[n]=[e]:2048>e?(t[n]=[192|e>>>6,128|e&63]):55296>e||57344<=e?t[n]=[224|e>>>12,128|e>>>6&63,128|e&63]:(n+=1,e=65536+((e&1023)<<10|t.charCodeAt(n)&1023),t[n]=[240|e>>>18,128|e>>>12&63,128|e>>>6&63,128|e&63]);for(var G=0;G<a.length;G+=1)if("BYTES"===d?m=a[G]:(x=a[G],y=x.length,e=0,w=void 0,z=void 0,A=void 0,E=F=B=C=D=0,g=Math.ceil(y/4),"HEX"===d?(x=x.toLowerCase(),w=y,y=0):"B64"===d?(w=4*Math.ceil(y/3),E="="):"ANY"===d?w=y:w=4*(d.b?Math.ceil(y/d.b):1),v=Array(w),A=d.a||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",z=function(a,b){return d.c?d.c(a,b):a<<b},D=function(a,b){return d.d?d.d(a,b):a>>>b},C=function(a,b){return d.e?d.e(a,b):a|b},F=function(a,b){return d.f?d.f(a,b):a&b},B=function(a,b,c){v[c]=C(F(D(a,b),255),z(a,c*k))},"HEX"===d?(x=x.split(""),y=x.length,c=0,e=0):"B64"===d?(x=x.split(""),y=x.length,c=3,e=2):"ANY"===d?(x=x.split(""),y=x.length,c=Math.ceil(Math.log(d.a.length)/Math.log(2)),e=c-1),m=Array(g),g=0;g<w;g+=1){for(p=0;p<y;p+=1){if("HEX"===d)for(var H=parseInt(x[p],16),I=0;I<k;I+=1)e+=1,v[e]=D(H,k-1-I)&1;else if("B64"===d)if(-1!==A.indexOf(x[p])){H=A.indexOf(x[p]);for(I=0;I<c;I+=1)e+=1,v[e]=D(H,c-1-I)&1}else{if("="===x[p])break}else if("ANY"===d)if(-1!==A.indexOf(x[p])){H=A.indexOf(x[p]);for(I=0;I<c;I+=1)e+=1,v[e]=D(H,c-1-I)&1}else break}for(p=0;p<g;p+=1)for(I=e=0;I<k;I+=1)B(v[p*k+I],I,p);m[g-1]&&(m[g-1]=C(D(m[g-1],1),1))}),e=m.length*k,e>g)m[m.length-1]&=255<<e-g;else if(e<g)for(b=m.length;b<(g+k-1)/k;b+=1)m[b]=0;for(b=0;b<m.length;b+=4)q.push(m.slice(b,b+4));return q}function l(d,a,c,e){var b=[],f,g,h,k,l,n,m,p;l=a[0];n=a[1];m=a[2];p=a[3];for(f=0;f<d.length;f+=16)g=l,h=n,k=m,p=a[3],l=c(l,n,m,p,d[f],7,-680876936),p=c(p,l,n,m,d[f+1],12,-389564586),m=c(m,p,l,n,d[f+2],17,606105819),n=c(n,m,p,l,d[f+3],22,-1044525330),l=c(l,n,m,p,d[f+4],7,-176418897),p=c(p,l,n,m,d[f+5],12,1200080426),m=c(m,p,l,n,d[f+6],17,-1473231341),n=c(n,m,p,l,d[f+7],22,-45705983),l=c(l,n,m,p,d[f+8],7,1770035416),p=c(p,l,n,m,d[f+9],12,-1958414417),m=c(m,p,l,n,d[f+10],17,-42063),n=c(n,m,p,l,d[f+11],22,-1990404162),l=c(l,n,m,p,d[f+12],7,1804603682),p=c(p,l,n,m,d[f+13],12,-40341101),m=c(m,p,l,n,d[f+14],17,-1502002290),n=c(n,m,p,l,d[f+15],22,1236535329),l=e(l,n,m,p,d[f+1],5,-165796510),m=e(m,p,l,n,d[f+6],9,-1069501632),n=e(n,m,p,l,d[f+11],14,643717713),l=e(l,n,m,p,d[f],20,-373897302),m=e(m,p,l,n,d[f+5],5,-701558691),n=e(n,m,p,l,d[f+10],9,38016083),l=e(l,n,m,p,d[f+15],14,-660478335),m=e(m,p,l,n,d[f+4],5,-405537848),n=e(n,m,p,l,d[f+9],9,568446438),l=e(l,n,m,p,d[f+14],14,-1019803690),m=e(m,p,l,n,d[f+3],5,-187363961),n=e(n,m,p,l,d[f+8],9,1163531501),l=e(l,n,m,p,d[f+13],14,-1444681467),m=e(m,p,l,n,d[f+2],5,-51403784),n=e(n,m,p,l,d[f+7],9,1735328473),l=e(l,n,m,p,d[f+12],14,-1926607734),l=h(l,n,m,p,d[f+5],4,-378558),p=h(p,l,n,m,d[f+8],11,-2022574463),m=h(m,p,l,n,d[f+11],16,1839030562),n=h(n,m,p,l,d[f+14],23,-35309556),l=h(l,n,m,p,d[f+1],4,-1530992060),p=h(p,l,n,m,d[f+4],11,1272893353),m=h(m,p,l,n,d[f+7],16,-155497632),n=h(n,m,p,l,d[f+10],23,-1094730640),l=h(l,n,m,p,d[f+13],4,681279174),p=h(p,l,n,m,d[f],11,-358537222),m=h(m,p,l,n,d[f+3],16,-722521979),n=h(n,m,p,l,d[f+6],23,76029189),l=h(l,n,m,p,d[f+9],4,-640364487),p=h(p,l,n,m,d[f+12],11,-421815835),m=h(m,p,l,n,d[f+15],16,530742520),n=h(n,m,p,l,d[f+2],23,-995338651),l=b(l,n,m,p,d[f],6,-198630844),p=b(p,l,n,m,d[f+7],10,1126891415),m=b(m,p,l,n,d[f+14],15,-1416354905),n=b(n,m,p,l,d[f+5],21,-57434055),l=b(l,n,m,p,d[f+12],6,1700485571),p=b(p,l,n,m,d[f+3],10,-1894986606),m=b(m,p,l,n,d[f+10],15,-1051523),n=b(n,m,p,l,d[f+1],21,-2054922799),l=b(l,n,m,p,d[f+8],6,1873313359),p=b(p,l,n,m,d[f+15],10,-30611744),m=b(m,p,l,n,d[f+6],15,-1560198380),n=b(n,m,p,l,d[f+13],21,1309151649),l=b(l,n,m,p,d[f+4],6,-145523070),p=b(p,l,n,m,d[f+11],10,-1120210379),m=b(m,p,l,n,d[f+2],15,718787259),n=b(n,m,p,l,d[f+9],21,-343485551),l=l+g>>>0,n=n+h>>>0,m=m+k>>>0,p=p+p>>>0;return[l,n,m,p]}var n,m;m={a:function(d){return(d&4294967295)>>16},b:function(d){return d&65535},c:function(d,a){return d<<a|d>>>32-a}};n={f:function(d,a,c){return d&a^~d&c},g:function(d,a,c){return d&c^a&~c},h:function(d,a,c){return d^a^c},i:function(d,a,c){return a^(d|~c)},j:function(d,a,c){return l(k("TEXT",d,{a:a,b:c}),[1732584193,-271733879,-1732584194,271733878],function(d,a,c,e,b,f,g){return a+(d&a^~d&c)+b+g<<f|a+(d&a^~d&c)+b+g>>>32-f},function(d,a,c,e,b,f,g){return d+(d&c^a&~c)+b+g<<f|d+(d&c^a&~c)+b+g>>>32-f},function(d,a,c,e,b,f,g){return a+(d^a^c)+b+g<<f|a+(d^a^c)+b+g>>>32-f},function(d,a,c,e,b,f,g){return a+(a^(d|~c))+b+g<<f|a+(a^(d|~c))+b+g>>>32-f})},k:function(d,a,c,e){var b;d=k("TEXT",d,{a:a,b:c,c:8});b=l(d,e,function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(b&c|~b&d)+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(b&c|~b&d)+m.a(e)+m.a(g)+m.a(h)},function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(b&d|c&~d)+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(b&d|c&~d)+m.a(e)+m.a(g)+m.a(h)},function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(b^c^d)+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(b^c^d)+m.a(e)+m.a(g)+m.a(h)},function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(c^(b|~d))+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(c^(b|~d))+m.a(e)+m.a(g)+m.a(h)});return d.concat(l(d,e,function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(b&c|~b&d)+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(b&c|~b&d)+m.a(e)+m.a(g)+m.a(h)},function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(b&d|c&~d)+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(b&d|c&~d)+m.a(e)+m.a(g)+m.a(h)},function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(b^c^d)+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(b^c^d)+m.a(e)+m.a(g)+m.a(h)},function(a,b,c,d,e,f,g){var h=m.b(a)+m.b(c^(b|~d))+m.b(e)+m.b(g);return m.b(h<<f|h>>>16-f)+m.a(a)+m.a(c^(b|~d))+m.a(e)+m.a(g)+m.a(h)}))}};g.jsSHA=function(d,a,c){var e=[],b=[],f,g=0,h=0,k=0,l=!1,q=!1;f=c||{};c=f.encoding||"UTF-8";b=f.numRounds||1;f=function(a){return"SHA-1"===d?m.k(a):m.j(a)};if(b!==parseInt(b,10)||1>b)throw Error("numRounds must be a positive integer.");if("SHA-1"===d)k=160;else if("MD5"===d)k=128;else throw Error("Chosen SHA variant is not supported.");this.setHMACKey=function(c,g,h){if(!q)if(l)throw Error("HMAC key already set.");else{if("SHA-1"===d&&"HMAC"===a)e=n.k(c,h?h.outputUpper:!1,h?h.b64Pad:!1,e);else throw Error("HMAC is only supported with SHA-1.");q=!0}};this.update=function(b){if(!q)g+=f(b,c,g),h+=b.length,l=!0};this.getHash=function(c,g){var f;f=g||{};g=f.outputUpper||!1;f=f.b64Pad||"";if(q)return n.j(e,c,k,g,f);f=n.j(m.a(h,g,f),c,k,g,f,m.b(h));for(var l=1;l<b;l+=1)f=n.j(f,c,k,g,f);return f}}}(this);
-
-        let twoFaInterval = null;
-        function setup2FAGenerator() {
-            const generateBtn = document.getElementById('generate-2fa-btn');
-            
-            if(generateBtn.dataset.listenerAttached) return;
-
-            const updateCode = () => {
-                const secretKey = document.getElementById('2fa-secret-key').value.trim().toUpperCase();
-                const resultContainer = document.getElementById('2fa-result-container');
-                const codeDisplay = document.getElementById('2fa-code-display');
-
-                if (!secretKey) return; // Don't run if no key
-
-                const code = TOTP.generate(secretKey);
-                if (code) {
-                    codeDisplay.textContent = `${code.slice(0,3)} ${code.slice(3)}`;
-                    resultContainer.classList.remove('hidden');
-                } else {
-                    if (twoFaInterval) clearInterval(twoFaInterval);
-                    resultContainer.classList.add('hidden');
-                    showAlert("Invalid Secret Key. Please check your key and try again.");
-                }
-            };
-            
-            const startTimer = () => {
-                if (twoFaInterval) clearInterval(twoFaInterval);
-                const timerDisplay = document.getElementById('2fa-timer');
-                
-                const updateTimer = () => {
-                    const seconds = 30 - (Math.floor(new Date().getTime() / 1000.0) % 30);
-                    timerDisplay.textContent = seconds;
-                    if (seconds === 30) {
-                        updateCode(); // Generate new code when timer resets
-                    }
-                };
-                
-                updateTimer(); // Initial call
-                twoFaInterval = setInterval(updateTimer, 1000);
-            };
-
-            generateBtn.onclick = () => {
-                const secretKey = document.getElementById('2fa-secret-key').value.trim();
-                 if (!secretKey) {
-                    showAlert("Please enter a secret key.");
-                    return;
-                }
-                updateCode();
-                startTimer();
-            };
-            generateBtn.dataset.listenerAttached = 'true';
-        }
-        
-        window.copy2FACode = (element) => {
-            const code = element.textContent.replace(/\s/g, ''); // Remove spaces
-            copyToClipboard(code, null, '2FA Code Copied!');
         }
 
         function adjustMailViewContainerHeight() {
@@ -1740,8 +1543,9 @@
 
             if (amountInBdt < minDeposit) return showAlert(`ন্যূনতম ডিপোজিটের পরিমাণ ৳${minDeposit} বা এর সমপরিমাণ USDT।`);
 
-            loader.style.display = 'flex';
+            document.getElementById('app-container').append(loader);
             loader.style.opacity = '1';
+            loader.style.display = 'flex';
 
             try {
                 const depositQuery = query(collection(dbUser, "deposits"), where("transactionId", "==", transactionId), where("status", "in", ["pending", "approved"]));
@@ -1759,7 +1563,7 @@
                 });
 
                 try {
-                    const adminChatId = "-1002867496763";
+                    const adminChatId = "-1002867496763"; // UPDATED
                     const message = `
 🔔 *New Deposit Request* 🔔
 
@@ -1789,10 +1593,7 @@ Please review and process this request.
                 selectedPaymentMethod = null;
                 loadPaymentHistory();
             } catch (error) { showAlert("ডিপোজিট অনুরোধ জমা দিতে একটি সমস্যা হয়েছে।"); } 
-            finally { 
-                 loader.style.opacity = '0';
-                 setTimeout(() => loader.style.display = 'none', 500);
-            }
+            finally { loader.style.display = 'none'; }
         }
 
         async function loadPaymentHistory() {
@@ -1850,7 +1651,7 @@ Please review and process this request.
                 const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / displayPrice) : 0;
                 const maxQty = Math.min(mail.stock, maxAffordableQty);
 
-                const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}/Hour</span>` : '';
+                const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}h validity</span>` : '';
                 const apiButtonHtml = mail.apiLink ? `<button onclick="openApiLink('${mail.apiLink}')" class="text-blue-600 font-semibold">API</button>` : '<span class="text-gray-400 font-semibold">API</span>';
                 
                 const encodedDetails = encodeURIComponent(mail.details || '');
@@ -1951,7 +1752,7 @@ Please review and process this request.
                     if (p.isRefunded) return false;
                     
                     if (p.type === 'bulk') {
-                        const expiryTime = p.purchasedAt.toDate().getTime() + (10 * 3600000);
+                        const expiryTime = p.purchasedAt.toDate().getTime() + (10 * 3600000); // 10 hours
                         if(Date.now() >= expiryTime) return false;
                     }
 
@@ -2041,7 +1842,8 @@ Please review and process this request.
         }
 
         async function handleDownloadHistory() {
-            loader.style.display = 'flex'; loader.style.opacity = '1';
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 const q = query(collection(dbMail, "mail_purchases"), where("userId", "==", userData.tgChatId), orderBy("purchasedAt", "desc"));
                 const querySnapshot = await getDocs(q);
@@ -2068,14 +1870,12 @@ Please review and process this request.
                 XLSX.writeFile(wb, "My_Purchase_History.xlsx");
                 showAlert("History downloaded successfully!");
             } catch (error) { showAlert("ইতিহাস ডাউনলোড করার সময় একটি সমস্যা হয়েছে।"); }
-            finally { 
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
+            finally { loader.style.display = 'none'; }
         }
 
         async function handleCopyAllHistory() {
-            loader.style.display = 'flex'; loader.style.opacity = '1';
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 const tenHoursAgo = Timestamp.fromDate(new Date(Date.now() - 10 * 60 * 60 * 1000));
                 const q = query(collection(dbMail, "mail_purchases"), where("userId", "==", userData.tgChatId), where("purchasedAt", ">=", tenHoursAgo), orderBy("purchasedAt", "desc"));
@@ -2102,10 +1902,7 @@ Please review and process this request.
                     showAlert("কোনো ডেটা কপি করার জন্য পাওয়া যায়নি।");
                 }
             } catch (error) { showAlert("হিস্ট্রি কপি করার সময় একটি সমস্যা হয়েছে।"); console.error(error); }
-            finally {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
+            finally { loader.style.display = 'none'; }
         }
 
         window.showMailDetails = function(mailType, encodedDetails, encodedFeatures) {
@@ -2186,7 +1983,8 @@ Please review and process this request.
             const lines = mailDataRaw.trim().split('\n').filter(line => line.trim() !== '');
             if (lines.length === 0) return showAlert("No valid mail data found.");
 
-            loader.style.display = 'flex'; loader.style.opacity = '1';
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 const batch = writeBatch(dbMail);
                 let addedCount = 0;
@@ -2207,10 +2005,7 @@ Please review and process this request.
                     document.getElementById('mail-data-textarea').value = '';
                 } else showAlert("No valid mails found to add.");
             } catch (error) { showAlert("An error occurred while adding mails."); }
-            finally {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
+            finally { loader.style.display = 'none'; }
         }
 
         function showAlert(message) {
@@ -2327,7 +2122,8 @@ Please review and process this request.
             if (totalCost > userData.balance) return showAlert(`অপর্যাপ্ত ব্যালেন্স। আপনার প্রয়োজন ${formatCurrency(totalCost)}।`);
             if (!confirm(`আপনি কি ${recipientId}-কে ${formatCurrency(amount)} পাঠাতে চান?\nফি: ${formatCurrency(fee)}\nমোট কাটা হবে: ${formatCurrency(totalCost)}`)) return;
 
-            loader.style.display = 'flex'; loader.style.opacity = '1';
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 await runTransaction(dbUser, async (transaction) => {
                     const senderRef = doc(dbUser, "users", userData.tgChatId);
@@ -2350,10 +2146,7 @@ Please review and process this request.
                 showAlert(`সফলভাবে ${formatCurrency(amount)} পাঠানো হয়েছে।`);
                 navigateTo('features-page');
             } catch (error) { showAlert(typeof error === 'string' ? error : "ব্যালেন্স পাঠাতে সমস্যা হয়েছে।"); } 
-            finally {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
+            finally { loader.style.display = 'none'; }
         }
         
         async function handleSearchFriend() {
@@ -2418,17 +2211,15 @@ Please review and process this request.
 
         window.unlinkFriend = async function(friendId) {
             if (!confirm("Are you sure you want to remove this user?")) return;
-            loader.style.display = 'flex'; loader.style.opacity = '1';
+            document.getElementById('app-container').append(loader);
+            loader.style.display = 'flex';
             try {
                 await updateDoc(doc(dbUser, "users", userData.tgChatId), { linkedUsers: arrayRemove(friendId) });
                 await updateDoc(doc(dbUser, "users", friendId), { linkedBy: null });
                 showAlert("Friend has been unlinked.");
                 loadLinkedFriends();
             } catch (e) { showAlert("Failed to unlink friend."); } 
-            finally {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
+            finally { loader.style.display = 'none'; }
         }
 
         async function loadTutorials() {
@@ -2508,10 +2299,11 @@ Please review and process this request.
             }
         };
 
+        // NEW FUNCTION: Send purchase notification to admin channel
         async function sendPurchaseNotificationToAdmin(purchaseData) {
             try {
                 const { mailType, quantity, totalCost, purchasedMails, buyer } = purchaseData;
-                const adminChannelId = "-1003756630096";
+                const adminChannelId = "-1003756630096"; // UPDATED
                 
                 const mailList = purchasedMails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
 
@@ -2559,7 +2351,10 @@ ${mailList}
             
             if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ${formatCurrency(totalCost)} দিয়ে কিনতে চান?`)) return;
 
-            loader.style.display = 'flex'; loader.style.opacity = '1';
+            // This ensures loading starts right after confirmation
+            document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
             
             let purchasedMailsData = [];
             
@@ -2641,8 +2436,8 @@ ${mailList}
                 console.error("Bulk Buy Error:", e);
                 loadMailStore();
             } finally {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
+                // Loader is hidden only after success modal is shown or an error occurs
+                loader.style.display = 'none';
             }
         };
         
