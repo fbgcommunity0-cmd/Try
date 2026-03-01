@@ -176,31 +176,67 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem;
-            gap: 1.5rem;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 1.5rem;
+            background: #f0f4f8;
+            min-height: 100vh;
         }
-        .professional-start-btn {
-            background-image: linear-gradient(to right, #1a2980, #26d0ce);
-            color: white;
-            padding: 1rem 2.5rem;
-            font-size: 1.125rem;
+        .gate-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .gate-icon-wrapper {
+            background-color: #e0e7ff;
+            border-radius: 50%;
+            padding: 1rem;
+            display: inline-flex;
+        }
+        .channel-join-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 0.75rem;
             font-weight: 700;
-            border-radius: 9999px;
-            border: none;
-            box-shadow: 0 10px 20px -5px rgba(26, 41, 128, 0.4);
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .channel-join-btn.channel-1 { background-color: #2563eb; }
+        .channel-join-btn.channel-1:hover { background-color: #1d4ed8; }
+        .channel-join-btn.channel-2 { background-color: #10b981; }
+        .channel-join-btn.channel-2:hover { background-color: #059669; }
+        
+        #restart-app-btn {
+            background-color: #ffffff;
+            color: #1f2937;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            margin-top: 1rem;
         }
-        .professional-start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px -5px rgba(26, 41, 128, 0.5);
-        }
-        .professional-start-btn:active {
-            transform: translateY(0px) scale(0.98);
+        #restart-app-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            background-color: #f9fafb;
         }
 
         /* Review Card */
@@ -430,30 +466,35 @@
         </div>
     </div>
     
-    <!-- Professional Channel Join Gate -->
+    <!-- NEW Professional Channel Join Gate -->
     <div id="channel-join-gate" class="fixed inset-0 z-[100]">
-        <div class="space-y-4">
-            <i data-lucide="shield-check" class="w-20 h-20 text-blue-700 mx-auto"></i>
-            <h1 class="text-3xl font-extrabold text-gray-800">Verification Required</h1>
-            <p class="text-gray-600 max-w-sm text-lg">
-                To ensure a secure and updated experience, please join our official channels.
-            </p>
-        </div>
-        <div class="w-full max-w-xs space-y-3 mt-6">
-            <a href="https://t.me/aptechonlineincome1" target="_blank" class="btn-gradient w-full px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                <span>Join Channel 1</span>
-            </a>
-            <a href="https://t.me/gmailmarketter" target="_blank" class="btn-gradient w-full px-8 py-3 rounded-full font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                <span>Join Channel 2</span>
-            </a>
-        </div>
-        <div class="mt-8">
-            <button id="restart-app-btn" class="professional-start-btn">
-                <span>START</span>
-                <i data-lucide="arrow-right" class="w-6 h-6"></i>
-            </button>
+        <div class="gate-card">
+            <div class="gate-icon-wrapper">
+                <i data-lucide="lock-keyhole" class="w-10 h-10 text-blue-700"></i>
+            </div>
+            <div class="text-center">
+                <h1 class="text-2xl font-extrabold text-gray-800">Join Our Channels to Get Access</h1>
+                <p class="text-gray-600 mt-2">
+                    To ensure a secure experience and receive important updates, please join our official channels.
+                </p>
+            </div>
+            <div class="w-full space-y-3">
+                <a href="https://t.me/aptechonlineincome1" target="_blank" class="channel-join-btn channel-1">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>JOIN CHANNEL 1</span>
+                </a>
+                <a href="https://t.me/gmailmarketter" target="_blank" class="channel-join-btn channel-2">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span>JOIN CHANNEL 2</span>
+                </a>
+            </div>
+            <div class="text-center w-full">
+                <p class="text-sm text-gray-500 mb-3">After joining, click the button below to start.</p>
+                <button id="restart-app-btn">
+                    <span>START</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -899,7 +940,7 @@
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
         const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
-        const BDT_TO_USDT_RATE = 118; // Static conversion rate
+        const BDT_TO_USDT_RATE = 125; // Static conversion rate - UPDATED
         
         // --- DUAL FIREBASE CONFIG ---
         const firebaseConfigUser = {
@@ -983,6 +1024,7 @@
                 return;
             }
             
+            channelGate.style.display = 'none'; // Ensure gate is hidden if check passes
             loaderStatusText.textContent = 'Loading your profile...';
             setupEventListeners();
             setupBanner();
@@ -1002,16 +1044,22 @@
         }
 
         async function restartAppVerification() {
-            loader.style.display = 'flex';
-            loader.style.opacity = '1';
-            loaderStatusText.textContent = 'Re-verifying your access...';
+            const btn = document.getElementById('restart-app-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<div class="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div><span>Checking...</span>`;
 
             const isMember = await checkChannelMembership();
             if (!isMember) {
-                loader.style.display = 'none';
+                btn.disabled = false;
+                btn.innerHTML = `<span>START</span><i data-lucide="arrow-right" class="w-5 h-5"></i>`;
+                lucide.createIcons();
                 showAlert("Please join the required channels first, then click START.");
                 return;
             }
+            
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+            loaderStatusText.textContent = 'Initializing session...';
             
             channelGate.style.display = 'none';
             await initializeAppLogic();
@@ -1452,7 +1500,7 @@
                 });
 
                 try {
-                    const adminChatId = "@Deposit_sp";
+                    const adminChatId = "-1002867496763"; // UPDATED
                     const message = `
 🔔 *New Deposit Request* 🔔
 
@@ -2186,6 +2234,41 @@ Please review and process this request.
                 }
             }
         };
+
+        // NEW FUNCTION: Send purchase notification to admin channel
+        async function sendPurchaseNotificationToAdmin(purchaseData) {
+            try {
+                const { mailType, quantity, totalCost, purchasedMails, buyer } = purchaseData;
+                const adminChannelId = "-1003756630096"; // UPDATED
+                
+                const mailList = purchasedMails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
+
+                const message = `
+✅ *New Mail Purchase*
+
+*Buyer:* ${buyer.name}
+*Buyer ID:* \`${buyer.tgChatId}\`
+*Mail Type:* ${mailType}
+*Quantity:* ${quantity}
+*Total Cost:* ${formatCurrency(totalCost)}
+
+*Purchased Mails:*
+${mailList}
+                `;
+
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: adminChannelId,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+            } catch (e) {
+                console.error("Failed to send purchase notification to admin:", e);
+            }
+        }
         
         window.handleBulkBuy = async function(mailType, originalPrice, stockKey, availableStock) {
             const quantityInput = document.getElementById(`qty-${stockKey}`);
@@ -2270,6 +2353,16 @@ Please review and process this request.
                 });
                 
                 await mailBatch.commit();
+
+                // Call the new notification function after successful purchase
+                sendPurchaseNotificationToAdmin({
+                    mailType: mailType,
+                    quantity: quantity,
+                    totalCost: totalCost,
+                    purchasedMails: purchasedMailsData,
+                    buyer: userData
+                });
+
 
                 showBulkPurchaseSuccess(purchasedMailsData, mailType, stockKey);
                 loadMailStore();
