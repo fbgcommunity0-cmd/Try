@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP TECH ⚡ MAIL MARKET 🛍️</title>
+    <title>🅐🅟 𝗧𝗘𝗖𝗛 ⚡ 𝗠𝗔𝗥𝗞𝗘𝗧 🛍️</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- NEW: Added OTPAuth.js library for correct 2FA code generation -->
     <script src="https://cdn.jsdelivr.net/npm/otpauth@9.2.2/dist/otpauth.umd.min.js"></script>
     <style>
         body {
@@ -135,21 +136,17 @@
         #loader-logo-path {
             stroke-dasharray: 1000;
             stroke-dashoffset: 1000;
-            animation: draw-logo 2.5s ease-in-out 0.5s forwards;
+            animation: draw-logo 2s ease-in-out 0.5s forwards;
         }
         .progress-bar-container { width: 100%; max-width: 250px; background-color: #e2e8f0; border-radius: 9999px; height: 8px; overflow: hidden; margin-top: 1.5rem; }
         #progress-bar { width: 0%; height: 100%; background-color: #007bff; border-radius: 9999px; transition: width 0.3s ease; }
-        /* UPDATED: Highlighted App Name Style */
         #loader .loader-text {
-            font-weight: 800; /* extrabold */
-            font-size: 1.8rem;
-            letter-spacing: 0.05em; /* tracking-wide */
-            opacity: 0; 
-            animation: fadeInText 1s ease-in-out 1.2s forwards;
+            font-weight: bold; font-size: 1.75rem;
+            opacity: 0; animation: fadeInText 1s ease-in-out 0.8s forwards;
         }
         #loader .loader-subtext {
             color: #6b7280; font-size: 1rem;
-            opacity: 0; animation: fadeInText 1s ease-in-out 1.5s forwards;
+            opacity: 0; animation: fadeInText 1s ease-in-out 1.1s forwards;
         }
         #progress-percentage { font-size: 1.25rem; font-weight: 700; color: #007bff; margin-top: 1rem; }
 
@@ -446,22 +443,11 @@
         #2fa-code-display:hover {
             transform: scale(1.05);
         }
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid #d1d5db;
-            color: #374151;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-        .btn-outline:hover {
-            background-color: #f3f4f6;
-            border-color: #9ca3af;
-        }
     </style>
 </head>
 <body class="max-w-md mx-auto">
 
-    <!-- UPDATED: Premium Loader with New Professional MAIL Logo and Animation -->
+    <!-- UPDATED: Premium Loader with New Professional Logo and Animation -->
     <div id="loader" class="fixed inset-0 z-[100]">
         <div class="flex flex-col items-center">
             <div class="loader-logo-wrapper">
@@ -472,10 +458,10 @@
                             <stop offset="100%" style="stop-color:#0056b3;stop-opacity:1" />
                         </linearGradient>
                     </defs>
-                    <path id="loader-logo-path" d="M14 26.6V73.4C14 78.7 18.3 83 23.6 83H76.4C81.7 83 86 78.7 86 73.4V26.6C86 21.3 81.7 17 76.4 17H23.6C18.3 17 14 21.3 14 26.6Z M14 27L50 51L86 27" stroke="url(#logoGradient)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path id="loader-logo-path" d="M65.4,23.6c-6.8-6.1-16-9.6-25.9-9.6C20.3,14,9.9,24.1,9.9,37.3v25.4C9.9,76.1,20.3,86,39.5,86 c9.9,0,19.1-3.5,25.9-9.6 M39.5,23.6V76.5 M65.4,23.6H90.1V37.3c0,6.1-2.2,11.6-5.8,16.1 M65.4,76.5H90.1V62.7c0-6.1-2.2-11.6-5.8-16.1" stroke="url(#logoGradient)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1 class="text-accent-gradient loader-text mt-4">AP TECH MAIL MARKET</h1>
+            <h1 class="text-accent-gradient loader-text mt-4">🅐🅟 𝗧𝗘𝗖𝗛 ⚡ 𝗠𝗔𝗥𝗞𝗘𝗧 🛍️</h1>
             <p id="loader-status-text" class="loader-subtext mt-2">Initializing your premium session...</p>
             <div class="progress-bar-container">
                 <div id="progress-bar"></div>
@@ -484,7 +470,7 @@
         </div>
     </div>
     
-    <!-- Professional Channel Join Gate -->
+    <!-- NEW Professional Channel Join Gate -->
     <div id="channel-join-gate" class="fixed inset-0 z-[100]">
         <div class="gate-card">
             <div class="gate-icon-wrapper">
@@ -525,7 +511,7 @@
         <nav id="support-channels-list" class="flex-grow overflow-y-auto">
             </nav>
         <div class="p-4 text-center text-xs text-gray-400 border-t">
-            AP TECH ⚡ MAIL MARKET 🛍️ &copy; 2026
+            🅐🅟 𝗧𝗘𝗖𝗛 ⚡ 𝗠𝗔𝗥𝗞𝗘𝗧 🛍️ &copy; 2026
         </div>
     </aside>
     <div id="app-container" class="min-h-screen flex-col main-page">
@@ -554,7 +540,7 @@
         </header>
 
         <main class="flex-grow pb-20">
-            <!-- Home Page -->
+            <!-- UPDATED: Home Page with Professional Look -->
             <div id="home-page" class="space-y-6 sub-page">
                 <div class="p-4">
                     <div class="banner-wrapper">
@@ -677,7 +663,7 @@
 
             <div id="mail-page" class="sub-page">
                 <div class="p-4 space-y-6">
-                    <!-- Ads Section -->
+                    <!-- NEW: Ads Section -->
                     <div class="card-bg p-4 rounded-xl flex items-center gap-4 bg-yellow-50 border-yellow-200">
                         <i data-lucide="sparkles" class="w-8 h-8 text-yellow-500"></i>
                         <div>
@@ -709,12 +695,18 @@
                 </div>
             </div>
             
-            <!-- UPDATED: Updates Page Layout (Removed Latest Update section) -->
+            <!-- UPDATED: Updates Page Layout -->
             <div id="updates-page" class="p-4 space-y-8 sub-page">
+                <!-- Tutorials section moved to top -->
                 <div>
                     <h3 class="text-xl font-bold text-center text-gray-800 mb-4">Tutorials</h3>
                      <p class="text-sm text-gray-600 text-center mb-4">নিচের তালিকা থেকে আপনার প্রয়োজনীয় ভিডিওটি দেখুন।</p>
                     <div id="tutorial-list" class="space-y-5"></div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-bold text-center text-gray-800">Latest Update</h2>
+                    <div id="updates-content" class="space-y-4 mt-4"></div>
                 </div>
 
                 <div>
@@ -723,7 +715,7 @@
                 </div>
             </div>
 
-            <!-- NOTIFICATION FULL-SCREEN PAGE -->
+            <!-- NEW: NOTIFICATION FULL-SCREEN PAGE -->
             <div id="notification-page" class="p-4 space-y-4 sub-page">
                 <div class="relative flex items-center justify-center mb-4">
                     <button onclick="navigateTo('home-page')" class="absolute left-0 p-2 rounded-full hover:bg-gray-100 transition-colors">
@@ -734,7 +726,7 @@
                 <div id="notification-list" class="space-y-3"></div>
             </div>
 
-            <!-- UPDATED: Tools Page with functional 2FA Generator and new buttons -->
+            <!-- UPDATED: Tools Page with functional 2FA Generator -->
             <div id="tools-page" class="p-4 space-y-6 sub-page">
                 <h2 class="text-xl font-bold text-center text-gray-800">Our Tools</h2>
                 
@@ -748,17 +740,10 @@
                         <label for="2fa-secret-key" class="block text-sm font-medium text-gray-600 mb-1">Secret Key</label>
                         <input id="2fa-secret-key" type="text" placeholder="e.g., JBSWY3DPEHPK3PXP" class="w-full p-3 rounded-lg input-field font-mono">
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                         <button id="clear-2fa-btn" class="w-full p-3 rounded-lg btn-outline">Clear</button>
-                         <button id="generate-2fa-btn" class="w-full p-3 rounded-lg btn-gradient">Generate Code</button>
-                    </div>
+                    <button id="generate-2fa-btn" class="w-full p-3 rounded-lg btn-gradient">Generate Code</button>
                     <div id="2fa-result-container" class="text-center pt-4 border-t hidden">
                         <p class="text-4xl font-bold text-accent-gradient tracking-widest" id="2fa-code-display" title="Click to copy">••• •••</p>
                         <p class="text-sm text-gray-500 mt-2">New code in <span id="2fa-timer">30</span>s</p>
-                        <button id="copy-2fa-btn" class="mt-4 inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg transition-colors">
-                            <i data-lucide="copy" class="w-4 h-4"></i>
-                            <span>Copy Code</span>
-                        </button>
                     </div>
                 </div>
 
@@ -806,6 +791,7 @@
                 </div>
 
                 <div class="text-center pt-6">
+                     <!-- Developer contact button replaces the text -->
                      <button id="open-developer-modal-btn" class="font-semibold text-[#007bff] hover:underline">Contact Developer</button>
                 </div>
             </div>
@@ -903,7 +889,7 @@
 
         </main>
         
-        <!-- Bottom Navigation Buttons -->
+        <!-- UPDATED: Bottom Navigation Buttons -->
         <nav class="bottom-nav">
             <a href="#" class="nav-link-premium" data-page="updates-page"><i data-lucide="bell" class="icon"></i><span>Updates</span></a>
             <a href="#" class="nav-link-premium" data-page="mail-page"><i data-lucide="mail" class="icon"></i><span>Mail</span></a>
@@ -1021,7 +1007,7 @@
         </div>
     </div>
 
-    <!-- Developer Details Modal -->
+    <!-- UPDATED: Developer Details Modal with New Links and Auto-close -->
     <div id="developer-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
             <button id="close-developer-modal-btn" class="modal-close-btn">
@@ -1054,7 +1040,7 @@
         const ADMIN_UID = "735882471";
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
         const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
-        const BDT_TO_USDT_RATE = 125;
+        const BDT_TO_USDT_RATE = 125; // Static conversion rate - UPDATED
         
         // --- DUAL FIREBASE CONFIG ---
         const firebaseConfigUser = {
@@ -1079,19 +1065,22 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit, runTransaction, getCountFromServer, writeBatch, updateDoc, Timestamp, onSnapshot, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
+        // --- Initialize both Firebase apps ---
         const userApp = initializeApp(firebaseConfigUser, "userApp");
         const mailApp = initializeApp(firebaseConfigMail, "mailApp");
 
+        // --- Get Firestore instances for each app ---
         const dbUser = getFirestore(userApp);
         const dbMail = getFirestore(mailApp);
 
         let currentUserTg = null;
         let userData = null;
         let appConfig = {};
+        let insufficientBalanceInterval = null;
         let countdownInterval = null;
         let selectedPaymentMethod = null;
         let currentCurrency = 'BDT';
-        let developerModalTimeout = null;
+        let developerModalTimeout = null; // For auto-closing modal
         
         const loader = document.getElementById('loader');
         const loaderStatusText = document.getElementById('loader-status-text');
@@ -1114,11 +1103,12 @@
              initializeAppLogic();
         };
         
+        // UPDATED: App initialization with simulated loading progress
         async function initializeAppLogic() {
             let progress = 0;
             const progressInterval = setInterval(() => {
                 progress += Math.floor(Math.random() * 5) + 1;
-                if (progress > 95) progress = 95;
+                if (progress > 95) progress = 95; // Don't hit 100 until fully loaded
                 progressBar.style.width = `${progress}%`;
                 progressPercentage.textContent = `${progress}%`;
                 
@@ -1139,7 +1129,8 @@
                     return;
                 }
             } catch (e) {
-                console.error("Telegram WebApp script failed to initialize.", e);
+                console.error("Telegram WebApp script failed to initialize or user data not available.", e);
+                // Fallback for local testing
                 currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
             }
             
@@ -1164,6 +1155,7 @@
 
             await initUserSession();
             
+            // Finalize loading animation
             clearInterval(progressInterval);
             progressBar.style.width = '100%';
             progressPercentage.textContent = '100%';
@@ -1189,6 +1181,7 @@
                 return;
             }
             
+            // If check is successful, show the main loader and re-initialize
             loader.style.display = 'flex';
             loader.style.opacity = '1';
             progressBar.style.width = '0%';
@@ -1196,6 +1189,7 @@
             loaderStatusText.textContent = 'Initializing session...';
             
             channelGate.style.display = 'none';
+            // A short delay to make the transition smoother
             setTimeout(initializeAppLogic, 500);
         }
 
@@ -1219,6 +1213,7 @@
         }
 
         async function checkChannelMembership() {
+            // Bypass for test user
             if (currentUserTg.id === '6954647230') {
                  console.log("Bypassing channel check for test user.");
                  return true;
@@ -1338,7 +1333,7 @@
             const activePage = document.querySelector('.sub-page.active');
             updateUI();
             if (activePage) {
-                navigateTo(activePage.id, true);
+                navigateTo(activePage.id, true); // Pass a flag to prevent redundant loading
             }
         }
         
@@ -1369,6 +1364,7 @@
                         card.style.display = 'block';
                     }
                 });
+                // Auto-select Binance if it's the only one visible
                 selectPaymentMethod(methodsGrid.querySelector('[data-method="Binance"] button'));
 
             } else {
@@ -1381,12 +1377,18 @@
         }
 
         function navigateTo(pageId, isCurrencyChange = false) {
+            if (pageId !== 'mail-page' && insufficientBalanceInterval) {
+                clearInterval(insufficientBalanceInterval);
+                insufficientBalanceInterval = null;
+            }
+
             document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.querySelectorAll('.nav-link-premium[data-page]').forEach(link => {
                 link.classList.toggle('active', link.dataset.page === pageId);
             });
 
+            // Avoid reloading data if it's just a currency change
             if(isCurrencyChange) {
                 lucide.createIcons();
                 return;
@@ -1396,12 +1398,12 @@
                 'home-page': () => {},
                 'pay-page': () => { loadPaymentHistory(); updateDepositPageForCurrency(); },
                 'mail-page': loadMailStore,
-                'updates-page': () => { loadTutorials(); loadReviews(); },
+                'updates-page': () => { loadUpdates(); loadReviews(); loadTutorials(); },
                 'notification-page': loadNotificationsPage,
                 'admin-page': populateAdminMailTypes,
                 'profile-page': loadProfilePage,
                 'features-page': loadFeaturesPage,
-                'tools-page': () => { setup2FAGenerator(); },
+                'tools-page': () => { setup2FAGenerator(); }, // Setup for 2FA tool
                 'link-team-page': loadLinkedFriends,
                 'send-page': () => { setupDynamicAmountHandlers('send'); }
             };
@@ -1457,18 +1459,27 @@
             
             document.getElementById('restart-app-btn').addEventListener('click', restartAppVerification);
 
+            // Developer Modal Events with Auto-close
             document.getElementById('open-developer-modal-btn').addEventListener('click', () => {
                 const modal = document.getElementById('developer-details-modal');
                 modal.classList.remove('hidden');
+                
+                // Clear any previous timer
                 if (developerModalTimeout) clearTimeout(developerModalTimeout);
-                developerModalTimeout = setTimeout(() => modal.classList.add('hidden'), 10000); 
+
+                // Set a new timer to close the modal after 10 seconds
+                developerModalTimeout = setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 10000); 
             });
 
             document.getElementById('close-developer-modal-btn').addEventListener('click', () => {
                 document.getElementById('developer-details-modal').classList.add('hidden');
+                 // Clear the auto-close timer if closed manually
                 if (developerModalTimeout) clearTimeout(developerModalTimeout);
             });
 
+            // Currency Switcher Events
             document.getElementById('bdt-btn').addEventListener('click', () => {
                 currentCurrency = 'BDT';
                 localStorage.setItem('preferredCurrency', 'BDT');
@@ -1483,62 +1494,58 @@
             });
         }
         
-        // UPDATED & REFINED: Functional 2FA Generator Logic
+        // UPDATED: Functional 2FA Generator Logic
         let twoFaInterval = null;
         function setup2FAGenerator() {
             const generateBtn = document.getElementById('generate-2fa-btn');
-            const clearBtn = document.getElementById('clear-2fa-btn');
             const resultContainer = document.getElementById('2fa-result-container');
             const codeDisplay = document.getElementById('2fa-code-display');
             const timerDisplay = document.getElementById('2fa-timer');
             const secretKeyInput = document.getElementById('2fa-secret-key');
-            const copyBtn = document.getElementById('copy-2fa-btn');
-
-            let currentCode = '';
-
-            const resetState = () => {
-                if (twoFaInterval) clearInterval(twoFaInterval);
-                resultContainer.classList.add('hidden');
-                codeDisplay.textContent = '••• •••';
-                currentCode = '';
-                codeDisplay.onclick = null;
-                copyBtn.onclick = null;
-            };
 
             const generateCode = () => {
                 const secret = secretKeyInput.value.trim().replace(/\s/g, '').toUpperCase();
-                if (!secret) return null;
+                if (!secret) return;
 
                 try {
-                    const totp = new OTPAuth.TOTP({ secret, digits: 6, period: 30 });
-                    currentCode = totp.generate();
-                    codeDisplay.textContent = `${currentCode.slice(0, 3)} ${currentCode.slice(3)}`;
-                    
-                    codeDisplay.onclick = () => copyToClipboard(currentCode, codeDisplay);
-                    copyBtn.onclick = () => copyToClipboard(currentCode, copyBtn);
+                    // Using the otpauth library loaded from CDN
+                    const totp = new OTPAuth.TOTP({
+                        issuer: "AP TECH MARKET",
+                        label: "2FA",
+                        algorithm: "SHA1",
+                        digits: 6,
+                        period: 30,
+                        secret: secret,
+                    });
 
+                    const code = totp.generate();
+                    const formattedCode = `${code.slice(0, 3)} ${code.slice(3)}`;
+                    codeDisplay.textContent = formattedCode;
+                    codeDisplay.onclick = () => copyToClipboard(code, null, '2FA Code Copied!');
+                    
                     resultContainer.classList.remove('hidden');
                     return totp.period - (Math.floor(Date.now() / 1000) % totp.period);
 
                 } catch (err) {
-                    showAlert("Invalid secret key. Please check your key and try again.");
-                    resetState();
+                    console.error("2FA Error:", err);
+                    showAlert("Invalid secret key. Please check your key and try again. It should be a Base32 string.");
+                    if (twoFaInterval) clearInterval(twoFaInterval);
+                    resultContainer.classList.add('hidden');
                     return null;
                 }
             };
 
             const startTimer = (startTime) => {
-                resetState();
+                if (twoFaInterval) clearInterval(twoFaInterval);
                 let seconds = startTime;
                 timerDisplay.textContent = seconds;
-                resultContainer.classList.remove('hidden');
 
                 twoFaInterval = setInterval(() => {
                     seconds--;
                     if (seconds < 0) {
                         const newStartTime = generateCode();
-                        if (newStartTime !== null) seconds = newStartTime;
-                        else resetState();
+                        if (newStartTime) seconds = newStartTime;
+                        else clearInterval(twoFaInterval);
                     }
                     timerDisplay.textContent = seconds >= 0 ? seconds : 0;
                 }, 1000);
@@ -1546,15 +1553,11 @@
 
             generateBtn.onclick = () => {
                 const secret = secretKeyInput.value.trim();
-                if (!secret) return showAlert("Please enter a secret key.");
-                
+                if (!secret) {
+                    return showAlert("Please enter a secret key.");
+                }
                 const startTime = generateCode();
-                if (startTime !== null) startTimer(startTime);
-            };
-
-            clearBtn.onclick = () => {
-                secretKeyInput.value = '';
-                resetState();
+                if(startTime) startTimer(startTime);
             };
         }
 
@@ -1563,7 +1566,9 @@
                 const container = document.getElementById('mail-views-container');
                 const loginView = document.getElementById('login-mail-container');
                 const otpView = document.getElementById('otp-mail-container');
+                
                 const activeView = loginView.style.transform === 'translateX(0%)' ? loginView : otpView;
+                
                 if (container && activeView) {
                     container.style.height = `${activeView.scrollHeight}px`;
                 }
@@ -1581,7 +1586,7 @@
                 otpBtn.classList.remove('active');
                 loginContainer.style.transform = 'translateX(0%)';
                 otpContainer.style.transform = 'translateX(100%)';
-            } else {
+            } else { // otp
                 loginBtn.classList.remove('active');
                 otpBtn.classList.add('active');
                 loginContainer.style.transform = 'translateX(-100%)';
@@ -1593,18 +1598,28 @@
         function listenForNotifications() {
             const q = query(collection(dbUser, "notifications"), orderBy("createdAt", "desc"));
             onSnapshot(q, (snapshot) => {
-                const filteredDocs = snapshot.docs.filter(doc => !doc.data().recipientId || doc.data().recipientId === userData.tgChatId);
+                const filteredDocs = snapshot.docs.filter(doc => {
+                    const data = doc.data();
+                    return !data.recipientId || data.recipientId === userData.tgChatId;
+                });
 
                 let unreadCount = 0;
                 const lastSeen = userData.lastSeenNotification ? userData.lastSeenNotification.toMillis() : 0;
                 
                 filteredDocs.forEach(doc => {
-                    if (doc.data().createdAt.toMillis() > lastSeen) unreadCount++;
+                    const notification = doc.data();
+                    if (notification.createdAt.toMillis() > lastSeen) {
+                        unreadCount++;
+                    }
                 });
 
                 const badge = document.getElementById('notification-badge');
-                badge.textContent = unreadCount;
-                badge.classList.toggle('hidden', unreadCount === 0);
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
             });
         }
 
@@ -1614,10 +1629,14 @@
             
             const q = query(collection(dbUser, "notifications"), orderBy("createdAt", "desc"), limit(20));
             const snapshot = await getDocs(q);
-            const filteredDocs = snapshot.docs.filter(doc => !doc.data().recipientId || doc.data().recipientId === userData.tgChatId);
+
+            const filteredDocs = snapshot.docs.filter(doc => {
+                const data = doc.data();
+                return !data.recipientId || data.recipientId === userData.tgChatId;
+            });
 
             if (filteredDocs.length === 0) {
-                listEl.innerHTML = getEmptyStateHTML('bell-off', 'No Notifications', 'You have no new notifications.');
+                listEl.innerHTML = getEmptyStateHTML('bell-off', 'No Notifications', 'You have no new notifications at the moment.');
             } else {
                 listEl.innerHTML = filteredDocs.map(doc => {
                     const item = doc.data();
@@ -1676,9 +1695,14 @@
             if (!selectedPaymentMethod) return showAlert("অনুগ্রহ করে প্রথমে একটি পেমেন্ট মাধ্যম বেছে নিন।");
             if (isNaN(amount) || amount <= 0 || !transactionId) return showAlert("অনুগ্রহ করে সমস্ত তথ্য সঠিকভাবে পূরণ করুন।");
             
-            let amountInBdt = currentCurrency === 'USDT' ? amount * BDT_TO_USDT_RATE : amount;
+            let amountInBdt = amount;
+            if (currentCurrency === 'USDT') {
+                amountInBdt = amount * BDT_TO_USDT_RATE;
+            }
+
             if (amountInBdt < minDeposit) return showAlert(`ন্যূনতম ডিপোজিটের পরিমাণ ৳${minDeposit} বা এর সমপরিমাণ USDT।`);
 
+            document.getElementById('app-container').append(loader);
             loader.style.opacity = '1';
             loader.style.display = 'flex';
 
@@ -1686,22 +1710,37 @@
                 const depositQuery = query(collection(dbUser, "deposits"), where("transactionId", "==", transactionId), where("status", "in", ["pending", "approved"]));
                 const querySnapshot = await getDocs(depositQuery);
                 if (!querySnapshot.empty) {
+                    loader.style.display = 'none';
                     return showAlert("এই Transaction ID দিয়ে ইতিমধ্যে একটি ডিপোজিট অনুরোধ জমা দেওয়া হয়েছে।");
                 }
-
                 await addDoc(collection(dbUser, "deposits"), {
                     userId: userData.tgChatId, userName: userData.name, method: selectedPaymentMethod, 
-                    amount: amountInBdt, originalAmount: amount, originalCurrency: currentCurrency,
+                    amount: amountInBdt, 
+                    originalAmount: amount,
+                    originalCurrency: currentCurrency,
                     transactionId: transactionId, status: "pending", requestedAt: serverTimestamp()
                 });
 
                 try {
-                    const adminChatId = "-1002867496763";
-                    const message = `🔔 *New Deposit Request* 🔔\n\n*User:* ${userData.name} (${userData.tgChatId})\n*Method:* ${selectedPaymentMethod}\n*Amount:* ${formatCurrency(amountInBdt)}\n*Transaction ID:* \`${transactionId}\`\n\nPlease review and process this request.`;
+                    const adminChatId = "-1002867496763"; // UPDATED
+                    const message = `
+🔔 *New Deposit Request* 🔔
+
+*User:* ${userData.name} (${userData.tgChatId})
+*Method:* ${selectedPaymentMethod}
+*Amount:* ${formatCurrency(amountInBdt)}
+*Transaction ID:* \`${transactionId}\`
+
+Please review and process this request.
+                    `;
                     fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: adminChatId, text: message, parse_mode: 'Markdown' })
+                        body: JSON.stringify({
+                            chat_id: adminChatId,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
                     });
                 } catch (e) {
                     console.error("Failed to send Telegram notification:", e);
@@ -1724,7 +1763,8 @@
                 const snapshot = await getDocs(q);
                 if (snapshot.empty) {
                     historyList.innerHTML = getEmptyStateHTML('history', 'No Payment History', 'You have not made any deposits yet.');
-                    return lucide.createIcons();
+                    lucide.createIcons();
+                    return;
                 }
 
                 historyList.innerHTML = snapshot.docs.map(doc => {
@@ -1763,13 +1803,17 @@
                                      .sort((a, b) => (b.stock > 0 ? 1 : 0) - (a.stock > 0 ? 1 : 0) || a.priceBdt - b.priceBdt);
 
             containerEl.innerHTML = mailsWithStock.map(mail => {
+                const displayPrice = mail.priceBdt;
                 const isOutOfStock = mail.stock < 1;
-                const canAffordOne = effectiveBalance >= mail.priceBdt;
-                const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / mail.priceBdt) : 0;
+                
+                const canAffordOne = effectiveBalance >= displayPrice;
+                const maxAffordableQty = canAffordOne ? Math.floor(effectiveBalance / displayPrice) : 0;
                 const maxQty = Math.min(mail.stock, maxAffordableQty);
 
+                // UPDATED: Changed "validity" to "/Hour"
                 const validityTagHtml = (mail.expirationHours != null) ? `<span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationHours}/Hour</span>` : '';
                 const apiButtonHtml = mail.apiLink ? `<button onclick="openApiLink('${mail.apiLink}')" class="text-blue-600 font-semibold">API</button>` : '<span class="text-gray-400 font-semibold">API</span>';
+                
                 const encodedDetails = encodeURIComponent(mail.details || '');
                 const encodedFeatures = encodeURIComponent(JSON.stringify(mail.featureList || []));
 
@@ -1786,13 +1830,27 @@
                             </div>
                             <button class="btn-gradient w-auto px-6 py-2 rounded-lg text-md flex-shrink-0" ${maxQty < 1 ? 'disabled' : ''} onclick="handleBulkBuy('${mail.type}', ${mail.priceBdt}, '${mail.stockKey}', ${mail.stock})">Buy</button>
                         </div>
-                        ${maxQty < 1 && !canAffordOne ? '<p class="text-xs text-center text-red-500 mt-1">Insufficient balance.</p>' : ''}
+                        ${maxQty < 1 && !canAffordOne ? '<p class="text-xs text-center text-red-500 mt-1">Insufficient balance to buy even one.</p>' : ''}
                     `;
                 }
 
                 return `<div class="card-bg p-4 rounded-xl space-y-3 ${isOutOfStock ? 'opacity-60' : ''}">
-                    <div class="flex justify-between items-center"><div class="flex items-center gap-3"><img src="${mail.logoUrl}" class="w-8 h-8 rounded-lg object-cover" alt="${mail.type} logo"><h3 class="font-bold text-lg text-gray-800">${mail.type}</h3></div><div class="flex items-center gap-2">${validityTagHtml}<button onclick="showMailDetails('${mail.type}', '${encodedDetails}', '${encodedFeatures}')" class="text-blue-600 text-sm font-semibold">Details</button></div></div>
-                    <div class="grid grid-cols-3 text-center items-center pt-2 border-t border-gray-200"><div class="py-2">${apiButtonHtml}</div><div class="py-2"><p class="text-gray-500 text-sm">Price</p><p class="font-bold text-lg text-blue-600">${formatCurrency(mail.priceBdt)}</p></div><div class="py-2"><p class="text-gray-500 text-sm">Stock</p><p class="font-bold text-lg text-green-600">${mail.stock}</p></div></div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <img src="${mail.logoUrl}" class="w-8 h-8 rounded-lg object-cover" alt="${mail.type} logo">
+                            <h3 class="font-bold text-lg text-gray-800">${mail.type}</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            ${validityTagHtml}
+                            <button onclick="showMailDetails('${mail.type}', '${encodedDetails}', '${encodedFeatures}')" class="text-blue-600 text-sm font-semibold">Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 text-center items-center pt-2 border-t border-gray-200">
+                        <div class="py-2">${apiButtonHtml}</div>
+                        <div class="py-2"><p class="text-gray-500 text-sm">Price</p><p class="font-bold text-lg text-blue-600">${formatCurrency(displayPrice)}</p></div>
+                        <div class="py-2"><p class="text-gray-500 text-sm">Stock</p><p class="font-bold text-lg text-green-600">${mail.stock}</p></div>
+                    </div>
                     ${buySection}
                 </div>`;
             }).join('');
@@ -1804,9 +1862,13 @@
             const mailConfig = appConfig.mails.find(m => m.stockKey === stockKey) || {};
 
             const copyBtn = `<button onclick="copyToClipboard('${fullData}', this)" title="Full Copy" class="p-2 rounded-md hover:bg-gray-200"><i data-lucide="copy-plus" class="w-4 h-4 text-gray-600"></i></button>`;
-            let actionBtn = mailConfig.apiLink 
-                ? `<button onclick="window.Telegram.WebApp.openLink('${mailConfig.apiLink}')" title="Inbox" class="p-2 rounded-md hover:bg-gray-200"><i data-lucide="inbox" class="w-4 h-4 text-purple-600"></i></button>`
-                : `<button onclick="handleSendToTelegram([${JSON.stringify(mail)}], '${mailType}', this)" title="Send to Telegram" class="p-2 rounded-md hover:bg-gray-200"><i data-lucide="send" class="w-4 h-4 text-blue-600"></i></button>`;
+            
+            let actionBtn;
+            if (mailConfig.apiLink) {
+                actionBtn = `<button onclick="window.Telegram.WebApp.openLink('${mailConfig.apiLink}')" title="Inbox" class="p-2 rounded-md hover:bg-gray-200"><i data-lucide="inbox" class="w-4 h-4 text-purple-600"></i></button>`;
+            } else {
+                actionBtn = `<button onclick="handleSendToTelegram([${JSON.stringify(mail)}], '${mailType}', this)" title="Send to Telegram" class="p-2 rounded-md hover:bg-gray-200"><i data-lucide="send" class="w-4 h-4 text-blue-600"></i></button>`;
+            }
 
             return `<div class="flex items-center">${copyBtn}${actionBtn}</div>`;
         }
@@ -1848,8 +1910,17 @@
 
                 const activePurchases = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() })).filter(p => {
                     if (p.isRefunded) return false;
-                    const expiryTime = (p.purchasedAt.toDate().getTime() + ((p.expirationHours || 24) * 3600000));
-                    return Date.now() < expiryTime;
+                    
+                    if (p.type === 'bulk') {
+                        const expiryTime = p.purchasedAt.toDate().getTime() + (10 * 3600000); // 10 hours
+                        if(Date.now() >= expiryTime) return false;
+                    }
+
+                    if (p.expirationHours && p.purchasedAt) {
+                        const expiryTime = p.purchasedAt.toDate().getTime() + (p.expirationHours * 3600000);
+                        return Date.now() < expiryTime;
+                    }
+                    return true;
                 });
 
                 if(activePurchases.length === 0) {
@@ -1861,10 +1932,31 @@
                         if (purchase.type === 'bulk' && purchase.mails) {
                             const mailsJson = JSON.stringify(purchase.mails);
                             const individualMailHtml = purchase.mails.map((mail, index) => {
-                                return `<div class="flex items-center justify-between bg-gray-50 p-2 rounded-md"><span class="font-mono text-sm text-gray-800 truncate flex-1">${mail.email} | ${mail.password}</span>${getIndividualMailActionsHTML(mail, purchase.mailType, purchase.stockKey)}</div>`;
+                                const actionButtons = getIndividualMailActionsHTML(mail, purchase.mailType, purchase.stockKey);
+                                return `<div class="flex items-center justify-between bg-gray-50 p-2 rounded-md">
+                                    <span class="font-mono text-sm text-gray-800 truncate flex-1">${mail.email} | ${mail.password}</span>
+                                    ${actionButtons}
+                                </div>`;
                             }).join('');
                             
-                             return `<div class="card-bg p-4 rounded-xl space-y-3"><div class="flex justify-between items-start"><div><h4 class="font-bold text-lg text-gray-800">${purchase.mailType} (Bulk)</h4><p class="text-xs text-gray-500">${date}</p><p class="text-sm font-semibold mt-1">Purchased: ${purchase.mails.length} mails</p></div><div class="flex flex-col items-end gap-2"><button onclick='handleXlsxCopy(${mailsJson})' class="bg-green-100 text-green-700 text-xs px-3 py-1.5 rounded-md font-semibold hover:bg-green-200 flex items-center gap-1"><i data-lucide="table-2" class="w-3 h-3"></i> XLSX Copy</button><button onclick='handleSendToTelegram(${mailsJson}, "${purchase.mailType}", this)' class="bg-blue-100 text-blue-700 text-xs px-3 py-1.5 rounded-md font-semibold hover:bg-blue-200 flex items-center gap-1"><i data-lucide="send" class="w-3 h-3"></i> Send All</button></div></div><div class="space-y-2 pt-2 border-t max-h-48 overflow-y-auto">${individualMailHtml}</div></div>`;
+                             return `<div class="card-bg p-4 rounded-xl space-y-3">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-800">${purchase.mailType} (Bulk)</h4>
+                                        <p class="text-xs text-gray-500">${date}</p>
+                                        <p class="text-sm font-semibold mt-1">Purchased: ${purchase.mails.length} mails</p>
+                                    </div>
+                                    <div class="flex flex-col items-end gap-2">
+                                        <button onclick='handleXlsxCopy(${mailsJson})' class="bg-green-100 text-green-700 text-xs px-3 py-1.5 rounded-md font-semibold hover:bg-green-200 flex items-center gap-1">
+                                            <i data-lucide="table-2" class="w-3 h-3"></i> XLSX Copy
+                                        </button>
+                                         <button onclick='handleSendToTelegram(${mailsJson}, "${purchase.mailType}", this)' class="bg-blue-100 text-blue-700 text-xs px-3 py-1.5 rounded-md font-semibold hover:bg-blue-200 flex items-center gap-1">
+                                            <i data-lucide="send" class="w-3 h-3"></i> Send All
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="space-y-2 pt-2 border-t max-h-48 overflow-y-auto">${individualMailHtml}</div>
+                            </div>`;
                         }
                         
                         const fullData = [purchase.mail, purchase.password, purchase.refreshToken, purchase.clientId].filter(Boolean).join('|');
@@ -1895,7 +1987,8 @@
                     const expiryTime = parseInt(el.dataset.purchasedAt, 10) + (parseFloat(el.dataset.expiresInHours) * 3600000);
                     const remaining = expiryTime - Date.now();
                     if (remaining <= 0) {
-                         el.closest('.card-bg')?.remove();
+                         const parentCard = el.closest('.card-bg');
+                         if (parentCard) parentCard.remove();
                     } else {
                         hasActiveTimers = true;
                         const h = Math.floor(remaining / 3600000).toString().padStart(2, '0');
@@ -1909,54 +2002,66 @@
         }
 
         async function handleDownloadHistory() {
+            document.getElementById('app-container').append(loader);
             loader.style.display = 'flex';
             try {
                 const q = query(collection(dbMail, "mail_purchases"), where("userId", "==", userData.tgChatId), orderBy("purchasedAt", "desc"));
                 const querySnapshot = await getDocs(q);
-                if (querySnapshot.empty) return showAlert("আপনার কোনো History নেই");
-                
+                if (querySnapshot.empty) {
+                    loader.style.display = 'none';
+                    return showAlert("আপনার কোনো History নেই");
+                }
                 const dataForExcel = [];
                 querySnapshot.docs.forEach(doc => {
                     const p = doc.data();
-                    const fullData = (mail) => [mail.email, mail.password, mail.refresh_token, mail.client_id].filter(Boolean).join('|');
                     if (p.type === 'bulk' && p.mails) {
-                        p.mails.forEach(mail => dataForExcel.push({ 'Purchase Date': p.purchasedAt.toDate().toLocaleString(), 'Mail Type': p.mailType, 'Email': mail.email, 'Password': mail.password || 'N/A', 'Full Data': fullData(mail) }));
+                        p.mails.forEach(mail => {
+                           dataForExcel.push({ 'Purchase Date': p.purchasedAt.toDate().toLocaleString(), 'Mail Type': p.mailType, 'Email': mail.email, 'Password': mail.password || 'N/A', 'Full Data': [mail.email, mail.password, mail.refresh_token, mail.client_id].filter(Boolean).join('|') });
+                        });
                     } else {
                         dataForExcel.push({ 'Purchase Date': p.purchasedAt.toDate().toLocaleString(), 'Mail Type': p.mailType, 'Email': p.mail, 'Password': p.password || 'N/A', 'Cost (BDT)': p.cost, 'Full Data': [p.mail, p.password, p.refreshToken, p.clientId].filter(Boolean).join('|') });
                     }
                 });
                 
                 const ws = XLSX.utils.json_to_sheet(dataForExcel);
-                ws['!cols'] = [ {wch: 22}, {wch: 20}, {wch: 30}, {wch: 30}, {wch: 15}, {wch: 70} ];
                 const wb = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(wb, ws, "Purchase History");
+                ws['!cols'] = [ {wch: 22}, {wch: 20}, {wch: 30}, {wch: 30}, {wch: 15}, {wch: 70} ];
                 XLSX.writeFile(wb, "My_Purchase_History.xlsx");
+                showAlert("History downloaded successfully!");
             } catch (error) { showAlert("ইতিহাস ডাউনলোড করার সময় একটি সমস্যা হয়েছে।"); }
             finally { loader.style.display = 'none'; }
         }
 
         async function handleCopyAllHistory() {
+            document.getElementById('app-container').append(loader);
             loader.style.display = 'flex';
             try {
                 const tenHoursAgo = Timestamp.fromDate(new Date(Date.now() - 10 * 60 * 60 * 1000));
                 const q = query(collection(dbMail, "mail_purchases"), where("userId", "==", userData.tgChatId), where("purchasedAt", ">=", tenHoursAgo), orderBy("purchasedAt", "desc"));
                 const querySnapshot = await getDocs(q);
-                if (querySnapshot.empty) return showAlert("গত ১০ ঘন্টায় কোনো কেনাকাটার ইতিহাস পাওয়া যায়নি।");
-                
+                if (querySnapshot.empty) {
+                    loader.style.display = 'none';
+                    return showAlert("গত ১০ ঘন্টায় কোনো কেনাকাটার ইতিহাস পাওয়া যায়নি।");
+                }
                 let fullHistory = [];
                 querySnapshot.docs.forEach(doc => {
                     const p = doc.data();
-                     if (p.type === 'bulk' && p.mails) {
-                        p.mails.forEach(mail => fullHistory.push([mail.email, mail.password, mail.refresh_token, mail.client_id].filter(Boolean).join('|')));
+                    if (p.type === 'bulk' && p.mails) {
+                        p.mails.forEach(mail => {
+                           fullHistory.push([mail.email, mail.password, mail.refresh_token, mail.client_id].filter(Boolean).join('|'));
+                        });
                     } else {
                         fullHistory.push([p.mail, p.password, p.refreshToken, p.clientId].filter(Boolean).join('|'));
                     }
                 });
                 
-                if (fullHistory.length > 0) copyToClipboard(fullHistory.join('\n'), null, 'গত ১০ ঘণ্টার সব কেনাকাটার FULL DATA কপি করা হয়েছে!');
-                else showAlert("কোনো ডেটা কপি করার জন্য পাওয়া যায়নি।");
-
-            } catch (error) { showAlert("হিস্ট্রি কপি করার সময় একটি সমস্যা হয়েছে।"); }
+                if (fullHistory.length > 0) {
+                    copyToClipboard(fullHistory.join('\n'), null, 'গত ১০ ঘণ্টার সব কেনাকাটার FULL DATA কপি করা হয়েছে!');
+                } else {
+                    showAlert("কোনো ডেটা কপি করার জন্য পাওয়া যায়নি।");
+                }
+            } catch (error) { showAlert("হিস্ট্রি কপি করার সময় একটি সমস্যা হয়েছে।"); console.error(error); }
             finally { loader.style.display = 'none'; }
         }
 
@@ -1965,15 +2070,64 @@
             const features = JSON.parse(decodeURIComponent(encodedFeatures));
             
             let contentHTML = `<p>${details}</p>`;
+            
             if (features && features.length > 0) {
-                const featureListHTML = features.map(feature => `<div class="flex items-start gap-3 mt-2"><i data-lucide="shield-check" class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"></i><span class="text-sm text-gray-800">${feature}</span></div>`).join('');
-                contentHTML += `<div class="mt-4 pt-3 border-t border-gray-200"><h4 class="font-semibold text-gray-800 mb-2">Features:</h4>${featureListHTML}</div>`;
+                const featureListHTML = features.map(feature => 
+                    `<div class="flex items-start gap-3 mt-2">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"></i>
+                        <span class="text-sm text-gray-800">${feature}</span>
+                    </div>`
+                ).join('');
+                contentHTML += `<div class="mt-4 pt-3 border-t border-gray-200">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Features:</h4>
+                                    ${featureListHTML}
+                                </div>`;
             }
 
             document.getElementById('mail-details-title').textContent = `${mailType} Details`;
             document.getElementById('mail-details-content').innerHTML = contentHTML;
             document.getElementById('mail-details-modal').classList.remove('hidden');
             lucide.createIcons();
+        }
+
+        window.toggleUpdateContent = (updateId, encodedContent) => {
+            const contentEl = document.getElementById(`update-content-${updateId}`);
+            const buttonEl = contentEl.nextElementSibling;
+            const fullContent = decodeURIComponent(encodedContent);
+            if (buttonEl.innerText === "Read More") {
+                contentEl.innerText = fullContent;
+                buttonEl.innerText = "Show Less";
+            } else {
+                contentEl.innerText = fullContent.substring(0, 120) + '...';
+                buttonEl.innerText = "Read More";
+            }
+        }
+
+        async function loadUpdates() {
+            const updatesContainer = document.getElementById('updates-content');
+            updatesContainer.innerHTML = getLoadingHTML();
+            try {
+                const q = query(collection(dbMail, "updates"), orderBy("createdAt", "desc"), limit(1));
+                const snapshot = await getDocs(q);
+                if (snapshot.empty) {
+                    updatesContainer.innerHTML = getEmptyStateHTML('megaphone-off', 'No Updates', 'There are no new updates right now. Check back later!');
+                    lucide.createIcons();
+                    return;
+                }
+
+                const updateDoc = snapshot.docs[0];
+                const update = { id: updateDoc.id, ...updateDoc.data() };
+                const content = update.content || '';
+                const shortContent = content.length > 120 ? content.substring(0, 120) + '...' : content;
+                const encodedContent = encodeURIComponent(content);
+                const date = update.createdAt ? update.createdAt.toDate().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+
+                updatesContainer.innerHTML = `<div class="card-bg rounded-2xl overflow-hidden shadow-lg flex flex-col">${update.imageUrl ? `<img src="${update.imageUrl}" class="w-full aspect-[16/9] object-cover" alt="Update Banner">` : ''}<div class="p-5 space-y-3"><div><h3 class="text-xl font-bold text-gray-800">${update.title}</h3>${date ? `<p class="text-xs text-gray-500 mt-1">${date}</p>` : ''}</div><p id="update-content-${update.id}" class="text-gray-600 text-sm whitespace-pre-wrap leading-relaxed">${shortContent}</p>${content.length > 120 ? `<button onclick="toggleUpdateContent('${update.id}', '${encodedContent}')" class="font-semibold text-blue-600 text-sm hover:underline">Read More</button>` : ''}</div></div>`;
+                lucide.createIcons();
+            } catch(e) {
+                updatesContainer.innerHTML = `<p class="text-center text-red-600">Failed to load updates.</p>`;
+                console.error("Error loading updates:", e);
+            }
         }
         
         function populateAdminMailTypes() {
@@ -1986,10 +2140,10 @@
             const stockKey = document.getElementById('mail-type-select').value;
             const mailDataRaw = document.getElementById('mail-data-textarea').value;
             if (!stockKey || !mailDataRaw.trim()) return showAlert("Please select a mail type and provide mail data.");
-
             const lines = mailDataRaw.trim().split('\n').filter(line => line.trim() !== '');
             if (lines.length === 0) return showAlert("No valid mail data found.");
 
+            document.getElementById('app-container').append(loader);
             loader.style.display = 'flex';
             try {
                 const batch = writeBatch(dbMail);
@@ -1997,8 +2151,11 @@
                 lines.forEach(line => {
                     const parts = line.trim().split('|');
                     if (parts.length >= 2) { 
-                        const newMailRef = doc(collection(dbMail, stockKey));
-                        batch.set(newMailRef, { email: parts[0], password: parts[1], refresh_token: parts[2] || null, client_id: parts[3] || null, isSold: false, createdAt: serverTimestamp() });
+                        batch.set(doc(collection(dbMail, stockKey)), { 
+                            email: parts[0], password: parts[1], 
+                            refresh_token: parts[2] || null, client_id: parts[3] || null, 
+                            isSold: false, createdAt: serverTimestamp() 
+                        });
                         addedCount++;
                     }
                 });
@@ -2016,23 +2173,24 @@
             document.getElementById('custom-alert').classList.remove('hidden');
         }
 
-        window.copyToClipboard = function(text, element = null, successMessage = 'Copied!') {
+        window.copyToClipboard = function(text, element, successMessage = 'Copied!') {
             if (!text || typeof text !== 'string') return;
             navigator.clipboard.writeText(text.trim()).then(() => {
                 if (element) {
                     const originalContent = element.innerHTML;
-                    const icon = element.tagName === 'P' ? '' : `<i data-lucide="check" class="w-4 h-4 text-green-600"></i>`;
-                    const text = element.tagName === 'BUTTON' ? '<span>Copied!</span>' : '';
-                    element.innerHTML = `${icon}${text}`;
-                    if(icon) lucide.createIcons();
+                    element.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-green-600"></i>`;
+                    lucide.createIcons();
                     setTimeout(() => { 
                         element.innerHTML = originalContent; 
-                        if(icon) lucide.createIcons(); 
+                        lucide.createIcons(); 
                     }, 1500);
                 } else {
                     showAlert(successMessage);
                 }
-            }).catch(err => showAlert('দুঃখিত, কপি করা যায়নি।'));
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                showAlert('দুঃখিত, কপি করা যায়নি।');
+            });
         }
 
         window.openApiLink = (url) => { if (url) window.Telegram.WebApp.openLink(url); }
@@ -2043,13 +2201,13 @@
             const dotsContainer = document.getElementById('dots');
             if (slides.length <= 1) return;
             let index = 0;
-            dotsContainer.innerHTML = Array.from({length: slides.length}, (_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`).join('');
+            dotsContainer.innerHTML = Array.from(slides).map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`).join('');
             const dots = dotsContainer.querySelectorAll('.dot');
             const showSlide = (i) => {
                 index = i;
                 slideContainer.style.transform = `translateX(${-i * 100}%)`;
                 dots.forEach(d => d.classList.remove('active'));
-                dots[i]?.classList.add('active');
+                dots[i].classList.add('active');
             };
             dotsContainer.addEventListener('click', e => { if(e.target.matches('.dot')) showSlide(parseInt(e.target.dataset.index)); });
             setInterval(() => showSlide((index + 1) % slides.length), 5000);
@@ -2061,7 +2219,7 @@
             try {
                 const receivedQuery = query(collection(dbUser, "transfers"), where("toId", "==", userData.tgChatId));
                 const sentQuery = query(collection(dbUser, "transfers"), where("fromId", "==", userData.tgChatId));
-                const [receivedSnapshot, sentSnapshot] = await Promise.all([getDocs(receivedQuery), getDocs(sentSnapshot)]);
+                const [receivedSnapshot, sentSnapshot] = await Promise.all([getDocs(receivedQuery), getDocs(sentQuery)]);
                 
                 const totalReceive = receivedSnapshot.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
                 document.getElementById('total-receive-display').textContent = formatCurrency(totalReceive);
@@ -2086,7 +2244,8 @@
 
                 if (transactions.length === 0) {
                      historyList.innerHTML = getEmptyStateHTML('arrow-left-right', 'No Transfers', 'Your balance transfer history will appear here.');
-                     return lucide.createIcons();
+                     lucide.createIcons();
+                     return;
                 }
                 historyList.innerHTML = transactions.map(item => {
                     const isSent = item.fromId === userData.tgChatId;
@@ -2123,6 +2282,7 @@
             if (totalCost > userData.balance) return showAlert(`অপর্যাপ্ত ব্যালেন্স। আপনার প্রয়োজন ${formatCurrency(totalCost)}।`);
             if (!confirm(`আপনি কি ${recipientId}-কে ${formatCurrency(amount)} পাঠাতে চান?\nফি: ${formatCurrency(fee)}\nমোট কাটা হবে: ${formatCurrency(totalCost)}`)) return;
 
+            document.getElementById('app-container').append(loader);
             loader.style.display = 'flex';
             try {
                 await runTransaction(dbUser, async (transaction) => {
@@ -2133,8 +2293,8 @@
                     if (!senderDoc.exists() || senderDoc.data().balance < totalCost) throw "অপর্যাপ্ত ব্যালেন্স।";
                     if (!recipientDoc.exists()) throw "প্রাপক আইডি খুঁজে পাওয়া যায়নি।";
                     
-                    transaction.update(senderRef, { balance: increment(-totalCost) });
-                    transaction.update(recipientRef, { balance: increment(amount) });
+                    transaction.update(senderRef, { balance: senderDoc.data().balance - totalCost });
+                    transaction.update(recipientRef, { balance: recipientDoc.data().balance + amount });
                     transaction.set(doc(collection(dbUser, "transfers")), { 
                         fromId: userData.tgChatId, fromName: userData.name, toId: recipientId, 
                         toName: recipientDoc.data().name, amount, fee, totalDeducted: totalCost, 
@@ -2191,8 +2351,9 @@
             
             const linkedIds = userData.linkedUsers || [];
             if (linkedIds.length === 0) {
-                 listEl.innerHTML = getEmptyStateHTML('users-2', 'No Team Members', 'Add your friends using their chat ID.');
-                 return lucide.createIcons();
+                 listEl.innerHTML = getEmptyStateHTML('users-2', 'No Team Members', 'Add your friends using their chat ID to build your team.');
+                 lucide.createIcons();
+                 return;
             }
 
             const friendDocs = await Promise.all(linkedIds.map(id => getDoc(doc(dbUser, "users", id))));
@@ -2203,13 +2364,14 @@
                 const isOnline = friend.lastSeen && (Timestamp.now().toMillis() - friend.lastSeen.toMillis()) < 300000;
                 const profileHTML = friend.photo_url ? `<img src="${friend.photo_url}" class="w-12 h-12 rounded-full object-cover">` : `<div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center"><span class="text-xl font-bold text-gray-500">${(friend.name?.[0] || 'U').toUpperCase()}</span></div>`;
                 
-                return `<div class="card-bg p-4 rounded-2xl shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-4"><div class="relative">${profileHTML}<span title="${isOnline ? 'Active Now' : 'Inactive'}" class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full ${isOnline ? 'bg-green-500' : 'bg-gray-400'} ring-2 ring-white"></span></div><div><p class="font-bold text-lg text-gray-900">${friend.name}</p><p class="text-sm text-gray-600">Total Spent: <span class="font-semibold text-blue-600">${formatCurrency(totalSpent)}</span></p></div></div><button onclick="unlinkFriend('${friend.tgChatId}')" class="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors" title="Unlink"><i data-lucide="user-x" class="w-5 h-5"></i></button></div></div>`;
+                return `<div class="card-bg p-4 rounded-2xl space-y-4 shadow-md"><div class="flex items-center justify-between"><div class="flex items-center gap-4"><div class="relative">${profileHTML}<span title="${isOnline ? 'Active Now' : 'Inactive'}" class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full ${isOnline ? 'bg-green-500' : 'bg-gray-400'} ring-2 ring-white"></span></div><div><p class="font-bold text-lg text-gray-900">${friend.name}</p><p class="text-sm text-gray-600">Total Spent: <span class="font-semibold text-blue-600">${formatCurrency(totalSpent)}</span></p></div></div><button onclick="unlinkFriend('${friend.tgChatId}')" class="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors" title="Unlink"><i data-lucide="user-x" class="w-5 h-5"></i></button></div></div>`;
             }).join('');
             lucide.createIcons();
         }
 
         window.unlinkFriend = async function(friendId) {
             if (!confirm("Are you sure you want to remove this user?")) return;
+            document.getElementById('app-container').append(loader);
             loader.style.display = 'flex';
             try {
                 await updateDoc(doc(dbUser, "users", userData.tgChatId), { linkedUsers: arrayRemove(friendId) });
@@ -2227,12 +2389,14 @@
             try {
                 const snapshot = await getDocs(query(collection(dbMail, "tutorials"), orderBy("order")));
                 if (snapshot.empty) {
-                     tutorialListEl.innerHTML = getEmptyStateHTML('video-off', 'No Tutorials', 'Tutorials are not available.');
-                     return lucide.createIcons();
+                     tutorialListEl.innerHTML = getEmptyStateHTML('video-off', 'No Tutorials', 'Tutorials are not available at the moment.');
+                     lucide.createIcons();
+                     return;
                 }
                 tutorialListEl.innerHTML = snapshot.docs.map(doc => {
                     const t = doc.data();
-                    return `<div class="card-bg rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-[1.02] duration-300"><h3 class="font-bold text-lg text-gray-800 p-4 pb-2">${t.title}</h3><a href="${t.youtubeWatchUrl}" target="_blank" class="block group p-4 pt-2"><div class="relative rounded-lg overflow-hidden"><img src="${t.bannerImageUrl}" alt="${t.title}" class="w-full aspect-video object-cover"><div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100"><i data-lucide="play-circle" class="w-16 h-16 text-white opacity-80"></i></div></div></a></div>`;
+                    const banner = t.bannerImageUrl || 'https://i.postimg.cc/zBp8rCX9/Yellow-Orange-Modern-Marketing-Courses-You-Tube-Thumbnail-20250910-185659-0000.png';
+                    return `<div class="card-bg rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-[1.02] duration-300"><h3 class="font-bold text-lg text-gray-800 p-4 pb-2">${t.title}</h3><a href="${t.youtubeWatchUrl}" target="_blank" class="block group p-4 pt-2"><div class="relative rounded-lg overflow-hidden"><img src="${banner}" alt="${t.title}" class="w-full aspect-video object-cover"><div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100"><i data-lucide="play-circle" class="w-16 h-16 text-white opacity-80"></i></div></div></a></div>`;
                 }).join('');
                 lucide.createIcons();
             } catch (e) { tutorialListEl.innerHTML = '<p class="text-center text-red-600">Tutorials could not be loaded.</p>'; }
@@ -2244,8 +2408,9 @@
             try {
                 const snapshot = await getDocs(query(collection(dbUser, "reviews"), orderBy("createdAt", "desc"), limit(5)));
                 if (snapshot.empty) {
-                     reviewListEl.innerHTML = getEmptyStateHTML('message-square-dashed', 'No Reviews Yet', 'Be the first to review!');
-                     return lucide.createIcons();
+                     reviewListEl.innerHTML = getEmptyStateHTML('message-square-dashed', 'No Reviews Yet', 'Be the first one to leave a review!');
+                     lucide.createIcons();
+                     return;
                 }
 
                 reviewListEl.innerHTML = snapshot.docs.map(doc => {
@@ -2273,7 +2438,7 @@
         
         window.updateQty = (stockKey, delta, maxQty) => {
             const input = document.getElementById(`qty-${stockKey}`);
-            let currentValue = parseInt(input.value, 10) || 1;
+            let currentValue = parseInt(input.value, 10) || 0;
             currentValue += delta;
             if (currentValue < 1) currentValue = 1;
             if (currentValue > maxQty) currentValue = maxQty;
@@ -2282,21 +2447,47 @@
 
         window.validateQty = (input, maxQty) => {
             input.value = input.value.replace(/[^0-9]/g, '');
-            let value = parseInt(input.value, 10);
-            if (isNaN(value) || value < 1) return;
-            if (value > maxQty) input.value = maxQty;
+
+            if (input.value !== '') {
+                let value = parseInt(input.value, 10);
+                if (value > maxQty) {
+                    input.value = maxQty;
+                }
+                if (input.value.length > 1 && input.value.startsWith('0')) {
+                    input.value = value.toString();
+                }
+            }
         };
 
+        // NEW FUNCTION: Send purchase notification to admin channel
         async function sendPurchaseNotificationToAdmin(purchaseData) {
             try {
-                const { mailType, quantity, totalCost, buyer } = purchaseData;
-                const adminChannelId = "-1003756630096";
-                const message = `✅ *New Mail Purchase*\n\n*Buyer:* ${buyer.name}\n*ID:* \`${buyer.tgChatId}\`\n*Mail Type:* ${mailType}\n*Quantity:* ${quantity}\n*Total Cost:* ${formatCurrency(totalCost)}`;
+                const { mailType, quantity, totalCost, purchasedMails, buyer } = purchaseData;
+                const adminChannelId = "-1003756630096"; // UPDATED
+                
+                const mailList = purchasedMails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
+
+                const message = `
+✅ *New Mail Purchase*
+
+*Buyer:* ${buyer.name}
+*Buyer ID:* \`${buyer.tgChatId}\`
+*Mail Type:* ${mailType}
+*Quantity:* ${quantity}
+*Total Cost:* ${formatCurrency(totalCost)}
+
+*Purchased Mails:*
+${mailList}
+                `;
 
                 fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: adminChannelId, text: message, parse_mode: 'Markdown' })
+                    body: JSON.stringify({
+                        chat_id: adminChannelId,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
                 });
             } catch (e) {
                 console.error("Failed to send purchase notification to admin:", e);
@@ -2304,67 +2495,108 @@
         }
         
         window.handleBulkBuy = async function(mailType, originalPrice, stockKey, availableStock) {
-            const quantity = parseInt(document.getElementById(`qty-${stockKey}`).value, 10);
+            const quantityInput = document.getElementById(`qty-${stockKey}`);
+            const quantity = parseInt(quantityInput.value, 10);
 
-            if (isNaN(quantity) || quantity < 1) return showAlert(`অনুগ্রহ করে একটি সঠিক পরিমাণ লিখুন।`);
-            if (quantity > availableStock) return showAlert(`দুঃখিত, স্টকে মাত্র ${availableStock} টি মেইল আছে।`);
+            if (isNaN(quantity) || quantity < 1) {
+                quantityInput.value = '1';
+                return showAlert(`অনুগ্রহ করে একটি সঠিক পরিমাণ লিখুন।`);
+            }
+
+            if (quantity > availableStock) {
+                return showAlert(`দুঃখিত, স্টকে মাত্র ${availableStock} টি মেইল আছে।`);
+            }
 
             const totalCost = quantity * originalPrice;
+            
             if (!confirm(`আপনি কি ${quantity} টি ${mailType} মেইল মোট ${formatCurrency(totalCost)} দিয়ে কিনতে চান?`)) return;
 
+            // This ensures loading starts right after confirmation
+            document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
             loader.style.display = 'flex';
             
+            let purchasedMailsData = [];
+            
+            const buyerRef = doc(dbUser, "users", userData.tgChatId);
+            const userSnap = await getDoc(buyerRef);
+            let currentBuyerData = userSnap.data();
+            let effectiveBalance = currentBuyerData.balance;
+            let teamLeaderRef = null;
+
+            if (currentBuyerData.linkedBy) {
+                teamLeaderRef = doc(dbUser, "users", currentBuyerData.linkedBy);
+                const teamLeaderSnap = await getDoc(teamLeaderRef);
+                if(teamLeaderSnap.exists()) {
+                    effectiveBalance += teamLeaderSnap.data().balance;
+                }
+            }
+
+            if (effectiveBalance < totalCost) {
+                loader.style.display = 'none';
+                return showAlert(`Insufficient balance. You need ${formatCurrency(totalCost)} but have ${formatCurrency(effectiveBalance)}.`);
+            }
+
             try {
-                const buyerRef = doc(dbUser, "users", userData.tgChatId);
-                let teamLeaderRef = userData.linkedBy ? doc(dbUser, "users", userData.linkedBy) : null;
+                const mailQuery = query(collection(dbMail, stockKey), where("isSold", "==", false), limit(quantity));
+                const mailQuerySnapshot = await getDocs(mailQuery);
+
+                if (mailQuerySnapshot.docs.length < quantity) {
+                    throw new Error(`Not enough stock. Only ${mailQuerySnapshot.docs.length} mails available.`);
+                }
                 
                 await runTransaction(dbUser, async (transaction) => {
-                    const buyerSnap = await transaction.get(buyerRef);
-                    let effectiveBalance = buyerSnap.data().balance;
-                    if(teamLeaderRef) {
-                        const leaderSnap = await transaction.get(teamLeaderRef);
-                        if(leaderSnap.exists()) effectiveBalance += leaderSnap.data().balance;
-                    }
-                    if (effectiveBalance < totalCost) throw new Error(`Insufficient balance.`);
-                    
+                    const freshBuyerSnap = await transaction.get(buyerRef);
                     let costRemaining = totalCost;
-                    const buyerDeduction = Math.min(costRemaining, buyerSnap.data().balance);
+
+                    const buyerBalance = freshBuyerSnap.data().balance;
+                    const buyerDeduction = Math.min(costRemaining, buyerBalance);
                     transaction.update(buyerRef, { balance: increment(-buyerDeduction) });
                     costRemaining -= buyerDeduction;
 
                     if (costRemaining > 0 && teamLeaderRef) {
-                        transaction.update(teamLeaderRef, { balance: increment(-costRemaining), [`teamSpending.${userData.tgChatId}`]: increment(costRemaining) });
+                        transaction.update(teamLeaderRef, { 
+                            balance: increment(-costRemaining),
+                            [`teamSpending.${userData.tgChatId}`]: increment(costRemaining) 
+                        });
                     }
                 });
-                
-                const mailQuery = query(collection(dbMail, stockKey), where("isSold", "==", false), limit(quantity));
-                const mailDocs = await getDocs(mailQuery);
-                if (mailDocs.size < quantity) throw new Error(`Not enough stock available.`);
-                
-                const purchasedMailsData = [];
+
                 const mailBatch = writeBatch(dbMail);
-                mailDocs.forEach(mailDoc => {
+                mailQuerySnapshot.docs.forEach(mailDoc => {
                     const mailData = mailDoc.data();
-                    purchasedMailsData.push({ email: mailData.email, password: mailData.password, refresh_token: mailData.refresh_token, client_id: mailData.client_id });
-                    mailBatch.update(mailDoc.ref, { isSold: true, soldTo: userData.tgChatId, soldAt: serverTimestamp() });
+                    purchasedMailsData.push({
+                        email: mailData.email, password: mailData.password || null,
+                        refresh_token: mailData.refresh_token || null, client_id: mailData.client_id || null
+                    });
+                    mailBatch.update(doc(dbMail, stockKey, mailDoc.id), { isSold: true, soldTo: userData.tgChatId, soldAt: serverTimestamp() });
                 });
 
                 const purchaseLogRef = doc(collection(dbMail, "mail_purchases"));
                 mailBatch.set(purchaseLogRef, {
-                    userId: userData.tgChatId, mailType, type: 'bulk', stockKey,
-                    mails: purchasedMailsData, cost: totalCost, quantity, purchasedAt: serverTimestamp()
+                    userId: userData.tgChatId, mailType: mailType, type: 'bulk', stockKey: stockKey,
+                    mails: purchasedMailsData, cost: totalCost, quantity: quantity, purchasedAt: serverTimestamp()
                 });
                 
                 await mailBatch.commit();
-                sendPurchaseNotificationToAdmin({ mailType, quantity, totalCost, buyer: userData });
+
+                sendPurchaseNotificationToAdmin({
+                    mailType: mailType,
+                    quantity: quantity,
+                    totalCost: totalCost,
+                    purchasedMails: purchasedMailsData,
+                    buyer: userData
+                });
+
                 showBulkPurchaseSuccess(purchasedMailsData, mailType, stockKey);
                 loadMailStore();
                 
             } catch (e) {
-                showAlert(`Purchase failed: ${e.message}. If balance was deducted, contact support.`);
+                showAlert(`Bulk purchase failed: ${e.message}. If balance was deducted, contact support immediately.`);
                 console.error("Bulk Buy Error:", e);
-                loadMailStore(); 
+                loadMailStore();
             } finally {
+                // Loader is hidden only after success modal is shown or an error occurs
                 loader.style.display = 'none';
             }
         };
@@ -2373,10 +2605,19 @@
             document.getElementById('bulk-purchase-summary').textContent = `You have successfully purchased ${mails.length} ${mailType} mails.`;
             const listEl = document.getElementById('bulk-purchase-list');
             
-            listEl.innerHTML = mails.map(mail => `<div class="flex items-center justify-between bg-white p-2 rounded-md border"><span class="font-mono text-sm text-gray-800 truncate flex-1">${mail.email}</span>${getIndividualMailActionsHTML(mail, mailType, stockKey)}</div>`).join('');
+            listEl.innerHTML = mails.map(mail => {
+                const actionButtons = getIndividualMailActionsHTML(mail, mailType, stockKey);
+                return `<div class="flex items-center justify-between bg-white p-2 rounded-md border">
+                            <span class="font-mono text-sm text-gray-800 truncate flex-1">${mail.email}</span>
+                            ${actionButtons}
+                       </div>`;
+            }).join('');
             
-            document.getElementById('bulk-success-xlsx-copy-btn').onclick = () => handleXlsxCopy(mails);
-            document.getElementById('bulk-success-send-telegram-btn').onclick = (e) => handleSendToTelegram(mails, mailType, e.target.closest('button'));
+            const xlsxCopyBtn = document.getElementById('bulk-success-xlsx-copy-btn');
+            const sendTgBtn = document.getElementById('bulk-success-send-telegram-btn');
+            
+            xlsxCopyBtn.onclick = () => handleXlsxCopy(mails);
+            sendTgBtn.onclick = (e) => handleSendToTelegram(mails, mailType, e.target.closest('button'));
 
             document.getElementById('bulk-purchase-success-modal').classList.remove('hidden');
             lucide.createIcons();
@@ -2384,29 +2625,44 @@
         
         window.handleXlsxCopy = function(mails) {
             const header = "Email\tPassword\tFull Data\n";
-            const textToCopy = header + mails.map(m => `${m.email}\t${m.password || ''}\t${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}`).join('\n');
+            const textToCopy = header + mails.map(m => {
+                const fullData = [m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|');
+                return `${m.email}\t${m.password || ''}\t${fullData}`;
+            }).join('\n');
             copyToClipboard(textToCopy, null, 'XLSX ডেটা কপি করা হয়েছে! এখন শীটে পেস্ট করুন।');
         }
 
         window.handleSendToTelegram = async function(mails, mailType, element) {
-            const originalContent = element?.innerHTML;
+            const originalContent = element ? element.innerHTML : '';
             if(element) {
                 element.disabled = true;
                 element.innerHTML = `<div class="w-5 h-5 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>`;
             }
 
-            const fullMessage = `*Your Purchase: ${mails.length} x ${mailType}*\n\n` + mails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
+            const messageHeader = `*Your Purchase: ${mails.length} x ${mailType}*\n\n`;
+            const messageBody = mails.map(m => `\`${[m.email, m.password, m.refresh_token, m.client_id].filter(Boolean).join('|')}\``).join('\n');
+            const fullMessage = messageHeader + messageBody;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
             
             try {
-                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: userData.tgChatId, text: fullMessage, parse_mode: 'Markdown' })
+                    body: JSON.stringify({
+                        chat_id: userData.tgChatId,
+                        text: fullMessage,
+                        parse_mode: 'Markdown'
+                    })
                 });
                 const result = await response.json();
-                if (!result.ok) throw new Error(result.description);
-                showAlert('আপনার কেনা মেইলগুলো সফলভাবে টেলিগ্রামে পাঠানো হয়েছে।');
+                if (result.ok) {
+                    showAlert('আপনার কেনা মেইলগুলো সফলভাবে টেলিগ্রামে পাঠানো হয়েছে।');
+                } else {
+                    throw new Error(result.description);
+                }
             } catch (error) {
+                console.error("Telegram send error:", error);
                 showAlert(`টেলিগ্রামে পাঠাতে সমস্যা হয়েছে: ${error.message}`);
             } finally {
                 if(element) {
@@ -2416,6 +2672,7 @@
                 }
             }
         }
+
     </script>
 </body>
 </html>
