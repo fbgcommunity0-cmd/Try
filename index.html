@@ -443,6 +443,21 @@
         #2fa-code-display:hover {
             transform: scale(1.05);
         }
+        
+        /* NEW: Impersonation Bar Style */
+        #impersonation-bar {
+            background-color: #fff3cd;
+            color: #664d03;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            border-bottom: 1px solid #ffe69c;
+        }
     </style>
 </head>
 <body class="max-w-md mx-auto">
@@ -515,6 +530,12 @@
         </div>
     </aside>
     <div id="app-container" class="min-h-screen flex-col main-page">
+        <!-- NEW: Impersonation Bar -->
+        <div id="impersonation-bar">
+            <span id="impersonation-text">Viewing as: User</span>
+            <button id="exit-impersonation-btn" class="bg-red-500 text-white px-3 py-1 rounded-md text-xs font-bold hover:bg-red-600">Exit</button>
+        </div>
+        
         <!-- Header -->
         <header class="header flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -528,6 +549,10 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2">
+                <!-- NEW: Admin Login Button -->
+                <button id="admin-login-btn" class="hidden p-2 rounded-full bg-yellow-100 hover:bg-yellow-200 transition-colors" title="Admin Login">
+                    <i data-lucide="log-in" class="w-5 h-5 text-yellow-700"></i>
+                </button>
                 <button id="header-deposit-btn" class="btn-gradient px-4 py-2 rounded-full text-sm font-bold shadow-lg">Deposit</button>
                 <button id="notification-btn" class="relative p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
                     <i data-lucide="bell" class="w-5 h-5 text-gray-700"></i>
@@ -907,6 +932,27 @@
             <button id="alert-ok-btn" class="btn-gradient px-8 py-2 rounded-lg">OK</button>
         </div>
     </div>
+    
+    <!-- NEW: Admin Login Modal -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
+        <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4 relative">
+            <button id="close-admin-login-modal-btn" class="modal-close-btn">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <h3 class="text-xl font-bold text-center text-accent-gradient mb-4">Admin Login</h3>
+            <div class="space-y-4">
+                <div>
+                    <label for="admin-login-uid" class="block text-sm font-medium text-gray-600 mb-2">User Chat ID</label>
+                    <input id="admin-login-uid" type="text" placeholder="Enter user's chat ID" class="w-full p-3 rounded-lg input-field">
+                </div>
+                <div>
+                    <label for="admin-login-password" class="block text-sm font-medium text-gray-600 mb-2">Admin Password</label>
+                    <input id="admin-login-password" type="password" placeholder="Enter admin password" class="w-full p-3 rounded-lg input-field">
+                </div>
+                <button id="submit-admin-login-btn" class="w-full p-3 rounded-lg btn-gradient">Login as User</button>
+            </div>
+        </div>
+    </div>
 
     <div id="deposit-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4">
@@ -1038,6 +1084,8 @@
 
     <script type="module">
         const ADMIN_UID = "735882471";
+        // NEW: Admin password for impersonation
+        const ADMIN_PASSWORD = "118800"; 
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
         const OFFICIAL_CHANNELS = ['@aptechonlineincome1', '@gmailmarketter'];
         const BDT_TO_USDT_RATE = 125; // Static conversion rate - UPDATED
@@ -1081,6 +1129,9 @@
         let selectedPaymentMethod = null;
         let currentCurrency = 'BDT';
         let developerModalTimeout = null; // For auto-closing modal
+
+        // NEW: State for admin impersonation
+        let originalAdminSession = null;
         
         const loader = document.getElementById('loader');
         const loaderStatusText = document.getElementById('loader-status-text');
@@ -1131,7 +1182,7 @@
             } catch (e) {
                 console.error("Telegram WebApp script failed to initialize or user data not available.", e);
                 // Fallback for local testing
-                currentUserTg = { id: '6954647230', first_name: 'Test', last_name: 'User', username: 'testuser' };
+                currentUserTg = { id: '735882471', first_name: 'Admin', last_name: 'Test', username: 'admintest' };
             }
             
             const isMember = await checkChannelMembership();
@@ -1153,7 +1204,7 @@
             }
             updateCurrencySwitcherUI();
 
-            await initUserSession();
+            await initUserSession(String(currentUserTg.id));
             
             // Finalize loading animation
             clearInterval(progressInterval);
@@ -1213,9 +1264,9 @@
         }
 
         async function checkChannelMembership() {
-            // Bypass for test user
-            if (currentUserTg.id === '6954647230') {
-                 console.log("Bypassing channel check for test user.");
+            // Bypass for test user during development
+            if (currentUserTg.id == '6954647230' || currentUserTg.id == ADMIN_UID) {
+                 console.log("Bypassing channel check for test/admin user.");
                  return true;
             }
 
@@ -1224,29 +1275,40 @@
             return results.every(isMember => isMember);
         }
 
-        async function initUserSession() {
-            if (!currentUserTg) {
-                showAlert("Telegram user data is missing. Cannot proceed.");
+        // UPDATED: initUserSession can now load any user's data
+        async function initUserSession(tgChatId) {
+            if (!tgChatId) {
+                showAlert("Telegram user ID is missing. Cannot proceed.");
                 return;
             }
-            const tgChatId = String(currentUserTg.id);
+            
             const userRef = doc(dbUser, "users", tgChatId);
             let userSnap = await getDoc(userRef);
 
             if (userSnap.exists()) {
                 userData = userSnap.data();
                 
-                const updates = {
-                    name: `${currentUserTg.first_name || ''} ${currentUserTg.last_name || ''}`.trim(),
-                    photo_url: currentUserTg.photo_url || null,
-                    lastSeen: serverTimestamp()
-                };
-
-                await updateDoc(userRef, updates);
-                userSnap = await getDoc(userRef);
-                userData = userSnap.data();
+                // Only update lastSeen if it's the actual user
+                if (!originalAdminSession) {
+                    const updates = {
+                        lastSeen: serverTimestamp()
+                    };
+                    // Also update name/pic if they've changed in TG
+                    if (tgChatId === String(currentUserTg.id)) {
+                        updates.name = `${currentUserTg.first_name || ''} ${currentUserTg.last_name || ''}`.trim();
+                        updates.photo_url = currentUserTg.photo_url || null;
+                    }
+                    await updateDoc(userRef, updates);
+                    userSnap = await getDoc(userRef); // re-fetch the latest data
+                    userData = userSnap.data();
+                }
 
             } else {
+                 // Prevent creating a new user profile when an admin tries to log into a non-existent ID
+                if (originalAdminSession) {
+                    throw new Error("User profile does not exist.");
+                }
+
                 const userName = `${currentUserTg.first_name || ''} ${currentUserTg.last_name || ''}`.trim() || `User ${tgChatId}`;
                 userData = {
                     tgChatId: tgChatId,
@@ -1267,8 +1329,13 @@
             
             await fetchAppConfig();
 
-            if (tgChatId === ADMIN_UID) {
+            // Show admin features if the original logged-in user is an admin
+            if (String(currentUserTg.id) === ADMIN_UID) {
                 document.getElementById('admin-nav-link').classList.remove('hidden');
+                document.getElementById('admin-login-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('admin-nav-link').classList.add('hidden');
+                document.getElementById('admin-login-btn').classList.add('hidden');
             }
 
             loadSupportMenu();
@@ -1294,7 +1361,7 @@
         }
         
         function updateHeaderUI() {
-            if (!currentUserTg) return;
+            if (!userData) return;
             const profilePic = document.getElementById('header-profile-pic');
             const avatarDiv = document.getElementById('header-initials-avatar');
             const welcomeName = document.getElementById('header-welcome-name');
@@ -1304,13 +1371,13 @@
                 profilePic.classList.remove('hidden');
                 avatarDiv.classList.add('hidden');
             } else {
-                const initials = (currentUserTg.first_name?.[0] || '') + (currentUserTg.last_name?.[0] || '');
-                document.getElementById('header-initials').textContent = initials.toUpperCase();
+                const initials = (userData.name?.[0] || 'U').toUpperCase();
+                document.getElementById('header-initials').textContent = initials;
                 profilePic.classList.add('hidden');
                 avatarDiv.classList.remove('hidden');
             }
             
-            const firstName = currentUserTg.first_name || 'User';
+            const firstName = userData.name.split(' ')[0] || 'User';
             welcomeName.textContent = `Hi, ${firstName}!`;
         }
 
@@ -1492,6 +1559,96 @@
                 updateCurrencySwitcherUI();
                 updateAllCurrencyDisplays();
             });
+
+            // NEW: Admin Login Event Listeners
+            document.getElementById('admin-login-btn').addEventListener('click', () => {
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+            });
+            document.getElementById('close-admin-login-modal-btn').addEventListener('click', () => {
+                document.getElementById('admin-login-modal').classList.add('hidden');
+            });
+            document.getElementById('submit-admin-login-btn').addEventListener('click', handleAdminLogin);
+            document.getElementById('exit-impersonation-btn').addEventListener('click', handleExitImpersonation);
+        }
+
+        // NEW: Admin Login Logic
+        async function handleAdminLogin() {
+            const targetUid = document.getElementById('admin-login-uid').value.trim();
+            const password = document.getElementById('admin-login-password').value;
+
+            if (!targetUid || !password) {
+                return showAlert("Please enter both User ID and Password.");
+            }
+
+            if (password !== ADMIN_PASSWORD) {
+                return showAlert("Incorrect admin password.");
+            }
+
+            document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
+            
+            try {
+                // Save the current admin session
+                originalAdminSession = {
+                    userData: { ...userData },
+                    currentUserTg: { ...currentUserTg }
+                };
+
+                // Load the target user's session
+                await initUserSession(targetUid);
+
+                // Update UI to show impersonation status
+                const impersonationBar = document.getElementById('impersonation-bar');
+                document.getElementById('impersonation-text').textContent = `Viewing as: ${userData.name}`;
+                impersonationBar.style.display = 'flex';
+                
+                // Hide admin-specific UI elements from the impersonated view
+                document.getElementById('admin-login-btn').classList.add('hidden');
+                document.getElementById('admin-nav-link').classList.add('hidden');
+
+                document.getElementById('admin-login-modal').classList.add('hidden');
+                document.getElementById('admin-login-uid').value = '';
+                document.getElementById('admin-login-password').value = '';
+
+            } catch (error) {
+                console.error("Admin login failed:", error);
+                showAlert(error.message || "Failed to log in as user. Ensure the Chat ID is correct.");
+                // Restore original session if login fails
+                originalAdminSession = null;
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // NEW: Exit Impersonation Logic
+        async function handleExitImpersonation() {
+            if (!originalAdminSession) return;
+
+            document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
+
+            // Restore the admin's original session data
+            userData = { ...originalAdminSession.userData };
+            currentUserTg = { ...originalAdminSession.currentUserTg };
+            
+            originalAdminSession = null;
+
+            // Reload the UI with the admin's data
+            await initUserSession(userData.tgChatId);
+            
+            // Hide the impersonation bar
+            document.getElementById('impersonation-bar').style.display = 'none';
+            
+            // Re-show admin specific UI for the admin
+            if (String(currentUserTg.id) === ADMIN_UID) {
+                document.getElementById('admin-login-btn').classList.remove('hidden');
+                document.getElementById('admin-nav-link').classList.remove('hidden');
+            }
+            
+            loader.style.display = 'none';
+            showAlert("Returned to your admin account.");
         }
         
         // UPDATED: Functional 2FA Generator Logic
@@ -1596,8 +1753,10 @@
         }
 
         function listenForNotifications() {
+            if (!userData) return;
             const q = query(collection(dbUser, "notifications"), orderBy("createdAt", "desc"));
             onSnapshot(q, (snapshot) => {
+                if (!userData) return; // Add check to prevent errors during user switch
                 const filteredDocs = snapshot.docs.filter(doc => {
                     const data = doc.data();
                     return !data.recipientId || data.recipientId === userData.tgChatId;
@@ -1658,21 +1817,21 @@
         }
 
         function loadProfilePage() {
-            if (currentUserTg) {
+            if (userData) {
                  if (userData.photo_url) {
                     document.getElementById('profile-pic').src = userData.photo_url;
                     document.getElementById('profile-pic').classList.remove('hidden');
                     document.getElementById('profile-initials-avatar').classList.add('hidden');
                 } else {
-                    const initials = (currentUserTg.first_name?.[0] || '') + (currentUserTg.last_name?.[0] || '');
-                    document.getElementById('profile-initials').textContent = initials.toUpperCase();
+                    const initials = (userData.name?.[0] || 'U').toUpperCase();
+                    document.getElementById('profile-initials').textContent = initials;
                     document.getElementById('profile-pic').classList.add('hidden');
                     document.getElementById('profile-initials-avatar').classList.remove('hidden');
                 }
                 
-                document.getElementById('profile-name').textContent = `${currentUserTg.first_name} ${currentUserTg.last_name || ''}`.trim();
-                document.getElementById('profile-username').textContent = currentUserTg.username ? `@${currentUserTg.username}` : 'No Telegram Username';
-                document.getElementById('profile-id').textContent = `Telegram ID: ${currentUserTg.id}`;
+                document.getElementById('profile-name').textContent = userData.name || 'User';
+                document.getElementById('profile-username').textContent = userData.username ? `@${userData.username}` : 'No Telegram Username';
+                document.getElementById('profile-id').textContent = `Telegram ID: ${userData.tgChatId}`;
             }
         }
         
@@ -2633,6 +2792,9 @@ ${mailList}
         }
 
         window.handleSendToTelegram = async function(mails, mailType, element) {
+            // During impersonation, send messages to the original admin, not the user being viewed
+            const recipientChatId = originalAdminSession ? originalAdminSession.userData.tgChatId : userData.tgChatId;
+
             const originalContent = element ? element.innerHTML : '';
             if(element) {
                 element.disabled = true;
@@ -2650,7 +2812,7 @@ ${mailList}
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chat_id: userData.tgChatId,
+                        chat_id: recipientChatId,
                         text: fullMessage,
                         parse_mode: 'Markdown'
                     })
