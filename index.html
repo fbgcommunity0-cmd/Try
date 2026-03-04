@@ -458,6 +458,34 @@
             gap: 1rem;
             border-bottom: 1px solid #ffe69c;
         }
+        /* NEW: Refund Page payment method style */
+        .refund-payment-method {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid #e5e7eb;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .refund-payment-method input[type="radio"] {
+            display: none;
+        }
+        .refund-payment-method input[type="radio"]:checked + .method-label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        .refund-payment-method .method-label {
+             width: 100%;
+             height: 100%;
+             display: flex;
+             align-items: center;
+             gap: 0.5rem;
+             font-weight: 600;
+        }
+
     </style>
 </head>
 <body class="max-w-md mx-auto">
@@ -813,11 +841,78 @@
                         </span>
                         <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400"></i>
                     </button>
+                    <!-- NEW: Refund Button -->
+                    <button id="refund-request-btn" class="w-full card-bg p-4 rounded-xl flex justify-between items-center text-left text-lg font-semibold">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="life-buoy" class="w-6 h-6 text-gray-600"></i>
+                            <span>Refund Request</span>
+                        </span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400"></i>
+                    </button>
                 </div>
 
                 <div class="text-center pt-6">
                      <!-- Developer contact button replaces the text -->
                      <button id="open-developer-modal-btn" class="font-semibold text-[#007bff] hover:underline">Contact Developer</button>
+                </div>
+            </div>
+
+            <!-- NEW: Refund Page -->
+            <div id="refund-page" class="p-4 space-y-6 sub-page">
+                <div class="relative flex items-center justify-center mb-4">
+                    <button onclick="navigateTo('profile-page')" class="absolute left-0 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <i data-lucide="arrow-left" class="w-6 h-6 text-gray-700"></i>
+                    </button>
+                    <h2 class="text-xl font-bold text-center text-gray-800">Refund Request</h2>
+                </div>
+
+                <div id="refund-form-container" class="card-bg p-5 rounded-xl space-y-5">
+                    <div class="text-center">
+                        <i data-lucide="wallet-cards" class="w-10 h-10 text-blue-500 mx-auto mb-2"></i>
+                        <h3 class="font-semibold text-lg">আপনার সম্পূর্ণ ব্যালেন্স ফেরত নিন</h3>
+                        <p class="text-sm text-gray-600 mt-2 bg-yellow-100 text-yellow-800 p-3 rounded-lg">
+                            রিফান্ড অনুরোধ করতে আপনার ব্যালেন্সে অবশ্যই <span class="font-bold">৳10.00</span> এর বেশি থাকতে হবে। অনুরোধ অনুমোদিত হলে আপনার বর্তমান সম্পূর্ণ ব্যালেন্স নির্বাচিত নম্বরে পাঠানো হবে এবং আপনার অ্যাকাউন্ট ব্যালেন্স ৳0.00 হয়ে যাবে।
+                        </p>
+                    </div>
+
+                    <div id="refund-eligible-view">
+                        <div class="text-center bg-blue-50 border border-blue-200 p-3 rounded-lg mb-4">
+                            <p class="text-sm text-blue-800">আপনার বর্তমান ব্যালেন্স:</p>
+                            <p id="refund-balance-display" class="text-2xl font-bold text-blue-600">৳0.00</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="refund-username" class="block text-sm font-medium text-gray-600 mb-2">Telegram Username</label>
+                                <input id="refund-username" type="text" class="w-full p-3 rounded-lg input-field bg-gray-200" readonly>
+                            </div>
+                            <div>
+                                <label for="refund-number" class="block text-sm font-medium text-gray-600 mb-2">Payment Receive Number</label>
+                                <input id="refund-number" type="tel" placeholder="e.g., 01xxxxxxxxx" class="w-full p-3 rounded-lg input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Payment Method</label>
+                                <div id="refund-payment-methods" class="grid grid-cols-3 gap-3 text-center">
+                                    <label class="refund-payment-method">
+                                        <input type="radio" name="refund-method" value="Nagad">
+                                        <span class="method-label p-3 rounded-lg border-2 border-gray-200">নগদ</span>
+                                    </label>
+                                    <label class="refund-payment-method">
+                                        <input type="radio" name="refund-method" value="Rocket">
+                                        <span class="method-label p-3 rounded-lg border-2 border-gray-200">রকেট</span>
+                                    </label>
+                                    <label class="refund-payment-method">
+                                        <input type="radio" name="refund-method" value="bKash">
+                                        <span class="method-label p-3 rounded-lg border-2 border-gray-200">বিকাশ</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button id="submit-refund-btn" class="w-full p-3 rounded-lg btn-gradient">Submit Refund Request</button>
+                        </div>
+                    </div>
+                    <div id="refund-ineligible-view" class="hidden text-center p-4 bg-red-100 rounded-lg">
+                        <p class="font-bold text-red-700">রিফান্ডের জন্য যোগ্য নয়</p>
+                        <p class="text-sm text-red-600">দুঃখিত, আপনার ব্যালেন্স ৳10.00 এর কম।</p>
+                    </div>
                 </div>
             </div>
 
@@ -1083,7 +1178,8 @@
 
 
     <script type="module">
-        const ADMIN_UID = "735882471";
+        // --- MODIFIED: Updated ADMIN_UID ---
+        const ADMIN_UID = "7358825471";
         // NEW: Admin password for impersonation
         const ADMIN_PASSWORD = "118800"; 
         const BOT_TOKEN = "8185055021:AAFqmvM-DAtNTbcl8slFzUd_L3ejJ0a4XtI";
@@ -1181,8 +1277,8 @@
                 }
             } catch (e) {
                 console.error("Telegram WebApp script failed to initialize or user data not available.", e);
-                // Fallback for local testing
-                currentUserTg = { id: '735882471', first_name: 'Admin', last_name: 'Test', username: 'admintest' };
+                // Fallback for local testing - MODIFIED with new admin ID
+                currentUserTg = { id: '7358825471', first_name: 'Admin', last_name: 'Test', username: 'admintest' };
             }
             
             const isMember = await checkChannelMembership();
@@ -1265,7 +1361,7 @@
 
         async function checkChannelMembership() {
             // Bypass for test user during development
-            if (currentUserTg.id == '6954647230' || currentUserTg.id == ADMIN_UID) {
+            if (currentUserTg.id == '6954647230' || String(currentUserTg.id) === ADMIN_UID) {
                  console.log("Bypassing channel check for test/admin user.");
                  return true;
             }
@@ -1472,7 +1568,8 @@
                 'features-page': loadFeaturesPage,
                 'tools-page': () => { setup2FAGenerator(); }, // Setup for 2FA tool
                 'link-team-page': loadLinkedFriends,
-                'send-page': () => { setupDynamicAmountHandlers('send'); }
+                'send-page': () => { setupDynamicAmountHandlers('send'); },
+                'refund-page': loadRefundPage // NEW: Load function for refund page
             };
             if (pageLoadFunctions[pageId]) pageLoadFunctions[pageId]();
             lucide.createIcons();
@@ -1569,6 +1666,10 @@
             });
             document.getElementById('submit-admin-login-btn').addEventListener('click', handleAdminLogin);
             document.getElementById('exit-impersonation-btn').addEventListener('click', handleExitImpersonation);
+            
+            // --- NEW: Refund Page Event Listeners ---
+            document.getElementById('refund-request-btn').addEventListener('click', () => navigateTo('refund-page'));
+            document.getElementById('submit-refund-btn').addEventListener('click', handleSubmitRefund);
         }
 
         // NEW: Admin Login Logic
@@ -1717,6 +1818,99 @@
                 if(startTime) startTimer(startTime);
             };
         }
+
+        // --- NEW: Refund Page Logic ---
+        function loadRefundPage() {
+            const balance = userData.balance || 0;
+            const eligibleView = document.getElementById('refund-eligible-view');
+            const ineligibleView = document.getElementById('refund-ineligible-view');
+            
+            document.getElementById('refund-balance-display').textContent = formatCurrency(balance);
+            document.getElementById('refund-username').value = userData.username ? `@${userData.username}` : 'N/A';
+
+            if (balance > 10) {
+                eligibleView.classList.remove('hidden');
+                ineligibleView.classList.add('hidden');
+            } else {
+                eligibleView.classList.add('hidden');
+                ineligibleView.classList.remove('hidden');
+            }
+            lucide.createIcons();
+        }
+        
+        async function handleSubmitRefund() {
+            const paymentNumber = document.getElementById('refund-number').value.trim();
+            const selectedMethodEl = document.querySelector('input[name="refund-method"]:checked');
+            
+            if (!paymentNumber) {
+                return showAlert("অনুগ্রহ করে আপনার পেমেন্ট গ্রহণের নম্বরটি লিখুন।");
+            }
+            if (!selectedMethodEl) {
+                return showAlert("অনুগ্রহ করে একটি পেমেন্ট মাধ্যম বেছে নিন।");
+            }
+            
+            const paymentMethod = selectedMethodEl.value;
+            const refundableAmount = userData.balance;
+
+            if (!confirm(`আপনি কি নিশ্চিত যে আপনার সম্পূর্ণ ব্যালেন্স ${formatCurrency(refundableAmount)} ফেরত নিতে চান?\n\nআপনার অনুরোধটি পর্যালোচনার জন্য পাঠানো হবে।`)) {
+                return;
+            }
+
+            document.getElementById('app-container').append(loader);
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
+
+            try {
+                // Log the request to Firestore
+                await addDoc(collection(dbUser, "refund_requests"), {
+                    userId: userData.tgChatId,
+                    userName: userData.name,
+                    telegramUsername: userData.username || 'N/A',
+                    requestedAmount: refundableAmount,
+                    paymentMethod: paymentMethod,
+                    paymentNumber: paymentNumber,
+                    status: "pending",
+                    requestedAt: serverTimestamp()
+                });
+                
+                // Set user's balance to 0
+                const userRef = doc(dbUser, "users", userData.tgChatId);
+                await updateDoc(userRef, { balance: 0 });
+                
+                // Update local data and UI
+                userData.balance = 0;
+                updateUI();
+
+                // Notify admin via Telegram
+                const adminChatId = "-1002867496763";
+                const message = `
+⚠️ *New Refund Request* ⚠️
+
+*User:* ${userData.name} (${userData.tgChatId})
+*Username:* @${userData.username || 'N/A'}
+*Amount:* ${formatCurrency(refundableAmount)}
+*Method:* ${paymentMethod}
+*Number:* \`${paymentNumber}\`
+
+The user's balance has been set to 0. Please review and process this request.
+                `;
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: adminChatId, text: message, parse_mode: 'Markdown' })
+                });
+
+                showAlert("আপনার রিফান্ড অনুরোধ সফলভাবে জমা হয়েছে। অ্যাডমিন শীঘ্রই আপনার সাথে যোগাযোগ করবে।");
+                navigateTo('profile-page');
+
+            } catch (error) {
+                console.error("Refund request error:", error);
+                showAlert("রিফান্ড অনুরোধ জমা দিতে একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
 
         function adjustMailViewContainerHeight() {
             setTimeout(() => {
